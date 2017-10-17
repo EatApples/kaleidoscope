@@ -44,6 +44,8 @@ Caused by: java.io.EOFException: Can not read response from server. Expected to 
 # 分析应该是第二种情况。
 
 在晚上没有业务发生，也就没有数据库连接操作。
-假定数据库连接保持的时间是8小时，从时间上 > The last packet successfully received from the server was 35,427,592 milliseconds ago
+假定数据库连接保持的时间是8小时，从时间上 
+
+>The last packet successfully received from the server was 35,427,592 milliseconds ago
 
 等待时间约10个小时，连接已断开。我们在连接中添加了 autoReconnect=true ，重连后操作恢复。
