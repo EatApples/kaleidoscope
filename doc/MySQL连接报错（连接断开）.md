@@ -1,4 +1,4 @@
-# 错误提示
+# 错误提示:
 ```
 The last packet successfully received from the server was 35,427,592 milliseconds ago.  The last packet sent successfully to the server was 1 milliseconds ago.; nested exception is com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
 
@@ -36,12 +36,12 @@ Caused by: java.io.EOFException: Can not read response from server. Expected to 
      1，客户端连接池中连接已经失效。但是连接池还没有检测到，当操作数据库时，启用该连接，抛出该错误
      2，mysql服务器，已关闭该连接，但客户端连接池中该连接，尚未检测到。当用该连接操作数据库时，抛出该错
 
-# 处理办法：
+# 处理办法:
 
      1，每次连接操作数据库时，检测该连接的有效性
      2，缩短监控空闲线程的时间
 
-# 分析应该是第二种情况。
+# 分析应该是第二种情况:
 
 在晚上没有业务发生，也就没有数据库连接操作。
 假定数据库连接保持的时间是8小时，从时间上 
