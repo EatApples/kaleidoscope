@@ -46,7 +46,7 @@
 
 			return result;
 		}
-``
+```
 	5.	 for vs while 变量局部性胜出
 ```
 		for(int i=0, n = expensiveComputation(); i<n; i++){
