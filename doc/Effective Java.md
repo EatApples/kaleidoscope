@@ -46,7 +46,7 @@
 
 			return result;
 		}
-``
+```
 	5.	 for vs while 变量局部性胜出
 ```
 		for(int i=0, n = expensiveComputation(); i<n; i++){
@@ -57,7 +57,7 @@
 
  	7.	装拆箱的时候注意 ==
 
-    8.	随机数用 Random.nextInt(int)
+    	8.	随机数用 Random.nextInt(int)
 
  	9.	内部类不需要与外部相关联，声明为静态的 static
 
@@ -128,10 +128,10 @@
 
 	22.	抛有意义的异常
 ```
-		IllegalArgumentException			参数值不正确
-		IllegalStateException				对象状态不合适
-		NullPointerException				空指针
-		IndexOutOfBoundsException			数组越界
+		IllegalArgumentException		参数值不正确
+		IllegalStateException			对象状态不合适
+		NullPointerException			空指针
+		IndexOutOfBoundsException		数组越界
 		ConcurrentModificationException		并发修改
 		UnsupportedOperationException		不支持方法
 ```
