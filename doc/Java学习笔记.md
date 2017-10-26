@@ -1,7 +1,9 @@
 # Collections类和Collection接口
 ## Collection
 （1）Collection是最基本的集合接口，一个Collection代表一组Object，即Collection的元素（Elements）。子接口包括 List和 Set。
+
 （2）所有实现 Collection 接口的类都必须提供两个标准的构造函数：无参数的构造函数用于创建一个空的 Collection ，有一个 Collection 参数的构造函数用于创建一个新的 Collection ，这个新的 Collection与传入的 Collection 有相同的元素。后一个构造函数允许用户复制一个 Collection。
+
 （3）如何遍历 Collection 中的每一个元素？不论 Collection 的实际类型如何，它都支持一个 iterator() 的方法，该方法返回一个迭代子，使用该迭代子即可逐一访问 Collection 中每一个元素。典型的用法如下：
 ```
 Iterator it = collection.iterator(); // 获得一个迭代子  
