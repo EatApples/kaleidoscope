@@ -49,3 +49,5 @@ Caused by: java.io.EOFException: Can not read response from server. Expected to 
 >The last packet successfully received from the server was 35,427,592 milliseconds ago
 
 等待时间约10个小时，连接已断开。我们在连接中添加了 autoReconnect=true ，重连后操作恢复。
+
+（Not really，目前原因未明，第二种是最有可能的解释。）
