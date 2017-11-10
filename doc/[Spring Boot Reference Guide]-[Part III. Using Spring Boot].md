@@ -65,7 +65,7 @@
 
 @ComponentScan(指定包类扫描)
 
-15.2 Importing XML configuration
+### 15.2 Importing XML configuration
 
 @ImportResource 加载 XML
 
@@ -85,7 +85,7 @@
 
 @ComponentScan 找 beans(@Component,@Service, @Repository, @Controller etc.) + @Autowired 注入
 
-##　18. Using the @SpringBootApplication annotation
+## 18. Using the @SpringBootApplication annotation
 
 @SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan(默认属性)
 
