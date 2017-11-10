@@ -2,7 +2,7 @@
 http://blog.csdn.net/walkerjong/article/details/7946109
 
 handler method 参数绑定常用的注解，根据他们处理的Request的不同内容部分分为四类：（主要讲解常用类型）
-+ 处理requet uri 部分（这里指uri template中variable，不含queryString部分）的注解：@PathVariable;
++ 处理request uri 部分（这里指uri template中variable，不含queryString部分）的注解：@PathVariable;
 + 处理request header部分的注解：@RequestHeader, @CookieValue;
 + 处理request body部分的注解：@RequestParam,  @RequestBody;
 + 处理attribute类型是注解： @SessionAttributes, @ModelAttribute;
