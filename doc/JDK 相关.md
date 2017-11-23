@@ -1,6 +1,7 @@
 # JVM加载jar包的顺序
 
-## 问题：NoSuchMethodError
+## 问题：
+NoSuchMethodError
 ## 解决方案：
 ```
 （1）使用-XX:+TraceClassPaths或者在服务器上执行jinfo时，都能得到classpath包含的jar包
@@ -9,8 +10,9 @@
 （4）一般情况下，修改了文件名，再改回来，或者从新上传一个，这个编号依然还是这个，需要改名改变文件次序
 ```
 
-# Bug:StampedLock的中断问题导致CPU爆满(个人感觉NotReally)
+# Bug：StampedLock的中断问题导致CPU爆满
 
+(个人感觉NotReally)
 StampedLock作为JAVA8中出现的新型锁，很可能在大多数场景都可以替代ReentrantReadWriteLock。它对于读/写都提供了四个接口(换成write为写锁)：
 
 ```
