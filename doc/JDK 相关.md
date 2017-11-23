@@ -12,7 +12,8 @@ NoSuchMethodError
 
 # Bug：StampedLock的中断问题导致CPU爆满
 
-(个人感觉NotReally)
+个人感觉NotReally
+
 StampedLock作为JAVA8中出现的新型锁，很可能在大多数场景都可以替代ReentrantReadWriteLock。它对于读/写都提供了四个接口(换成write为写锁)：
 
 ```
