@@ -27,9 +27,11 @@ dataDir顾名思义就是Zookeeper保存数据的目录，默认情况下Zookeep
 clientPort这个端口就是客户端连接Zookeeper服务器的端口，Zookeeper会监听这个端口接受客户端的访问请求；
 
 # server.A=B:C:D
+```
 server.1=localhost:2887:3887
 server.2=localhost:2888:3888
 server.3=localhost:2889:3889
+```
 
 A是一个数字，表示这个是第几号服务器；
 B是这个服务器的ip地址；
