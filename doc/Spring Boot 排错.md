@@ -1,4 +1,4 @@
-# Fiegn Client
+# 1，Fiegn Client
 ## 问题：
 
 Fiegn Client with Spring Boot: RequestParam.value() was empty on parameter 3
@@ -21,7 +21,7 @@ As a result, it's not a bug. it's a limitation of Feign at this moment as I thin
 
 最好的做法是通过 @RequestParam 注解指定具体的参数名称
 
-# spring boot自动注入
+# 2，spring boot自动注入
 
 ## 问题：
 spring boot自动注入出现Consider defining a bean of type 'xxx' in your configuration
@@ -32,7 +32,7 @@ spring boot自动注入出现Consider defining a bean of type 'xxx' in your conf
 或在指定的 application 类上加上 @SpringBootApplication(scanBasePackages = {"com.xxx.yyy"}) 
 
 
-# spring boot 避免加载不必要的自动化配置
+# 3，spring boot 避免加载不必要的自动化配置
 
 ```
 @ComponentScan(basePackages = { "com..yyy.zzz" }, excludeFilters = {
@@ -40,7 +40,7 @@ spring boot自动注入出现Consider defining a bean of type 'xxx' in your conf
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = bbbb.class) })
 ```
 
-# eureka 报错
+# 4，eureka 报错
 ```
 2017-10-14 07:41:28.315 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry -
                                 Running the evict task with compensationTime 0ms
@@ -79,7 +79,7 @@ Caused by: java.net.ConnectException: 拒绝连接 (Connection refused)
 
 ```
 
-#原因：
+# 原因：
 
 ```
 
@@ -93,7 +93,6 @@ eureka.client.fetch-registry: false
 
 来自：http://blog.csdn.net/tianyaleixiaowu/article/details/78184793
 
-把server端yml里配置 register-with-eureka: false 的那两行注释给放开，看看eureka的server忽略自己后，是否能完成服务发现的高可用。
-测试很简单，可以看到和上面的最终结果是一样的，都是server1关闭后，server2依旧能进行client的发现。区别在于unavailable-replicas
+把server端yml里配置 register-with-eureka: false 的那两行注释给放开，看看eureka的server忽略自己后，是否能完成服务发现的高可用。可以看到和上面的最终结果是一样的，都是server1关闭后，server2依旧能进行client的发现。区别在于unavailable-replicas
 
 	
