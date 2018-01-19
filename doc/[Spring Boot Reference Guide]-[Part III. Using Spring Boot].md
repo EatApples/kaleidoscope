@@ -57,8 +57,6 @@
 @EnableAutoConfiguration：能够自动配置spring的上下文，试图猜测和配置你想要的bean类，通常会自动根据你的类路径和你的bean定义自动配置
 
 @ComponentScan：会自动扫描指定包下的全部标有@Component的类，并注册成bean，当然包括@Component下的子注解@Service,@Repository,@Controller
-@EnableAutoConfiguration 开启自动配置，注解会被扫描
-
 
 ## 15. Configuration classes
 ### 15.1 Importing additional configuration classes
@@ -92,7 +90,7 @@
 （3）@Autowired默认按类型装配，默认情况下必须要求依赖对象必须存在，如果要允许null值，可以设置它的required属性为false，
 例如：@Autowired(required=false) ，
 如果我们想使用名称装配可以结合@Qualifier注解进行使用，如下：
-	@Autowired() 
+	@Autowired()
 	@Qualifier("baseDao")
 	private BaseDao baseDao;
 
