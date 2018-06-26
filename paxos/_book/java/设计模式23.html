@@ -1,0 +1,1466 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>2.2 设计模式 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Effective Java.html" />
+    
+    
+    <link rel="prev" href="从实际案例聊聊Java应用的GC优化.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    0 Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    1 Algorithm
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../algorithm/CAP.html">
+            
+                <a href="../algorithm/CAP.html">
+            
+                    
+                    1.1 CAP理论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../algorithm/ZAB协议.html">
+            
+                <a href="../algorithm/ZAB协议.html">
+            
+                    
+                    1.2 ZAB协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../algorithm/分布式锁.html">
+            
+                <a href="../algorithm/分布式锁.html">
+            
+                    
+                    1.3 分布式锁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../algorithm/raft-zh_cn.html">
+            
+                <a href="../algorithm/raft-zh_cn.html">
+            
+                    
+                    1.4 RAFT算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../algorithm/PAXOS.html">
+            
+                <a href="../algorithm/PAXOS.html">
+            
+                    
+                    1.5 3分钟理解PAXOS算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    2 Java
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="从实际案例聊聊Java应用的GC优化.html">
+            
+                <a href="从实际案例聊聊Java应用的GC优化.html">
+            
+                    
+                    2.1 JavaGC优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.2" data-path="设计模式23.html">
+            
+                <a href="设计模式23.html">
+            
+                    
+                    2.2 设计模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="Effective Java.html">
+            
+                <a href="Effective Java.html">
+            
+                    
+                    2.3 EffectiveJava
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="Java学习笔记.html">
+            
+                <a href="Java学习笔记.html">
+            
+                    
+                    2.4 Java学习笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="JDK相关.html">
+            
+                <a href="JDK相关.html">
+            
+                    
+                    2.5 JDK相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="AlibabaJavaCodingGuidelines.html">
+            
+                <a href="AlibabaJavaCodingGuidelines.html">
+            
+                    
+                    2.6 阿里Java编码规范整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="Java程序执行次序.html">
+            
+                <a href="Java程序执行次序.html">
+            
+                    
+                    2.7 深入了解Java程序执行顺序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="JDK定时任务对比.html">
+            
+                <a href="JDK定时任务对比.html">
+            
+                    
+                    2.8 JDK定时任务对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    3 SpringBoot
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../springboot/SpringBoot-pom-xml.html">
+            
+                <a href="../springboot/SpringBoot-pom-xml.html">
+            
+                    
+                    3.1 SpringBoot的pom.xml
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../springboot/SpringBoot注解.html">
+            
+                <a href="../springboot/SpringBoot注解.html">
+            
+                    
+                    3.2 SpringBoot的注解
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../springboot/Eureka.html">
+            
+                <a href="../springboot/Eureka.html">
+            
+                    
+                    3.3 Eureka
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../springboot/LogBack相关.html">
+            
+                <a href="../springboot/LogBack相关.html">
+            
+                    
+                    3.4 LogBack
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../springboot/Maven相关.html">
+            
+                <a href="../springboot/Maven相关.html">
+            
+                    
+                    3.5 Maven
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../springboot/OAuth2.0.html">
+            
+                <a href="../springboot/OAuth2.0.html">
+            
+                    
+                    3.6 OAuth2.0
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../springboot/SpringBoot排错.html">
+            
+                <a href="../springboot/SpringBoot排错.html">
+            
+                    
+                    3.7 SpringBoot排错
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../springboot/SpringBoot排雷现场.html">
+            
+                <a href="../springboot/SpringBoot排雷现场.html">
+            
+                    
+                    3.8 SpringBoot排雷现场
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../springboot/SpringBoot释疑.html">
+            
+                <a href="../springboot/SpringBoot释疑.html">
+            
+                    
+                    3.9 SpringBoot释疑
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="../springboot/SpringBoot引入log4j的配置.html">
+            
+                <a href="../springboot/SpringBoot引入log4j的配置.html">
+            
+                    
+                    3.10 SpringBoot引入log4j的配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="../springboot/SpringBoot启动脚本.html">
+            
+                <a href="../springboot/SpringBoot启动脚本.html">
+            
+                    
+                    3.11 SpringBoot启动脚本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="../springboot/SpringBoot定时任务.html">
+            
+                <a href="../springboot/SpringBoot定时任务.html">
+            
+                    
+                    3.12 SpringBoot定时任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13" data-path="../springboot/SpringBoot初始化任务.html">
+            
+                <a href="../springboot/SpringBoot初始化任务.html">
+            
+                    
+                    3.13 SpringBoot初始化任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.14" data-path="../springboot/SpringBootRedis.html">
+            
+                <a href="../springboot/SpringBootRedis.html">
+            
+                    
+                    3.14 SpringBootRedis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.15" data-path="../springboot/SpringBootRabbitMQ.html">
+            
+                <a href="../springboot/SpringBootRabbitMQ.html">
+            
+                    
+                    3.15 SpringBootRabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.16" data-path="../springboot/packaging为pom标签的用法.html">
+            
+                <a href="../springboot/packaging为pom标签的用法.html">
+            
+                    
+                    3.16 pom标签
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17" data-path="../springboot/客户端配置更新.html">
+            
+                <a href="../springboot/客户端配置更新.html">
+            
+                    
+                    3.17 客户端配置更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.18" data-path="../springboot/SpringBoot配置优先级.html">
+            
+                <a href="../springboot/SpringBoot配置优先级.html">
+            
+                    
+                    3.18 SpringBoot配置优先级
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    4 RabbitMQ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../rabbitmq/RabbitMQ相关.html">
+            
+                <a href="../rabbitmq/RabbitMQ相关.html">
+            
+                    
+                    4.1 RabbitMQ相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../rabbitmq/RabbitMQ四种发送方式区别.html">
+            
+                <a href="../rabbitmq/RabbitMQ四种发送方式区别.html">
+            
+                    
+                    4.2 RabbitMQ四种发送方式区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../rabbitmq/RabbitMQ安装全记录.html">
+            
+                <a href="../rabbitmq/RabbitMQ安装全记录.html">
+            
+                    
+                    4.3 RabbitMQ安装全记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../rabbitmq/RabbitMQ多地址连接.html">
+            
+                <a href="../rabbitmq/RabbitMQ多地址连接.html">
+            
+                    
+                    4.4 RabbitMQ多地址连接
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    5 Shell
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../shell/免密登陆.html">
+            
+                <a href="../shell/免密登陆.html">
+            
+                    
+                    5.1 免密登陆
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../shell/iptables命令.html">
+            
+                <a href="../shell/iptables命令.html">
+            
+                    
+                    5.2 iptables命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../shell/scp命令.html">
+            
+                <a href="../shell/scp命令.html">
+            
+                    
+                    5.3 scp命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../shell/shell特殊变量的含义.html">
+            
+                <a href="../shell/shell特殊变量的含义.html">
+            
+                    
+                    5.4 shell特殊变量的含义
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../shell/TCP最大连接数.html">
+            
+                <a href="../shell/TCP最大连接数.html">
+            
+                    
+                    5.5 TCP最大连接数
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    6 ZooKeeper
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../zookeeper/ZooKeeper集群安装.html">
+            
+                <a href="../zookeeper/ZooKeeper集群安装.html">
+            
+                    
+                    6.1 ZooKeeper集群安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../zookeeper/ZooKeeper权限控制.html">
+            
+                <a href="../zookeeper/ZooKeeper权限控制.html">
+            
+                    
+                    6.2 ZooKeeper权限控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../zookeeper/ZooKeeperWatcher.html">
+            
+                <a href="../zookeeper/ZooKeeperWatcher.html">
+            
+                    
+                    6.3 ZooKeeperWatcher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../zookeeper/ZooKeeper连接.html">
+            
+                <a href="../zookeeper/ZooKeeper连接.html">
+            
+                    
+                    6.4 ZooKeeper连接
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../pic/PIC.html">
+            
+                <a href="../pic/PIC.html">
+            
+                    
+                    7 Pic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    8 Other
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../other/GitBook.html">
+            
+                <a href="../other/GitBook.html">
+            
+                    
+                    1 GitBook
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../other/MySQL.html">
+            
+                <a href="../other/MySQL.html">
+            
+                    
+                    2 MySQL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../other/MD语法.html">
+            
+                <a href="../other/MD语法.html">
+            
+                    
+                    3 MarkDown
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../other/windows相关.html">
+            
+                <a href="../other/windows相关.html">
+            
+                    
+                    4 Windows相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="../other/Sublime Text 3 快捷键精华版.html">
+            
+                <a href="../other/Sublime Text 3 快捷键精华版.html">
+            
+                    
+                    5 SublimeText3快捷键精华版
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="../other/zabbix.html">
+            
+                <a href="../other/zabbix.html">
+            
+                    
+                    6 Zabbix
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="../other/Nginx安装.html">
+            
+                <a href="../other/Nginx安装.html">
+            
+                    
+                    7 Nginx
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.8" data-path="../other/TBSchedule.html">
+            
+                <a href="../other/TBSchedule.html">
+            
+                    
+                    8 TBSchedule
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.9" data-path="../other/webdis安装.html">
+            
+                <a href="../other/webdis安装.html">
+            
+                    
+                    9 webdis安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >2.2 设计模式</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>&#x6765;&#x81EA;&#xFF1A; <a href="http://blog.csdn.net/zhangerqing" target="_blank">http://blog.csdn.net/zhangerqing</a></p>
+<h3 id="&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x7684;&#x5206;&#x7C7B;">&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x7684;&#x5206;&#x7C7B;</h3>
+<p>&#x603B;&#x4F53;&#x6765;&#x8BF4;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x5206;&#x4E3A;&#x4E09;&#x5927;&#x7C7B;&#xFF1A;</p>
+<ol>
+<li><p>&#x521B;&#x5EFA;&#x578B;&#x6A21;&#x5F0F;&#xFF0C;&#x5171;&#x4E94;&#x79CD;&#xFF1A;
+ &#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#x3001;&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x3001;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x3001;&#x5EFA;&#x9020;&#x8005;&#x6A21;&#x5F0F;&#x3001;&#x539F;&#x578B;&#x6A21;&#x5F0F;&#x3002;</p>
+</li>
+<li><p>&#x7ED3;&#x6784;&#x578B;&#x6A21;&#x5F0F;&#xFF0C;&#x5171;&#x4E03;&#x79CD;&#xFF1A;
+ &#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#x3001;&#x88C5;&#x9970;&#x5668;&#x6A21;&#x5F0F;&#x3001;&#x4EE3;&#x7406;&#x6A21;&#x5F0F;&#x3001;&#x5916;&#x89C2;&#x6A21;&#x5F0F;&#x3001;&#x6865;&#x63A5;&#x6A21;&#x5F0F;&#x3001;&#x7EC4;&#x5408;&#x6A21;&#x5F0F;&#x3001;&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#x3002;</p>
+</li>
+<li><p>&#x884C;&#x4E3A;&#x578B;&#x6A21;&#x5F0F;&#xFF0C;&#x5171;&#x5341;&#x4E00;&#x79CD;&#xFF1A;
+ &#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x3001;&#x6A21;&#x677F;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#x3001;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#x3001;&#x8FED;&#x4EE3;&#x5B50;&#x6A21;&#x5F0F;&#x3001;&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;&#x3001;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x3001;&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;&#x3001;&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x3001;&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;&#x3001;&#x4E2D;&#x4ECB;&#x8005;&#x6A21;&#x5F0F;&#x3001;&#x89E3;&#x91CA;&#x5668;&#x6A21;&#x5F0F;&#x3002;</p>
+</li>
+</ol>
+<h3 id="&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x7684;&#x516D;&#x5927;&#x539F;&#x5219;">&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x7684;&#x516D;&#x5927;&#x539F;&#x5219;</h3>
+<ol>
+<li><p>&#x5F00;&#x95ED;&#x539F;&#x5219;&#xFF08;Open Close Principle&#xFF09;</p>
+</li>
+<li><p>&#x91CC;&#x6C0F;&#x4EE3;&#x6362;&#x539F;&#x5219;&#xFF08;Liskov Substitution Principle&#xFF09;</p>
+</li>
+<li><p>&#x4F9D;&#x8D56;&#x5012;&#x8F6C;&#x539F;&#x5219;&#xFF08;Dependence Inversion Principle&#xFF09;</p>
+</li>
+<li><p>&#x63A5;&#x53E3;&#x9694;&#x79BB;&#x539F;&#x5219;&#xFF08;Interface Segregation Principle&#xFF09;</p>
+</li>
+<li><p>&#x8FEA;&#x7C73;&#x7279;&#x6CD5;&#x5219;&#xFF08;&#x6700;&#x5C11;&#x77E5;&#x9053;&#x539F;&#x5219;&#xFF09;&#xFF08;Demeter Principle&#xFF09;</p>
+</li>
+<li><p>&#x5408;&#x6210;&#x590D;&#x7528;&#x539F;&#x5219;&#xFF08;Composite Reuse Principle&#xFF09;</p>
+</li>
+</ol>
+<h3 id="java&#x7684;23&#x4E2D;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;">Java&#x7684;23&#x4E2D;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;</h3>
+<h4 id="1-&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#xFF08;factory-method&#xFF09;">1. &#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#xFF08;Factory Method&#xFF09;</h4>
+<h5 id="11-&#x666E;&#x901A;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;">1.1 &#x666E;&#x901A;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;</h5>
+<pre><code class="lang-java"><span class="hljs-comment">//&#x63A5;&#x53E3;</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Sender</span> </span>{  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span></span>;  
+}
+<span class="hljs-comment">//&#x5B9E;&#x73B0;1</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MailSender</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sender</span> </span>{  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;this is mailsender!&quot;</span>);  
+    }  
+}  
+<span class="hljs-comment">//&#x5B9E;&#x73B0;2</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SmsSender</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sender</span> </span>{  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;this is sms sender!&quot;</span>);  
+    }  
+}
+<span class="hljs-comment">//&#x5DE5;&#x5382;&#x7C7B;</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendFactory</span> </span>{  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produce</span><span class="hljs-params">(String type)</span> </span>{  
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;mail&quot;</span>.equals(type)) {  
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MailSender();  
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;sms&quot;</span>.equals(type)) {  
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SmsSender();  
+        } <span class="hljs-keyword">else</span> {  
+            System.out.println(<span class="hljs-string">&quot;&#x8BF7;&#x8F93;&#x5165;&#x6B63;&#x786E;&#x7684;&#x7C7B;&#x578B;!&quot;</span>);  
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;  
+        }  
+    }  
+}
+</code></pre>
+<h5 id="12-&#x591A;&#x4E2A;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;">1.2 &#x591A;&#x4E2A;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;</h5>
+<pre><code class="lang-java"><span class="hljs-comment">//&#x5DE5;&#x5382;&#x7C7B;</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendFactory</span> </span>{  
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produceMail</span><span class="hljs-params">()</span></span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MailSender();  
+    }  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produceSms</span><span class="hljs-params">()</span></span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SmsSender();  
+    }  
+}
+</code></pre>
+<h5 id="13-&#x9759;&#x6001;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;">1.3 &#x9759;&#x6001;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;</h5>
+<pre><code class="lang-java"><span class="hljs-comment">//&#x5DE5;&#x5382;&#x7C7B;</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendFactory</span> </span>{   
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Sender <span class="hljs-title">produceMail</span><span class="hljs-params">()</span></span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MailSender();  
+    }  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Sender <span class="hljs-title">produceSms</span><span class="hljs-params">()</span></span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SmsSender();  
+    }  
+}
+</code></pre>
+<h4 id="2-&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#xFF08;abstract-factory&#xFF09;">2. &#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#xFF08;Abstract Factory&#xFF09;</h4>
+<pre><code class="lang-java"><span class="hljs-comment">//&#x63A5;&#x53E3;</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Sender</span> </span>{  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span></span>;  
+}
+
+<span class="hljs-comment">//&#x5B9E;&#x73B0;&#x7C7B;1</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MailSender</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sender</span> </span>{  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;this is mailsender!&quot;</span>);  
+    }  
+}
+
+<span class="hljs-comment">//&#x5B9E;&#x73B0;&#x7C7B;2</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SmsSender</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sender</span> </span>{  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;this is sms sender!&quot;</span>);  
+    }  
+}
+
+<span class="hljs-comment">//&#x5DE5;&#x5382;&#x63A5;&#x53E3;</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Provider</span> </span>{  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produce</span><span class="hljs-params">()</span></span>;  
+}
+
+<span class="hljs-comment">//&#x5DE5;&#x5382;&#x7C7B;1</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendMailFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Provider</span> </span>{   
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produce</span><span class="hljs-params">()</span></span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MailSender();  
+    }  
+}
+
+<span class="hljs-comment">//&#x5DE5;&#x5382;&#x7C7B;2</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendSmsFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Provider</span></span>{  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produce</span><span class="hljs-params">()</span> </span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SmsSender();  
+    }  
+}
+</code></pre>
+<h4 id="3-&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#xFF08;singleton&#xFF09;">3. &#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#xFF08;Singleton&#xFF09;</h4>
+<p>&#x53EF;&#x89C1;&#xFF1A;    <a href="http://www.blogjava.net/kenzhh/archive/2013/03/15/357824.html" target="_blank">http://www.blogjava.net/kenzhh/archive/2013/03/15/357824.html</a></p>
+<pre><code class="lang-java">&#x4EE5;&#x4E0B;&#x6765;&#x81EA;&#xFF1A;    &lt;&lt;Effective Java&gt;&gt;
+        <span class="hljs-comment">// Singleton with public final field</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Elvis</span></span>{
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Elvis INSTANCE = <span class="hljs-keyword">new</span> Elvis();
+            <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Elvis</span><span class="hljs-params">()</span></span>{  }
+
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">leaveTheBuilding</span><span class="hljs-params">()</span></span>{  }
+        }
+
+        <span class="hljs-comment">//Singleton with static factory</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Elvis</span></span>{
+            <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Elvis INSTANCE = <span class="hljs-keyword">new</span> Elvis();
+            <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Elvis</span><span class="hljs-params">()</span></span>{  }
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Elvis <span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>{ <span class="hljs-keyword">return</span> INSTANCE;}
+
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">leaveTheBuilding</span><span class="hljs-params">()</span></span>{  }
+        }
+
+        <span class="hljs-comment">//Enum singleton- the preferred approach</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Elvis{
+            INSTANCE;
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">leaveTheBuilding</span><span class="hljs-params">()</span></span>{  }
+        }
+</code></pre>
+<h4 id="4-&#x5EFA;&#x9020;&#x8005;&#x6A21;&#x5F0F;&#xFF08;builder&#xFF09;">4. &#x5EFA;&#x9020;&#x8005;&#x6A21;&#x5F0F;&#xFF08;Builder&#xFF09;</h4>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Builder</span> </span>{  
+
+    <span class="hljs-keyword">private</span> List&lt;Sender&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;Sender&gt;();  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">produceMailSender</span><span class="hljs-params">(<span class="hljs-keyword">int</span> count)</span></span>{  
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;count; i++){  
+            list.add(<span class="hljs-keyword">new</span> MailSender());  
+        }  
+    }  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">produceSmsSender</span><span class="hljs-params">(<span class="hljs-keyword">int</span> count)</span></span>{  
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;count; i++){  
+            list.add(<span class="hljs-keyword">new</span> SmsSender());  
+        }  
+    }  
+}
+</code></pre>
+<h4 id="5-&#x539F;&#x578B;&#x6A21;&#x5F0F;&#xFF08;prototype&#xFF09;">5. &#x539F;&#x578B;&#x6A21;&#x5F0F;&#xFF08;Prototype&#xFF09;</h4>
+<p>&#x6D45;&#x590D;&#x5236;&#xFF1A; &#x5C06;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x590D;&#x5236;&#x540E;&#xFF0C;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#x90FD;&#x4F1A;&#x91CD;&#x65B0;&#x521B;&#x5EFA;&#xFF0C;&#x800C;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#xFF0C;&#x6307;&#x5411;&#x7684;&#x8FD8;&#x662F;&#x539F;&#x5BF9;&#x8C61;&#x6240;&#x6307;&#x5411;&#x7684;&#x3002;
+&#x6DF1;&#x590D;&#x5236;&#xFF1A; &#x5C06;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x590D;&#x5236;&#x540E;&#xFF0C;&#x4E0D;&#x8BBA;&#x662F;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x8FD8;&#x6709;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#xFF0C;&#x90FD;&#x662F;&#x91CD;&#x65B0;&#x521B;&#x5EFA;&#x7684;&#x3002;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;&#x5C31;&#x662F;&#x6DF1;&#x590D;&#x5236;&#x8FDB;&#x884C;&#x4E86;&#x5B8C;&#x5168;&#x5F7B;&#x5E95;&#x7684;&#x590D;&#x5236;&#xFF0C;&#x800C;&#x6D45;&#x590D;&#x5236;&#x4E0D;&#x5F7B;&#x5E95;</p>
+<pre><code class="lang-java">    <span class="hljs-comment">/* &#x6D45;&#x590D;&#x5236; */</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">clone</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> CloneNotSupportedException </span>{  
+        Prototype proto = (Prototype) <span class="hljs-keyword">super</span>.clone();  
+        <span class="hljs-keyword">return</span> proto;  
+    }  
+
+    <span class="hljs-comment">/* &#x6DF1;&#x590D;&#x5236; */</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">deepClone</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException </span>{  
+
+        <span class="hljs-comment">/* &#x5199;&#x5165;&#x5F53;&#x524D;&#x5BF9;&#x8C61;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6D41; */</span>  
+        ByteArrayOutputStream bos = <span class="hljs-keyword">new</span> ByteArrayOutputStream();  
+        ObjectOutputStream oos = <span class="hljs-keyword">new</span> ObjectOutputStream(bos);  
+        oos.writeObject(<span class="hljs-keyword">this</span>);  
+
+        <span class="hljs-comment">/* &#x8BFB;&#x51FA;&#x4E8C;&#x8FDB;&#x5236;&#x6D41;&#x4EA7;&#x751F;&#x7684;&#x65B0;&#x5BF9;&#x8C61; */</span>  
+        ByteArrayInputStream bis = <span class="hljs-keyword">new</span> ByteArrayInputStream(bos.toByteArray());  
+        ObjectInputStream ois = <span class="hljs-keyword">new</span> ObjectInputStream(bis);  
+        <span class="hljs-keyword">return</span> ois.readObject();  
+    }
+</code></pre>
+<h4 id="6-&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;adapter">6. &#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;(adapter)</h4>
+<p>&#x7C7B;&#x7684;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;: &#x6709;&#x4E00;&#x4E2A;Source&#x7C7B;&#xFF0C;&#x62E5;&#x6709;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x5F85;&#x9002;&#x914D;&#xFF0C;&#x76EE;&#x6807;&#x63A5;&#x53E3;&#x65F6;Targetable&#xFF0C;&#x901A;&#x8FC7;Adapter&#x7C7B;&#xFF0C;&#x5C06;Source&#x7684;&#x529F;&#x80FD;&#x6269;&#x5C55;&#x5230;Targetable&#x91CC;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Source</span> </span>{  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method1</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;this is original method!&quot;</span>);  
+    }  
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Targetable</span> </span>{  
+
+    <span class="hljs-comment">/* &#x4E0E;&#x539F;&#x7C7B;&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#x76F8;&#x540C; */</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method1</span><span class="hljs-params">()</span></span>;  
+
+    <span class="hljs-comment">/* &#x65B0;&#x7C7B;&#x7684;&#x65B9;&#x6CD5; */</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method2</span><span class="hljs-params">()</span></span>;  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Adapter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Source</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Targetable</span> </span>{  
+
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method2</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;this is the targetable method!&quot;</span>);  
+    }  
+}
+</code></pre>
+<p>&#x5BF9;&#x8C61;&#x7684;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;: &#x57FA;&#x672C;&#x601D;&#x8DEF;&#x548C;&#x7C7B;&#x7684;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#x76F8;&#x540C;&#xFF0C;&#x53EA;&#x662F;&#x5C06;Adapter&#x7C7B;&#x4F5C;&#x4FEE;&#x6539;&#xFF0C;&#x8FD9;&#x6B21;&#x4E0D;&#x7EE7;&#x627F;Source&#x7C7B;&#xFF0C;&#x800C;&#x662F;&#x6301;&#x6709;Source&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x4EE5;&#x8FBE;&#x5230;&#x89E3;&#x51B3;&#x517C;&#x5BB9;&#x6027;&#x7684;&#x95EE;&#x9898;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wrapper</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Targetable</span> </span>{  
+
+    <span class="hljs-keyword">private</span> Source source;  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Wrapper</span><span class="hljs-params">(Source source)</span></span>{  
+        <span class="hljs-keyword">super</span>();  
+        <span class="hljs-keyword">this</span>.source = source;  
+    }  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method2</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;this is the targetable method!&quot;</span>);  
+    }  
+
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method1</span><span class="hljs-params">()</span> </span>{  
+        source.method1();  
+    }  
+}
+</code></pre>
+<p>&#x63A5;&#x53E3;&#x7684;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;: &#x6709;&#x65F6;&#x6211;&#x4EEC;&#x5199;&#x7684;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x4E2D;&#x6709;&#x591A;&#x4E2A;&#x62BD;&#x8C61;&#x65B9;&#x6CD5;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x5199;&#x8BE5;&#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x65F6;&#xFF0C;&#x5FC5;&#x987B;&#x5B9E;&#x73B0;&#x8BE5;&#x63A5;&#x53E3;&#x7684;&#x6240;&#x6709;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x660E;&#x663E;&#x6709;&#x65F6;&#x6BD4;&#x8F83;&#x6D6A;&#x8D39;&#xFF0C;&#x56E0;&#x4E3A;&#x5E76;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x7684;&#x65B9;&#x6CD5;&#x90FD;&#x662F;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#xFF0C;&#x6709;&#x65F6;&#x53EA;&#x9700;&#x8981;&#x67D0;&#x4E00;&#x4E9B;&#xFF0C;&#x6B64;&#x5904;&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x4EEC;&#x5F15;&#x5165;&#x4E86;&#x63A5;&#x53E3;&#x7684;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#xFF0C;&#x501F;&#x52A9;&#x4E8E;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x8BE5;&#x62BD;&#x8C61;&#x7C7B;&#x5B9E;&#x73B0;&#x4E86;&#x8BE5;&#x63A5;&#x53E3;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x6240;&#x6709;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x6211;&#x4EEC;&#x4E0D;&#x548C;&#x539F;&#x59CB;&#x7684;&#x63A5;&#x53E3;&#x6253;&#x4EA4;&#x9053;&#xFF0C;&#x53EA;&#x548C;&#x8BE5;&#x62BD;&#x8C61;&#x7C7B;&#x53D6;&#x5F97;&#x8054;&#x7CFB;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5199;&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x7EE7;&#x627F;&#x8BE5;&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x91CD;&#x5199;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x65B9;&#x6CD5;&#x5C31;&#x884C;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Sourceable</span> </span>{  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method1</span><span class="hljs-params">()</span></span>;  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method2</span><span class="hljs-params">()</span></span>;  
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wrapper2</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sourceable</span></span>{  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method1</span><span class="hljs-params">()</span></span>{}  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method2</span><span class="hljs-params">()</span></span>{}  
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SourceSub1</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Wrapper2</span> </span>{  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method1</span><span class="hljs-params">()</span></span>{  
+        System.out.println(<span class="hljs-string">&quot;the sourceable interface&apos;s first Sub1!&quot;</span>);  
+    }  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SourceSub2</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Wrapper2</span> </span>{  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method2</span><span class="hljs-params">()</span></span>{  
+        System.out.println(<span class="hljs-string">&quot;the sourceable interface&apos;s second Sub2!&quot;</span>);  
+    }  
+}
+</code></pre>
+<p>&#x7C7B;&#x7684;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#xFF1A; &#x5F53;&#x5E0C;&#x671B;&#x5C06;&#x4E00;&#x4E2A;&#x7C7B;&#x8F6C;&#x6362;&#x6210;&#x6EE1;&#x8DB3;&#x53E6;&#x4E00;&#x4E2A;&#x65B0;&#x63A5;&#x53E3;&#x7684;&#x7C7B;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7C7B;&#x7684;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7C7B;&#xFF0C;&#x7EE7;&#x627F;&#x539F;&#x6709;&#x7684;&#x7C7B;&#xFF0C;&#x5B9E;&#x73B0;&#x65B0;&#x7684;&#x63A5;&#x53E3;&#x5373;&#x53EF;&#x3002;
+&#x5BF9;&#x8C61;&#x7684;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#xFF1A; &#x5F53;&#x5E0C;&#x671B;&#x5C06;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x8F6C;&#x6362;&#x6210;&#x6EE1;&#x8DB3;&#x53E6;&#x4E00;&#x4E2A;&#x65B0;&#x63A5;&#x53E3;&#x7684;&#x5BF9;&#x8C61;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;Wrapper&#x7C7B;&#xFF0C;&#x6301;&#x6709;&#x539F;&#x7C7B;&#x7684;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#xFF0C;&#x5728;Wrapper&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x8C03;&#x7528;&#x5B9E;&#x4F8B;&#x7684;&#x65B9;&#x6CD5;&#x5C31;&#x884C;&#x3002;
+&#x63A5;&#x53E3;&#x7684;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#xFF1A; &#x5F53;&#x4E0D;&#x5E0C;&#x671B;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x4E2D;&#x6240;&#x6709;&#x7684;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x7C7B;Wrapper&#xFF0C;&#x5B9E;&#x73B0;&#x6240;&#x6709;&#x65B9;&#x6CD5;&#xFF0C;&#x6211;&#x4EEC;&#x5199;&#x522B;&#x7684;&#x7C7B;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x7EE7;&#x627F;&#x62BD;&#x8C61;&#x7C7B;&#x5373;&#x53EF;</p>
+<h4 id="7-&#x88C5;&#x9970;&#x6A21;&#x5F0F;&#xFF08;decorator&#xFF09;">7. &#x88C5;&#x9970;&#x6A21;&#x5F0F;&#xFF08;Decorator&#xFF09;</h4>
+<p>&#x88C5;&#x9970;&#x6A21;&#x5F0F;&#x5C31;&#x662F;&#x7ED9;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x589E;&#x52A0;&#x4E00;&#x4E9B;&#x65B0;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x800C;&#x4E14;&#x662F;&#x52A8;&#x6001;&#x7684;&#xFF0C;&#x8981;&#x6C42;&#x88C5;&#x9970;&#x5BF9;&#x8C61;&#x548C;&#x88AB;&#x88C5;&#x9970;&#x5BF9;&#x8C61;&#x5B9E;&#x73B0;&#x540C;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x88C5;&#x9970;&#x5BF9;&#x8C61;&#x6301;&#x6709;&#x88AB;&#x88C5;&#x9970;&#x5BF9;&#x8C61;&#x7684;&#x5B9E;&#x4F8B;
+&#x88C5;&#x9970;&#x5668;&#x6A21;&#x5F0F;&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF1A;</p>
+<pre><code>+ &#x9700;&#x8981;&#x6269;&#x5C55;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x529F;&#x80FD;&#x3002;
++ &#x52A8;&#x6001;&#x7684;&#x4E3A;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x589E;&#x52A0;&#x529F;&#x80FD;&#xFF0C;&#x800C;&#x4E14;&#x8FD8;&#x80FD;&#x52A8;&#x6001;&#x64A4;&#x9500;&#x3002;&#xFF08;&#x7EE7;&#x627F;&#x4E0D;&#x80FD;&#x505A;&#x5230;&#x8FD9;&#x4E00;&#x70B9;&#xFF0C;&#x7EE7;&#x627F;&#x7684;&#x529F;&#x80FD;&#x662F;&#x9759;&#x6001;&#x7684;&#xFF0C;&#x4E0D;&#x80FD;&#x52A8;&#x6001;&#x589E;&#x5220;&#x3002;&#xFF09;
+</code></pre><p>&#x7F3A;&#x70B9;&#xFF1A;
+&#x4EA7;&#x751F;&#x8FC7;&#x591A;&#x76F8;&#x4F3C;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x4E0D;&#x6613;&#x6392;&#x9519;&#xFF01;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Sourceable</span> </span>{  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method</span><span class="hljs-params">()</span></span>;  
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Source</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sourceable</span> </span>{  
+
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;the original method!&quot;</span>);  
+    }  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Decorator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sourceable</span> </span>{  
+
+    <span class="hljs-keyword">private</span> Sourceable source;  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Decorator</span><span class="hljs-params">(Sourceable source)</span></span>{  
+        <span class="hljs-keyword">super</span>();  
+        <span class="hljs-keyword">this</span>.source = source;  
+    }  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;before decorator!&quot;</span>);  
+        source.method();  
+        System.out.println(<span class="hljs-string">&quot;after decorator!&quot;</span>);  
+    }  
+}
+</code></pre>
+<h4 id="8-&#x4EE3;&#x7406;&#x6A21;&#x5F0F;&#xFF08;proxy&#xFF09;">8. &#x4EE3;&#x7406;&#x6A21;&#x5F0F;&#xFF08;Proxy&#xFF09;</h4>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Sourceable</span> </span>{  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method</span><span class="hljs-params">()</span></span>;  
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Source</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sourceable</span> </span>{  
+
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;the original method!&quot;</span>);  
+    }  
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Proxy</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sourceable</span> </span>{  
+
+    <span class="hljs-keyword">private</span> Source source;  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Proxy</span><span class="hljs-params">()</span></span>{  
+        <span class="hljs-keyword">super</span>();  
+        <span class="hljs-keyword">this</span>.source = <span class="hljs-keyword">new</span> Source();  
+    }  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method</span><span class="hljs-params">()</span> </span>{  
+        before();  
+        source.method();  
+        atfer();  
+    }  
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">atfer</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;after proxy!&quot;</span>);  
+    }  
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">before</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;before proxy!&quot;</span>);  
+    }  
+}
+</code></pre>
+<h4 id="9-&#x5916;&#x89C2;&#x6A21;&#x5F0F;&#xFF08;facade&#xFF09;">9. &#x5916;&#x89C2;&#x6A21;&#x5F0F;&#xFF08;Facade&#xFF09;</h4>
+<p>&#x5916;&#x89C2;&#x6A21;&#x5F0F;&#x662F;&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x7C7B;&#x4E0E;&#x7C7B;&#x4E4B;&#x5BB6;&#x7684;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x7684;&#xFF0C;&#x50CF;spring&#x4E00;&#x6837;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x7C7B;&#x548C;&#x7C7B;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;&#x914D;&#x7F6E;&#x5230;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x800C;&#x5916;&#x89C2;&#x6A21;&#x5F0F;&#x5C31;&#x662F;&#x5C06;&#x4ED6;&#x4EEC;&#x7684;&#x5173;&#x7CFB;&#x653E;&#x5728;&#x4E00;&#x4E2A;Facade&#x7C7B;&#x4E2D;&#xFF0C;&#x964D;&#x4F4E;&#x4E86;&#x7C7B;&#x7C7B;&#x4E4B;&#x95F4;&#x7684;&#x8026;&#x5408;&#x5EA6;&#xFF0C;&#x8BE5;&#x6A21;&#x5F0F;&#x4E2D;&#x6CA1;&#x6709;&#x6D89;&#x53CA;&#x5230;&#x63A5;&#x53E3;</p>
+<h4 id="10-&#x6865;&#x63A5;&#x6A21;&#x5F0F;&#xFF08;bridge&#xFF09;">10. &#x6865;&#x63A5;&#x6A21;&#x5F0F;&#xFF08;Bridge&#xFF09;</h4>
+<p>&#x6865;&#x63A5;&#x6A21;&#x5F0F;&#x5C31;&#x662F;&#x628A;&#x4E8B;&#x7269;&#x548C;&#x5176;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x5206;&#x5F00;&#xFF0C;&#x4F7F;&#x4ED6;&#x4EEC;&#x53EF;&#x4EE5;&#x5404;&#x81EA;&#x72EC;&#x7ACB;&#x7684;&#x53D8;&#x5316;&#x3002;&#x6865;&#x63A5;&#x7684;&#x7528;&#x610F;&#x662F;&#xFF1A;&#x5C06;&#x62BD;&#x8C61;&#x5316;&#x4E0E;&#x5B9E;&#x73B0;&#x5316;&#x89E3;&#x8026;&#xFF0C;&#x4F7F;&#x5F97;&#x4E8C;&#x8005;&#x53EF;&#x4EE5;&#x72EC;&#x7ACB;&#x53D8;&#x5316;&#xFF0C;&#x50CF;&#x6211;&#x4EEC;&#x5E38;&#x7528;&#x7684;JDBC&#x6865;DriverManager&#x4E00;&#x6837;&#xFF0C;JDBC&#x8FDB;&#x884C;&#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5728;&#x5404;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x4E4B;&#x95F4;&#x8FDB;&#x884C;&#x5207;&#x6362;&#xFF0C;&#x57FA;&#x672C;&#x4E0D;&#x9700;&#x8981;&#x52A8;&#x592A;&#x591A;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x751A;&#x81F3;&#x4E1D;&#x6BEB;&#x4E0D;&#x7528;&#x52A8;&#xFF0C;&#x539F;&#x56E0;&#x5C31;&#x662F;JDBC&#x63D0;&#x4F9B;&#x7EDF;&#x4E00;&#x63A5;&#x53E3;&#xFF0C;&#x6BCF;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x63D0;&#x4F9B;&#x5404;&#x81EA;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x7528;&#x4E00;&#x4E2A;&#x53EB;&#x505A;&#x6570;&#x636E;&#x5E93;&#x9A71;&#x52A8;&#x7684;&#x7A0B;&#x5E8F;&#x6765;&#x6865;&#x63A5;&#x5C31;&#x884C;&#x4E86;</p>
+<h4 id="11----&#x7EC4;&#x5408;&#x6A21;&#x5F0F;&#xFF08;composite&#xFF09;">11.    &#x7EC4;&#x5408;&#x6A21;&#x5F0F;&#xFF08;Composite&#xFF09;</h4>
+<p>&#x4F7F;&#x7528;&#x573A;&#x666F;&#xFF1A;&#x5C06;&#x591A;&#x4E2A;&#x5BF9;&#x8C61;&#x7EC4;&#x5408;&#x5728;&#x4E00;&#x8D77;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x5E38;&#x7528;&#x4E8E;&#x8868;&#x793A;&#x6811;&#x5F62;&#x7ED3;&#x6784;&#x4E2D;&#xFF0C;&#x4F8B;&#x5982;&#x4E8C;&#x53C9;&#x6811;&#xFF0C;&#x6570;&#x7B49;&#x3002;</p>
+<h4 id="12----&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#xFF08;flyweight&#xFF09;">12.    &#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#xFF08;Flyweight&#xFF09;</h4>
+<p>&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#x7684;&#x4E3B;&#x8981;&#x76EE;&#x7684;&#x662F;&#x5B9E;&#x73B0;&#x5BF9;&#x8C61;&#x7684;&#x5171;&#x4EAB;&#xFF0C;&#x5373;&#x5171;&#x4EAB;&#x6C60;&#xFF0C;&#x5F53;&#x7CFB;&#x7EDF;&#x4E2D;&#x5BF9;&#x8C61;&#x591A;&#x7684;&#x65F6;&#x5019;&#x53EF;&#x4EE5;&#x51CF;&#x5C11;&#x5185;&#x5B58;&#x7684;&#x5F00;&#x9500;&#xFF0C;&#x901A;&#x5E38;&#x4E0E;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x4E00;&#x8D77;&#x4F7F;&#x7528;&#x3002;
+FlyWeightFactory&#x8D1F;&#x8D23;&#x521B;&#x5EFA;&#x548C;&#x7BA1;&#x7406;&#x4EAB;&#x5143;&#x5355;&#x5143;&#xFF0C;&#x5F53;&#x4E00;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x5DE5;&#x5382;&#x9700;&#x8981;&#x68C0;&#x67E5;&#x5F53;&#x524D;&#x5BF9;&#x8C61;&#x6C60;&#x4E2D;&#x662F;&#x5426;&#x6709;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x5982;&#x679C;&#x6709;&#xFF0C;&#x5C31;&#x8FD4;&#x56DE;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#xFF0C;&#x5219;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x5BF9;&#x8C61;&#xFF0C;FlyWeight&#x662F;&#x8D85;&#x7C7B;&#x3002;</p>
+<h4 id="13-&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#xFF08;strategy&#xFF09;">13. &#x7B56;&#x7565;&#x6A21;&#x5F0F;&#xFF08;strategy&#xFF09;</h4>
+<p>&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x7B97;&#x6CD5;&#xFF0C;&#x5E76;&#x5C06;&#x6BCF;&#x4E2A;&#x7B97;&#x6CD5;&#x5C01;&#x88C5;&#x8D77;&#x6765;&#xFF0C;&#x4F7F;&#x4ED6;&#x4EEC;&#x53EF;&#x4EE5;&#x76F8;&#x4E92;&#x66FF;&#x6362;&#xFF0C;&#x4E14;&#x7B97;&#x6CD5;&#x7684;&#x53D8;&#x5316;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5230;&#x4F7F;&#x7528;&#x7B97;&#x6CD5;&#x7684;&#x5BA2;&#x6237;&#x3002;&#x9700;&#x8981;&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x4E3A;&#x4E00;&#x7CFB;&#x5217;&#x5B9E;&#x73B0;&#x7C7B;&#x63D0;&#x4F9B;&#x7EDF;&#x4E00;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x591A;&#x4E2A;&#x5B9E;&#x73B0;&#x7C7B;&#x5B9E;&#x73B0;&#x8BE5;&#x63A5;&#x53E3;&#xFF0C;&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x7C7B;&#xFF08;&#x53EF;&#x6709;&#x53EF;&#x65E0;&#xFF0C;&#x5C5E;&#x4E8E;&#x8F85;&#x52A9;&#x7C7B;&#xFF09;&#xFF0C;&#x63D0;&#x4F9B;&#x8F85;&#x52A9;&#x51FD;&#x6570;
+&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x591A;&#x7528;&#x5728;&#x7B97;&#x6CD5;&#x51B3;&#x7B56;&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;&#x5916;&#x90E8;&#x7528;&#x6237;&#x53EA;&#x9700;&#x8981;&#x51B3;&#x5B9A;&#x7528;&#x54EA;&#x4E2A;&#x7B97;&#x6CD5;&#x5373;&#x53EF;</p>
+<h4 id="14-&#x6A21;&#x677F;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#xFF08;template-method&#xFF09;">14. &#x6A21;&#x677F;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#xFF08;Template Method&#xFF09;</h4>
+<p>&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x7C7B;&#x4E2D;&#xFF0C;&#x6709;&#x4E00;&#x4E2A;&#x4E3B;&#x65B9;&#x6CD5;&#xFF0C;&#x518D;&#x5B9A;&#x4E49;1...n&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x62BD;&#x8C61;&#x7684;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x5B9E;&#x9645;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x7EE7;&#x627F;&#x8BE5;&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x91CD;&#x5199;&#x62BD;&#x8C61;&#x65B9;&#x6CD5;&#xFF0C;&#x901A;&#x8FC7;&#x8C03;&#x7528;&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x5B9E;&#x73B0;&#x5BF9;&#x5B50;&#x7C7B;&#x7684;&#x8C03;&#x7528;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractCalculator</span> </span>{  
+
+    <span class="hljs-comment">/*&#x4E3B;&#x65B9;&#x6CD5;&#xFF0C;&#x5B9E;&#x73B0;&#x5BF9;&#x672C;&#x7C7B;&#x5176;&#x5B83;&#x65B9;&#x6CD5;&#x7684;&#x8C03;&#x7528;*/</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calculate</span><span class="hljs-params">(String exp,String opt)</span></span>{  
+        <span class="hljs-keyword">int</span> array[] = split(exp,opt);  
+        <span class="hljs-keyword">return</span> calculate(array[<span class="hljs-number">0</span>],array[<span class="hljs-number">1</span>]);  
+    }  
+
+    <span class="hljs-comment">/*&#x88AB;&#x5B50;&#x7C7B;&#x91CD;&#x5199;&#x7684;&#x65B9;&#x6CD5;*/</span>  
+    <span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calculate</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num1,<span class="hljs-keyword">int</span> num2)</span></span>;  
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] split(String exp,String opt){  
+        String array[] = exp.split(opt);  
+        <span class="hljs-keyword">int</span> arrayInt[] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];  
+        arrayInt[<span class="hljs-number">0</span>] = Integer.parseInt(array[<span class="hljs-number">0</span>]);  
+        arrayInt[<span class="hljs-number">1</span>] = Integer.parseInt(array[<span class="hljs-number">1</span>]);  
+        <span class="hljs-keyword">return</span> arrayInt;  
+    }  
+}
+</code></pre>
+<h4 id="15----&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#xFF08;observer&#xFF09;">15.    &#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#xFF08;Observer&#xFF09;</h4>
+<p>&#x5305;&#x62EC;&#x8FD9;&#x4E2A;&#x6A21;&#x5F0F;&#x5728;&#x5185;&#x7684;&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x56DB;&#x4E2A;&#x6A21;&#x5F0F;&#xFF0C;&#x90FD;&#x662F;&#x7C7B;&#x548C;&#x7C7B;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x4E0D;&#x6D89;&#x53CA;&#x5230;&#x7EE7;&#x627F;&#xFF0C;&#x5B66;&#x7684;&#x65F6;&#x5019;&#x5E94;&#x8BE5; &#x8BB0;&#x5F97;&#x5F52;&#x7EB3;&#xFF0C;&#x8BB0;&#x5F97;&#x672C;&#x6587;&#x6700;&#x5F00;&#x59CB;&#x7684;&#x90A3;&#x4E2A;&#x56FE;&#x3002;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#x5F88;&#x597D;&#x7406;&#x89E3;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E;&#x90AE;&#x4EF6;&#x8BA2;&#x9605;&#x548C;RSS&#x8BA2;&#x9605;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x6D4F;&#x89C8;&#x4E00;&#x4E9B;&#x535A;&#x5BA2;&#x6216;wiki&#x65F6;&#xFF0C;&#x7ECF;&#x5E38;&#x4F1A;&#x770B;&#x5230;RSS&#x56FE;&#x6807;&#xFF0C;&#x5C31;&#x8FD9;&#x7684;&#x610F;&#x601D;&#x662F;&#xFF0C;&#x5F53;&#x4F60;&#x8BA2;&#x9605;&#x4E86;&#x8BE5;&#x6587;&#x7AE0;&#xFF0C;&#x5982;&#x679C;&#x540E;&#x7EED;&#x6709;&#x66F4;&#x65B0;&#xFF0C;&#x4F1A;&#x53CA;&#x65F6;&#x901A;&#x77E5;&#x4F60;&#x3002;&#x5176;&#x5B9E;&#xFF0C;&#x7B80;&#x5355;&#x6765;&#x8BB2;&#x5C31;&#x4E00;&#x53E5;&#x8BDD;&#xFF1A;&#x5F53;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x53D8;&#x5316;&#x65F6;&#xFF0C;&#x5176;&#x5B83;&#x4F9D;&#x8D56;&#x8BE5;&#x5BF9;&#x8C61;&#x7684;&#x5BF9;&#x8C61;&#x90FD;&#x4F1A;&#x6536;&#x5230;&#x901A;&#x77E5;&#xFF0C;&#x5E76;&#x4E14;&#x968F;&#x7740;&#x53D8;&#x5316;&#xFF01;&#x5BF9;&#x8C61;&#x4E4B;&#x95F4;&#x662F;&#x4E00;&#x79CD;&#x4E00;&#x5BF9;&#x591A;&#x7684;&#x5173;&#x7CFB;</p>
+<h4 id="16-&#x8FED;&#x4EE3;&#x5B50;&#x6A21;&#x5F0F;&#xFF08;iterator&#xFF09;">16. &#x8FED;&#x4EE3;&#x5B50;&#x6A21;&#x5F0F;&#xFF08;Iterator&#xFF09;</h4>
+<p>&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;&#x5C31;&#x662F;&#x987A;&#x5E8F;&#x8BBF;&#x95EE;&#x805A;&#x96C6;&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x96C6;&#x5408;&#x4E2D;&#x975E;&#x5E38;&#x5E38;&#x89C1;&#xFF0C;&#x5982;&#x679C;&#x5BF9;&#x96C6;&#x5408;&#x7C7B;&#x6BD4;&#x8F83;&#x719F;&#x6089;&#x7684;&#x8BDD;&#xFF0C;&#x7406;&#x89E3;&#x672C;&#x6A21;&#x5F0F;&#x4F1A;&#x5341;&#x5206;&#x8F7B;&#x677E;&#x3002;&#x8FD9;&#x53E5;&#x8BDD;&#x5305;&#x542B;&#x4E24;&#x5C42;&#x610F;&#x601D;&#xFF1A;&#x4E00;&#x662F;&#x9700;&#x8981;&#x904D;&#x5386;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x5373;&#x805A;&#x96C6;&#x5BF9;&#x8C61;&#xFF0C;&#x4E8C;&#x662F;&#x8FED;&#x4EE3;&#x5668;&#x5BF9;&#x8C61;&#xFF0C;&#x7528;&#x4E8E;&#x5BF9;&#x805A;&#x96C6;&#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x904D;&#x5386;&#x8BBF;&#x95EE;</p>
+<h4 id="17----&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;&#xFF08;chain-of-responsibility&#xFF09;">17.    &#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;&#xFF08;Chain of Responsibility&#xFF09;</h4>
+<p>&#x6709;&#x591A;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x6BCF;&#x4E2A;&#x5BF9;&#x8C61;&#x6301;&#x6709;&#x5BF9;&#x4E0B;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4F1A;&#x5F62;&#x6210;&#x4E00;&#x6761;&#x94FE;&#xFF0C;&#x8BF7;&#x6C42;&#x5728;&#x8FD9;&#x6761;&#x94FE;&#x4E0A;&#x4F20;&#x9012;&#xFF0C;&#x76F4;&#x5230;&#x67D0;&#x4E00;&#x5BF9;&#x8C61;&#x51B3;&#x5B9A;&#x5904;&#x7406;&#x8BE5;&#x8BF7;&#x6C42;&#x3002;&#x4F46;&#x662F;&#x53D1;&#x51FA;&#x8005;&#x5E76;&#x4E0D;&#x6E05;&#x695A;&#x5230;&#x5E95;&#x6700;&#x7EC8;&#x90A3;&#x4E2A;&#x5BF9;&#x8C61;&#x4F1A;&#x5904;&#x7406;&#x8BE5;&#x8BF7;&#x6C42;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#xFF0C;&#x5728;&#x9690;&#x7792;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5BF9;&#x7CFB;&#x7EDF;&#x8FDB;&#x884C;&#x52A8;&#x6001;&#x7684;&#x8C03;&#x6574;</p>
+<h4 id="18----&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#xFF08;command&#xFF09;">18.    &#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#xFF08;Command&#xFF09;</h4>
+<p>&#x53F8;&#x4EE4;&#x5458;&#x4E0B;&#x4EE4;&#x8BA9;&#x58EB;&#x5175;&#x53BB;&#x5E72;&#x4EF6;&#x4E8B;&#x60C5;&#xFF0C;&#x4ECE;&#x6574;&#x4E2A;&#x4E8B;&#x60C5;&#x7684;&#x89D2;&#x5EA6;&#x6765;&#x8003;&#x8651;&#xFF0C;&#x53F8;&#x4EE4;&#x5458;&#x7684;&#x4F5C;&#x7528;&#x662F;&#xFF0C;&#x53D1;&#x51FA;&#x53E3;&#x4EE4;&#xFF0C;&#x53E3;&#x4EE4;&#x7ECF;&#x8FC7;&#x4F20;&#x9012;&#xFF0C;&#x4F20;&#x5230;&#x4E86;&#x58EB;&#x5175;&#x8033;&#x6735;&#x91CC;&#xFF0C;&#x58EB;&#x5175;&#x53BB;&#x6267;&#x884C;&#x3002;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x597D;&#x5728;&#xFF0C;&#x4E09;&#x8005;&#x76F8;&#x4E92;&#x89E3;&#x8026;&#xFF0C;&#x4EFB;&#x4F55;&#x4E00;&#x65B9;&#x90FD;&#x4E0D;&#x7528;&#x53BB;&#x4F9D;&#x8D56;&#x5176;&#x4ED6;&#x4EBA;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x505A;&#x597D;&#x81EA;&#x5DF1;&#x7684;&#x4E8B;&#x513F;&#x5C31;&#x884C;&#xFF0C;&#x53F8;&#x4EE4;&#x5458;&#x8981;&#x7684;&#x662F;&#x7ED3;&#x679C;&#xFF0C;&#x4E0D;&#x4F1A;&#x53BB;&#x5173;&#x6CE8;&#x5230;&#x5E95;&#x58EB;&#x5175;&#x662F;&#x600E;&#x4E48;&#x5B9E;&#x73B0;&#x7684;</p>
+<p>&#x4E0D;&#x540C;&#x5BF9;&#x8C61;&#x7684;&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;&#xFF08;&#x4E2A;&#x4EBA;&#x7406;&#x89E3;&#xFF09;</p>
+<h4 id="19----&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;&#xFF08;memento&#xFF09;">19.    &#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;&#xFF08;Memento&#xFF09;</h4>
+<p>&#x201C;&#x5907;&#x4EFD;-&#x6062;&#x590D;&#x201D;&#x6A21;&#x5F0F;&#x6700;&#x5F62;&#x8C61;
+&#x5047;&#x8BBE;&#x6709;&#x539F;&#x59CB;&#x7C7B;A&#xFF0C;A&#x4E2D;&#x6709;&#x5404;&#x79CD;&#x5C5E;&#x6027;&#xFF0C;A&#x53EF;&#x4EE5;&#x51B3;&#x5B9A;&#x9700;&#x8981;&#x5907;&#x4EFD;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x5907;&#x5FD8;&#x5F55;&#x7C7B;B&#x662F;&#x7528;&#x6765;&#x5B58;&#x50A8;A&#x7684;&#x4E00;&#x4E9B;&#x5185;&#x90E8;&#x72B6;&#x6001;&#xFF0C;&#x7C7B;C&#x5462;&#xFF0C;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x7528;&#x6765;&#x5B58;&#x50A8;&#x5907;&#x5FD8;&#x5F55;&#x7684;&#xFF0C;&#x4E14;&#x53EA;&#x80FD;&#x5B58;&#x50A8;&#xFF0C;&#x4E0D;&#x80FD;&#x4FEE;&#x6539;&#x7B49;&#x64CD;&#x4F5C;</p>
+<h4 id="20----&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#xFF08;state&#xFF09;">20.    &#x72B6;&#x6001;&#x6A21;&#x5F0F;&#xFF08;State&#xFF09;</h4>
+<p>&#x5F53;&#x5BF9;&#x8C61;&#x7684;&#x72B6;&#x6001;&#x6539;&#x53D8;&#x65F6;&#xFF0C;&#x540C;&#x65F6;&#x6539;&#x53D8;&#x5176;&#x884C;&#x4E3A;&#xFF0C;&#x5F88;&#x597D;&#x7406;&#x89E3;&#xFF01;&#x5C31;&#x62FF;QQ&#x6765;&#x8BF4;&#xFF0C;&#x6709;&#x51E0;&#x79CD;&#x72B6;&#x6001;&#xFF0C;&#x5728;&#x7EBF;&#x3001;&#x9690;&#x8EAB;&#x3001;&#x5FD9;&#x788C;&#x7B49;&#xFF0C;&#x6BCF;&#x4E2A;&#x72B6;&#x6001;&#x5BF9;&#x5E94;&#x4E0D;&#x540C;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x800C;&#x4E14;&#x4F60;&#x7684;&#x597D;&#x53CB;&#x4E5F;&#x80FD;&#x770B;&#x5230;&#x4F60;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x5C31;&#x4E24;&#x70B9;&#xFF1A;</p>
+<ol>
+<li>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6539;&#x53D8;&#x72B6;&#x6001;&#x6765;&#x83B7;&#x5F97;&#x4E0D;&#x540C;&#x7684;&#x884C;&#x4E3A;</li>
+<li>&#x4F60;&#x7684;&#x597D;&#x53CB;&#x80FD;&#x540C;&#x65F6;&#x770B;&#x5230;&#x4F60;&#x7684;&#x53D8;&#x5316;</li>
+</ol>
+<h4 id="21----&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;&#xFF08;visitor&#xFF09;">21.    &#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;&#xFF08;Visitor&#xFF09;</h4>
+<p>&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;&#x628A;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x548C;&#x4F5C;&#x7528;&#x4E8E;&#x7ED3;&#x6784;&#x4E0A;&#x7684;&#x64CD;&#x4F5C;&#x89E3;&#x8026;&#x5408;&#xFF0C;&#x4F7F;&#x5F97;&#x64CD;&#x4F5C;&#x96C6;&#x5408;&#x53EF;&#x76F8;&#x5BF9;&#x81EA;&#x7531;&#x5730;&#x6F14;&#x5316;&#x3002;&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;&#x9002;&#x7528;&#x4E8E;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x76F8;&#x5BF9;&#x7A33;&#x5B9A;&#x7B97;&#x6CD5;&#x53C8;&#x6613;&#x53D8;&#x5316;&#x7684;&#x7CFB;&#x7EDF;&#x3002;&#x56E0;&#x4E3A;&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;&#x4F7F;&#x5F97;&#x7B97;&#x6CD5;&#x64CD;&#x4F5C;&#x589E;&#x52A0;&#x53D8;&#x5F97;&#x5BB9;&#x6613;&#x3002;&#x82E5;&#x7CFB;&#x7EDF;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x5BF9;&#x8C61;&#x6613;&#x4E8E;&#x53D8;&#x5316;&#xFF0C;&#x7ECF;&#x5E38;&#x6709;&#x65B0;&#x7684;&#x6570;&#x636E;&#x5BF9;&#x8C61;&#x589E;&#x52A0;&#x8FDB;&#x6765;&#xFF0C;&#x5219;&#x4E0D;&#x9002;&#x5408;&#x4F7F;&#x7528;&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;&#x3002;&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x70B9;&#x662F;&#x589E;&#x52A0;&#x64CD;&#x4F5C;&#x5F88;&#x5BB9;&#x6613;&#xFF0C;&#x56E0;&#x4E3A;&#x589E;&#x52A0;&#x64CD;&#x4F5C;&#x610F;&#x5473;&#x7740;&#x589E;&#x52A0;&#x65B0;&#x7684;&#x8BBF;&#x95EE;&#x8005;&#x3002;&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;&#x5C06;&#x6709;&#x5173;&#x884C;&#x4E3A;&#x96C6;&#x4E2D;&#x5230;&#x4E00;&#x4E2A;&#x8BBF;&#x95EE;&#x8005;&#x5BF9;&#x8C61;&#x4E2D;&#xFF0C;&#x5176;&#x6539;&#x53D8;&#x4E0D;&#x5F71;&#x54CD;&#x7CFB;&#x7EDF;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3002;&#x5176;&#x7F3A;&#x70B9;&#x5C31;&#x662F;&#x589E;&#x52A0;&#x65B0;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x5F88;&#x56F0;&#x96BE;</p>
+<p>&#x672A;&#x61C2;&#xFF01;</p>
+<h4 id="22----&#x4E2D;&#x4ECB;&#x8005;&#x6A21;&#x5F0F;&#xFF08;mediator&#xFF09;">22.    &#x4E2D;&#x4ECB;&#x8005;&#x6A21;&#x5F0F;&#xFF08;Mediator&#xFF09;</h4>
+<p>&#x4E2D;&#x4ECB;&#x8005;&#x6A21;&#x5F0F;&#x4E5F;&#x662F;&#x7528;&#x6765;&#x964D;&#x4F4E;&#x7C7B;&#x7C7B;&#x4E4B;&#x95F4;&#x7684;&#x8026;&#x5408;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5982;&#x679C;&#x7C7B;&#x7C7B;&#x4E4B;&#x95F4;&#x6709;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x7684;&#x8BDD;&#xFF0C;&#x4E0D;&#x5229;&#x4E8E;&#x529F;&#x80FD;&#x7684;&#x62D3;&#x5C55;&#x548C;&#x7EF4;&#x62A4;&#xFF0C;&#x56E0;&#x4E3A;&#x53EA;&#x8981;&#x4FEE;&#x6539;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5176;&#x5B83;&#x5173;&#x8054;&#x7684;&#x5BF9;&#x8C61;&#x90FD;&#x5F97;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x3002;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E2D;&#x4ECB;&#x8005;&#x6A21;&#x5F0F;&#xFF0C;&#x53EA;&#x9700;&#x5173;&#x5FC3;&#x548C;Mediator&#x7C7B;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x5177;&#x4F53;&#x7C7B;&#x7C7B;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;&#x53CA;&#x8C03;&#x5EA6;&#x4EA4;&#x7ED9;Mediator&#x5C31;&#x884C;&#xFF0C;&#x8FD9;&#x6709;&#x70B9;&#x50CF;spring&#x5BB9;&#x5668;&#x7684;&#x4F5C;&#x7528;</p>
+<h4 id="23----&#x89E3;&#x91CA;&#x5668;&#x6A21;&#x5F0F;&#xFF08;interpreter&#xFF09;">23.    &#x89E3;&#x91CA;&#x5668;&#x6A21;&#x5F0F;&#xFF08;Interpreter&#xFF09;</h4>
+<p>&#x5E94;&#x7528;&#x5728;OOP&#x5F00;&#x53D1;&#x4E2D;&#x7684;&#x7F16;&#x8BD1;&#x5668;&#x7684;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x6240;&#x4EE5;&#x9002;&#x7528;&#x9762;&#x6BD4;&#x8F83;&#x7A84;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="从实际案例聊聊Java应用的GC优化.html" class="navigation navigation-prev " aria-label="Previous page: 2.1 JavaGC优化">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Effective Java.html" class="navigation navigation-next " aria-label="Next page: 2.3 EffectiveJava">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"2.2 设计模式","level":"1.3.2","depth":2,"next":{"title":"2.3 EffectiveJava","level":"1.3.3","depth":2,"path":"java/Effective Java.md","ref":"java/Effective Java.md","articles":[]},"previous":{"title":"2.1 JavaGC优化","level":"1.3.1","depth":2,"path":"java/从实际案例聊聊Java应用的GC优化.md","ref":"java/从实际案例聊聊Java应用的GC优化.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"java/设计模式23.md","mtime":"2018-04-11T07:45:22.040Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-26T13:49:56.226Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
