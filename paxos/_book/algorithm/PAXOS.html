@@ -1,0 +1,1275 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>1.5 3分钟理解PAXOS算法 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../" />
+    
+    
+    <link rel="prev" href="raft-zh_cn.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    0 Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    1 Algorithm
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="CAP.html">
+            
+                <a href="CAP.html">
+            
+                    
+                    1.1 CAP理论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="ZAB协议.html">
+            
+                <a href="ZAB协议.html">
+            
+                    
+                    1.2 ZAB协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="分布式锁.html">
+            
+                <a href="分布式锁.html">
+            
+                    
+                    1.3 分布式锁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="raft-zh_cn.html">
+            
+                <a href="raft-zh_cn.html">
+            
+                    
+                    1.4 RAFT算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.5" data-path="PAXOS.html">
+            
+                <a href="PAXOS.html">
+            
+                    
+                    1.5 3分钟理解PAXOS算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    2 Java
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../java/从实际案例聊聊Java应用的GC优化.html">
+            
+                <a href="../java/从实际案例聊聊Java应用的GC优化.html">
+            
+                    
+                    2.1 JavaGC优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../java/设计模式23.html">
+            
+                <a href="../java/设计模式23.html">
+            
+                    
+                    2.2 设计模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../java/Effective Java.html">
+            
+                <a href="../java/Effective Java.html">
+            
+                    
+                    2.3 EffectiveJava
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../java/Java学习笔记.html">
+            
+                <a href="../java/Java学习笔记.html">
+            
+                    
+                    2.4 Java学习笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../java/JDK相关.html">
+            
+                <a href="../java/JDK相关.html">
+            
+                    
+                    2.5 JDK相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../java/AlibabaJavaCodingGuidelines.html">
+            
+                <a href="../java/AlibabaJavaCodingGuidelines.html">
+            
+                    
+                    2.6 阿里Java编码规范整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../java/Java程序执行次序.html">
+            
+                <a href="../java/Java程序执行次序.html">
+            
+                    
+                    2.7 深入了解Java程序执行顺序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../java/JDK定时任务对比.html">
+            
+                <a href="../java/JDK定时任务对比.html">
+            
+                    
+                    2.8 JDK定时任务对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    3 SpringBoot
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../springboot/SpringBoot-pom-xml.html">
+            
+                <a href="../springboot/SpringBoot-pom-xml.html">
+            
+                    
+                    3.1 SpringBoot的pom.xml
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../springboot/SpringBoot注解.html">
+            
+                <a href="../springboot/SpringBoot注解.html">
+            
+                    
+                    3.2 SpringBoot的注解
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../springboot/Eureka.html">
+            
+                <a href="../springboot/Eureka.html">
+            
+                    
+                    3.3 Eureka
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../springboot/LogBack相关.html">
+            
+                <a href="../springboot/LogBack相关.html">
+            
+                    
+                    3.4 LogBack
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../springboot/Maven相关.html">
+            
+                <a href="../springboot/Maven相关.html">
+            
+                    
+                    3.5 Maven
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../springboot/OAuth2.0.html">
+            
+                <a href="../springboot/OAuth2.0.html">
+            
+                    
+                    3.6 OAuth2.0
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../springboot/SpringBoot排错.html">
+            
+                <a href="../springboot/SpringBoot排错.html">
+            
+                    
+                    3.7 SpringBoot排错
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../springboot/SpringBoot排雷现场.html">
+            
+                <a href="../springboot/SpringBoot排雷现场.html">
+            
+                    
+                    3.8 SpringBoot排雷现场
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../springboot/SpringBoot释疑.html">
+            
+                <a href="../springboot/SpringBoot释疑.html">
+            
+                    
+                    3.9 SpringBoot释疑
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="../springboot/SpringBoot引入log4j的配置.html">
+            
+                <a href="../springboot/SpringBoot引入log4j的配置.html">
+            
+                    
+                    3.10 SpringBoot引入log4j的配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="../springboot/SpringBoot启动脚本.html">
+            
+                <a href="../springboot/SpringBoot启动脚本.html">
+            
+                    
+                    3.11 SpringBoot启动脚本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="../springboot/SpringBoot定时任务.html">
+            
+                <a href="../springboot/SpringBoot定时任务.html">
+            
+                    
+                    3.12 SpringBoot定时任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13" data-path="../springboot/SpringBoot初始化任务.html">
+            
+                <a href="../springboot/SpringBoot初始化任务.html">
+            
+                    
+                    3.13 SpringBoot初始化任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.14" data-path="../springboot/SpringBootRedis.html">
+            
+                <a href="../springboot/SpringBootRedis.html">
+            
+                    
+                    3.14 SpringBootRedis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.15" data-path="../springboot/SpringBootRabbitMQ.html">
+            
+                <a href="../springboot/SpringBootRabbitMQ.html">
+            
+                    
+                    3.15 SpringBootRabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.16" data-path="../springboot/packaging为pom标签的用法.html">
+            
+                <a href="../springboot/packaging为pom标签的用法.html">
+            
+                    
+                    3.16 pom标签
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17" data-path="../springboot/客户端配置更新.html">
+            
+                <a href="../springboot/客户端配置更新.html">
+            
+                    
+                    3.17 客户端配置更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.18" data-path="../springboot/SpringBoot配置优先级.html">
+            
+                <a href="../springboot/SpringBoot配置优先级.html">
+            
+                    
+                    3.18 SpringBoot配置优先级
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    4 RabbitMQ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../rabbitmq/RabbitMQ相关.html">
+            
+                <a href="../rabbitmq/RabbitMQ相关.html">
+            
+                    
+                    4.1 RabbitMQ相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../rabbitmq/RabbitMQ四种发送方式区别.html">
+            
+                <a href="../rabbitmq/RabbitMQ四种发送方式区别.html">
+            
+                    
+                    4.2 RabbitMQ四种发送方式区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../rabbitmq/RabbitMQ安装全记录.html">
+            
+                <a href="../rabbitmq/RabbitMQ安装全记录.html">
+            
+                    
+                    4.3 RabbitMQ安装全记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../rabbitmq/RabbitMQ多地址连接.html">
+            
+                <a href="../rabbitmq/RabbitMQ多地址连接.html">
+            
+                    
+                    4.4 RabbitMQ多地址连接
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    5 Shell
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../shell/免密登陆.html">
+            
+                <a href="../shell/免密登陆.html">
+            
+                    
+                    5.1 免密登陆
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../shell/iptables命令.html">
+            
+                <a href="../shell/iptables命令.html">
+            
+                    
+                    5.2 iptables命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../shell/scp命令.html">
+            
+                <a href="../shell/scp命令.html">
+            
+                    
+                    5.3 scp命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../shell/shell特殊变量的含义.html">
+            
+                <a href="../shell/shell特殊变量的含义.html">
+            
+                    
+                    5.4 shell特殊变量的含义
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../shell/TCP最大连接数.html">
+            
+                <a href="../shell/TCP最大连接数.html">
+            
+                    
+                    5.5 TCP最大连接数
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    6 ZooKeeper
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../zookeeper/ZooKeeper集群安装.html">
+            
+                <a href="../zookeeper/ZooKeeper集群安装.html">
+            
+                    
+                    6.1 ZooKeeper集群安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../zookeeper/ZooKeeper权限控制.html">
+            
+                <a href="../zookeeper/ZooKeeper权限控制.html">
+            
+                    
+                    6.2 ZooKeeper权限控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../zookeeper/ZooKeeperWatcher.html">
+            
+                <a href="../zookeeper/ZooKeeperWatcher.html">
+            
+                    
+                    6.3 ZooKeeperWatcher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../zookeeper/ZooKeeper连接.html">
+            
+                <a href="../zookeeper/ZooKeeper连接.html">
+            
+                    
+                    6.4 ZooKeeper连接
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../pic/PIC.html">
+            
+                <a href="../pic/PIC.html">
+            
+                    
+                    7 Pic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    8 Other
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../other/GitBook.html">
+            
+                <a href="../other/GitBook.html">
+            
+                    
+                    1 GitBook
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../other/MySQL.html">
+            
+                <a href="../other/MySQL.html">
+            
+                    
+                    2 MySQL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../other/MD语法.html">
+            
+                <a href="../other/MD语法.html">
+            
+                    
+                    3 MarkDown
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../other/windows相关.html">
+            
+                <a href="../other/windows相关.html">
+            
+                    
+                    4 Windows相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="../other/Sublime Text 3 快捷键精华版.html">
+            
+                <a href="../other/Sublime Text 3 快捷键精华版.html">
+            
+                    
+                    5 SublimeText3快捷键精华版
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="../other/zabbix.html">
+            
+                <a href="../other/zabbix.html">
+            
+                    
+                    6 Zabbix
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="../other/Nginx安装.html">
+            
+                <a href="../other/Nginx安装.html">
+            
+                    
+                    7 Nginx
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.8" data-path="../other/TBSchedule.html">
+            
+                <a href="../other/TBSchedule.html">
+            
+                    
+                    8 TBSchedule
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.9" data-path="../other/webdis安装.html">
+            
+                <a href="../other/webdis安装.html">
+            
+                    
+                    9 webdis安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >1.5 3分钟理解PAXOS算法</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="paxos">Paxos</h2>
+<h3 id="1-&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x7684;&#x7279;&#x70B9;">1. &#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x7684;&#x7279;&#x70B9;</h3>
+<ul>
+<li>&#x5206;&#x5E03;&#x6027;</li>
+<li>&#x5BF9;&#x7B49;&#x6027;</li>
+<li>&#x5E76;&#x53D1;&#x6027;</li>
+<li>&#x7F3A;&#x4E4F;&#x5168;&#x5C40;&#x65F6;&#x949F;</li>
+<li>&#x6545;&#x969C;&#x603B;&#x4F1A;&#x53D1;&#x751F;</li>
+</ul>
+<h3 id="2-&#x95EE;&#x9898;&#x548C;&#x5047;&#x8BBE;">2. &#x95EE;&#x9898;&#x548C;&#x5047;&#x8BBE;</h3>
+<p>&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x8282;&#x70B9;&#x901A;&#x4FE1;&#x5B58;&#x5728;&#x4E24;&#x79CD;&#x6A21;&#x578B;&#xFF1A;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#xFF08;Shared memory&#xFF09;&#x548C;&#x6D88;&#x606F;&#x4F20;&#x9012;&#xFF08;Messages passing&#xFF09;&#x3002;</p>
+<p>&#x57FA;&#x4E8E;&#x6D88;&#x606F;&#x4F20;&#x9012;&#x901A;&#x4FE1;&#x6A21;&#x578B;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#xFF0C;&#x4E0D;&#x53EF;&#x907F;&#x514D;&#x7684;&#x4F1A;&#x53D1;&#x751F;&#x4EE5;&#x4E0B;&#x9519;&#x8BEF;&#xFF1A;&#x8FDB;&#x7A0B;&#x53EF;&#x80FD;&#x4F1A;&#x6162;&#x3001;&#x88AB;&#x6740;&#x6B7B;&#x6216;&#x8005;&#x91CD;&#x542F;&#xFF0C;&#x6D88;&#x606F;&#x53EF;&#x80FD;&#x4F1A;&#x5EF6;&#x8FDF;&#x3001;&#x4E22;&#x5931;&#x3001;&#x91CD;&#x590D;&#x3002;&#x5728;&#x57FA;&#x7840;Paxos&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x5148;&#x4E0D;&#x8003;&#x8651;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x6D88;&#x606F;&#x7BE1;&#x6539;&#x5373;&#x62DC;&#x5360;&#x5EAD;&#x9519;&#x8BEF;&#x7684;&#x60C5;&#x51B5;&#x3002;</p>
+<p>Paxos&#x7B97;&#x6CD5;&#x89E3;&#x51B3;&#x7684;&#x95EE;&#x9898;&#x662F;&#x5728;&#x4E00;&#x4E2A;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x4E0A;&#x8FF0;&#x5F02;&#x5E38;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x4E2D;&#x5982;&#x4F55;&#x5C31;&#x67D0;&#x4E2A;&#x503C;&#x8FBE;&#x6210;&#x4E00;&#x81F4;&#xFF0C;&#x4FDD;&#x8BC1;&#x4E0D;&#x8BBA;&#x53D1;&#x751F;&#x4EE5;&#x4E0A;&#x4EFB;&#x4F55;&#x5F02;&#x5E38;&#xFF0C;&#x90FD;&#x4E0D;&#x4F1A;&#x7834;&#x574F;&#x51B3;&#x8BAE;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x3002;</p>
+<p>&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x573A;&#x666F;&#x662F;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5E93;&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x5404;&#x8282;&#x70B9;&#x7684;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x4E00;&#x81F4;&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x90FD;&#x6267;&#x884C;&#x76F8;&#x540C;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#xFF0C;&#x90A3;&#x4E48;&#x4ED6;&#x4EEC;&#x6700;&#x540E;&#x80FD;&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x4E00;&#x81F4;&#x7684;&#x72B6;&#x6001;&#x3002;&#x4E3A;&#x4FDD;&#x8BC1;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x6267;&#x884C;&#x76F8;&#x540C;&#x7684;&#x547D;&#x4EE4;&#x5E8F;&#x5217;&#xFF0C;&#x9700;&#x8981;&#x5728;&#x6BCF;&#x4E00;&#x6761;&#x6307;&#x4EE4;&#x4E0A;&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x300C;&#x4E00;&#x81F4;&#x6027;&#x7B97;&#x6CD5;&#x300D;&#x4EE5;&#x4FDD;&#x8BC1;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x770B;&#x5230;&#x7684;&#x6307;&#x4EE4;&#x4E00;&#x81F4;&#x3002;&#x4E00;&#x4E2A;&#x901A;&#x7528;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x7B97;&#x6CD5;&#x53EF;&#x4EE5;&#x5E94;&#x7528;&#x5728;&#x8BB8;&#x591A;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x662F;&#x5206;&#x5E03;&#x5F0F;&#x8BA1;&#x7B97;&#x4E2D;&#x7684;&#x91CD;&#x8981;&#x95EE;&#x9898;&#x3002;&#x56E0;&#x6B64;&#x4ECE;20&#x4E16;&#x7EAA;80&#x5E74;&#x4EE3;&#x8D77;&#x5BF9;&#x4E8E;&#x4E00;&#x81F4;&#x6027;&#x7B97;&#x6CD5;&#x7684;&#x7814;&#x7A76;&#x5C31;&#x6CA1;&#x6709;&#x505C;&#x6B62;&#x8FC7;&#x3002;</p>
+<p>&#x4E3A;&#x63CF;&#x8FF0;Paxos&#x7B97;&#x6CD5;&#xFF0C;Lamport&#x865A;&#x62DF;&#x4E86;&#x4E00;&#x4E2A;&#x53EB;&#x505A;Paxos&#x7684;&#x5E0C;&#x814A;&#x57CE;&#x90A6;&#xFF0C;&#x8FD9;&#x4E2A;&#x5C9B;&#x6309;&#x7167;&#x8BAE;&#x4F1A;&#x6C11;&#x4E3B;&#x5236;&#x7684;&#x653F;&#x6CBB;&#x6A21;&#x5F0F;&#x5236;&#x8BA2;&#x6CD5;&#x5F8B;&#xFF0C;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x4EBA;&#x613F;&#x610F;&#x5C06;&#x81EA;&#x5DF1;&#x7684;&#x5168;&#x90E8;&#x65F6;&#x95F4;&#x548C;&#x7CBE;&#x529B;&#x653E;&#x5728;&#x8FD9;&#x79CD;&#x4E8B;&#x60C5;&#x4E0A;&#x3002;&#x6240;&#x4EE5;&#x65E0;&#x8BBA;&#x662F;&#x8BAE;&#x5458;&#xFF0C;&#x8BAE;&#x957F;&#x6216;&#x8005;&#x4F20;&#x9012;&#x7EB8;&#x6761;&#x7684;&#x670D;&#x52A1;&#x5458;&#x90FD;&#x4E0D;&#x80FD;&#x627F;&#x8BFA;&#x522B;&#x4EBA;&#x9700;&#x8981;&#x65F6;&#x4E00;&#x5B9A;&#x4F1A;&#x51FA;&#x73B0;&#xFF0C;&#x4E5F;&#x65E0;&#x6CD5;&#x627F;&#x8BFA;&#x6279;&#x51C6;&#x51B3;&#x8BAE;&#x6216;&#x8005;&#x4F20;&#x9012;&#x6D88;&#x606F;&#x7684;&#x65F6;&#x95F4;&#x3002;&#x4F46;&#x662F;&#x8FD9;&#x91CC;&#x5047;&#x8BBE;&#x6CA1;&#x6709;&#x62DC;&#x5360;&#x5EAD;&#x5C06;&#x519B;&#x95EE;&#x9898;&#xFF08;Byzantine failure&#xFF0C;&#x5373;&#x867D;&#x7136;&#x6709;&#x53EF;&#x80FD;&#x4E00;&#x4E2A;&#x6D88;&#x606F;&#x88AB;&#x4F20;&#x9012;&#x4E86;&#x4E24;&#x6B21;&#xFF0C;&#x4F46;&#x662F;&#x7EDD;&#x5BF9;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x7684;&#x6D88;&#x606F;&#xFF09;&#xFF1B;&#x53EA;&#x8981;&#x7B49;&#x5F85;&#x8DB3;&#x591F;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x6D88;&#x606F;&#x5C31;&#x4F1A;&#x88AB;&#x4F20;&#x5230;&#x3002;&#x53E6;&#x5916;&#xFF0C;Paxos&#x5C9B;&#x4E0A;&#x7684;&#x8BAE;&#x5458;&#x662F;&#x4E0D;&#x4F1A;&#x53CD;&#x5BF9;&#x5176;&#x4ED6;&#x8BAE;&#x5458;&#x63D0;&#x51FA;&#x7684;&#x51B3;&#x8BAE;&#x7684;&#x3002;</p>
+<p>&#x5BF9;&#x5E94;&#x4E8E;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#xFF0C;&#x8BAE;&#x5458;&#x5BF9;&#x5E94;&#x4E8E;&#x5404;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x5236;&#x5B9A;&#x7684;&#x6CD5;&#x5F8B;&#x5BF9;&#x5E94;&#x4E8E;&#x7CFB;&#x7EDF;&#x7684;&#x72B6;&#x6001;&#x3002;&#x5404;&#x4E2A;&#x8282;&#x70B9;&#x9700;&#x8981;&#x8FDB;&#x5165;&#x4E00;&#x4E2A;&#x4E00;&#x81F4;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x4F8B;&#x5982;&#x5728;&#x72EC;&#x7ACB;Cache&#x7684;&#x5BF9;&#x79F0;&#x591A;&#x5904;&#x7406;&#x5668;&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;&#x5404;&#x4E2A;&#x5904;&#x7406;&#x5668;&#x8BFB;&#x5185;&#x5B58;&#x7684;&#x67D0;&#x4E2A;&#x5B57;&#x8282;&#x65F6;&#xFF0C;&#x5FC5;&#x987B;&#x8BFB;&#x5230;&#x540C;&#x6837;&#x7684;&#x4E00;&#x4E2A;&#x503C;&#xFF0C;&#x5426;&#x5219;&#x7CFB;&#x7EDF;&#x5C31;&#x8FDD;&#x80CC;&#x4E86;&#x4E00;&#x81F4;&#x6027;&#x7684;&#x8981;&#x6C42;&#x3002;&#x4E00;&#x81F4;&#x6027;&#x8981;&#x6C42;&#x5BF9;&#x5E94;&#x4E8E;&#x6CD5;&#x5F8B;&#x6761;&#x6587;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#x3002;&#x8BAE;&#x5458;&#x548C;&#x670D;&#x52A1;&#x5458;&#x7684;&#x4E0D;&#x786E;&#x5B9A;&#x6027;&#x5BF9;&#x5E94;&#x4E8E;&#x8282;&#x70B9;&#x548C;&#x6D88;&#x606F;&#x4F20;&#x9012;&#x901A;&#x9053;&#x7684;&#x4E0D;&#x53EF;&#x9760;&#x6027;&#x3002;</p>
+<h3 id="3-paxos&#x7B97;&#x6CD5;&#x7247;&#x6BB5;">3. Paxos&#x7B97;&#x6CD5;&#x7247;&#x6BB5;</h3>
+<p>The safety requirements for consensus are</p>
+<p>&#x4E00;&#x81F4;&#x6027;&#x9700;&#x8981;&#x6EE1;&#x8DB3;&#x7684;&#x5B89;&#x5168;&#x6027;&#xFF1A;</p>
+<ul>
+<li>Only a value that has been proposed may be chosen</li>
+</ul>
+<p>&#x53EA;&#x6709;&#x63D0;&#x4EA4;&#x7684;&#x503C;&#x624D;&#x80FD;&#x6210;&#x4E3A;&#x51B3;&#x5B9A;&#x503C;</p>
+<ul>
+<li>Only a single value is chosen, and</li>
+</ul>
+<p>&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x51B3;&#x5B9A;&#x503C;</p>
+<ul>
+<li>A process never learns that a value has been chosen unless it actually has been</li>
+</ul>
+<p>&#x5728;&#x4E00;&#x4E2A;&#x503C;&#x6210;&#x4E3A;&#x51B3;&#x5B9A;&#x503C;&#x4E4B;&#x524D;&#x662F;&#x4E0D;&#x53EF;&#x89C1;&#x7684;</p>
+<p>three roles in the consensus algorithm be performed by three classes of agents: proposers, acceptors, and learners. In an implementation,
+a single process may act as more than one agent</p>
+<p>&#x4E09;&#x79CD;&#x89D2;&#x8272;&#xFF1A;&#x53D1;&#x8D77;&#x4EBA;&#xFF1B;&#x51B3;&#x7B56;&#x4EBA;&#xFF1B;&#x8BB0;&#x5F55;&#x4EBA;</p>
+<p>Assume that agents can communicate with one another by sending messages. We use the customary asynchronous, non-Byzantine model, in which:</p>
+<p>&#x5047;&#x8BBE;&#x6CA1;&#x6709;&#x62DC;&#x5360;&#x5EAD;&#x5C06;&#x519B;&#x95EE;&#x9898;&#xFF0C;&#x5373;&#x6D88;&#x606F;&#x4E0D;&#x88AB;&#x7BE1;&#x6539;</p>
+<p>Agents operate at arbitrary speed, may fail by stopping, and may restart. Since all agents may fail after a value is chosen and then restart, a solution is impossible unless some information can be re membered by an agent that has failed and restarted.</p>
+<p>&#x4E0D;&#x53EF;&#x5047;&#x8BBE;&#x901F;&#x5EA6;</p>
+<p>Messages can take arbitrarily long to be delivered, can be duplicated, and can be lost, but they are not corrupted.</p>
+<p>&#x6D88;&#x606F;&#x4E0D;&#x88AB;&#x7BE1;&#x6539;</p>
+<p>The easiest way to choose a value is to have a single acceptor agent. A proposer sends a proposal to the acceptor, who chooses the first proposed value that it receives</p>
+<p>&#x5047;&#x8BBE;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x51B3;&#x7B56;&#x4EBA;&#xFF0C;&#x8868;&#x51B3;&#x7B2C;&#x4E00;&#x4E2A;&#x6536;&#x5230;&#x7684;&#x63D0;&#x6848;&#xFF0C;&#x51B3;&#x8BAE;&#x6210;&#x4E3A;&#x6700;&#x7EC8;&#x51B3;&#x5B9A;&#x3002;&#x4F46;&#x4ED6;&#x6302;&#x4E86;&#x600E;&#x4E48;&#x529E;&#xFF1F;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x51B3;&#x7B56;&#x4EBA;&#x662F;&#x591A;&#x4E2A;&#x3002;</p>
+<p>The value is chosen when a large enough set of acceptors have accepted it.</p>
+<p>&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x4E00;&#x81F4;&#xFF0C;&#x63D0;&#x6848;&#x9700;&#x8981;&#x8D85;&#x8FC7;&#x534A;&#x6570;&#x7684;&#x51B3;&#x7B56;&#x4EBA;&#x8868;&#x51B3;</p>
+<p>In the absence of failure or message loss, we want a value to be chosen even if only one value is proposed by a single proposer. This suggests the
+requirement:
+    P1. An acceptor must accept the first proposal that it receives</p>
+<p>&#x5373;&#x4F7F;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x63D0;&#x6848;&#x4E5F;&#x80FD;&#x5F62;&#x6210;&#x6700;&#x7EC8;&#x51B3;&#x5B9A;&#xFF0C;&#x9700;&#x8981;&#xFF1A;&#x51B3;&#x7B56;&#x4EBA;&#x8868;&#x51B3;&#x5176;&#x7B2C;&#x4E00;&#x6B21;&#x63A5;&#x6536;&#x7684;&#x63D0;&#x6848;</p>
+<p>&#x5E26;&#x6765;&#x95EE;&#x9898;&#xFF1A;&#x6CA1;&#x6709;&#x8D85;&#x8FC7;&#x534A;&#x6570;&#x7684;&#x51B3;&#x8BAE;</p>
+<p>P1 and the requirement that a value is chosen only when it is accepted by a majority of acceptors imply that an acceptor must be allowed to accept
+more than one proposal</p>
+<p>&#x51B3;&#x7B56;&#x4EBA;&#x53EF;&#x4EE5;&#x8868;&#x51B3;&#x591A;&#x4E2A;&#x63D0;&#x6848;</p>
+<p>We keep track of the different proposals that an acceptor may accept by assigning a (natural) number to each proposal, so a
+proposal consists of a proposal number and a value.</p>
+<p>&#x4E3A;&#x4E86;&#x533A;&#x5206;&#x63D0;&#x6848;&#xFF0C;&#x63D0;&#x6848;&#x6709;&#x4E00;&#x4E2A;&#x5168;&#x5E8F;&#x7684;&#x5E8F;&#x53F7;</p>
+<p>We can allow multiple proposals to be chosen, but we must guarantee that all chosen proposals have the same value</p>
+<p>&#x5E42;&#x7B49;&#xFF1A;&#x53EF;&#x4EE5;&#x8868;&#x51B3;&#x591A;&#x4E2A;&#x63D0;&#x6848;&#xFF0C;&#x4F46;&#x63D0;&#x6848;&#x5FC5;&#x987B;&#x5185;&#x5BB9;&#x4E00;&#x81F4;</p>
+<p>P2. If a proposal with value v is chosen, then every higher-numbered proposal that is chosen has value v.</p>
+<p>&#x8868;&#x8FF0;&#x4E3A;&#xFF1A;&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x63D0;&#x6848;&#x88AB;&#x8868;&#x51B3;&#x4E86;&#xFF0C;&#x5219;&#x5176;&#x4ED6;&#x65B0;&#x7684;&#x8868;&#x51B3;&#x7684;&#x63D0;&#x6848;&#x5177;&#x6709;&#x76F8;&#x540C;&#x7684;&#x5185;&#x5BB9;</p>
+<p>&#x63A8;&#x5E7F;&#xFF1A;
+P2a. If a proposal with value v is chosen, then every higher-numbered proposal accepted by any acceptor has value v</p>
+<p>The famous result of Fischer, Lynch, and Patterson [1] implies that a reliable algorithm for electing a proposer must use either randomness or real time&#x2014;for example, by using timeouts.</p>
+<h3 id="4-basic-paxos&#xFF08;&#x6765;&#x81EA;&#x7EF4;&#x57FA;&#x767E;&#x79D1;&#xFF09;">4. Basic Paxos&#xFF08;&#x6765;&#x81EA;&#x7EF4;&#x57FA;&#x767E;&#x79D1;&#xFF09;</h3>
+<p>This protocol is the most basic of the Paxos family. Each instance of the Basic Paxos protocol decides on a single output value. The protocol proceeds over several rounds. A successful round has two phases. A Proposer should not initiate Paxos if it cannot communicate with at least a Quorum of Acceptors:</p>
+<h4 id="41-phase-1a-prepare">4.1 Phase 1a: Prepare</h4>
+<p>A Proposer (the leader) creates a proposal identified with a number N.</p>
+<p>This number must be greater than any previous proposal number used by this Proposer.</p>
+<p>Then, it sends a Prepare message containing this proposal to a Quorum of Acceptors.</p>
+<p>The Proposer decides who is in the Quorum.</p>
+<h4 id="42-phase-1b-promise">4.2 Phase 1b: Promise</h4>
+<p>If the proposal&apos;s number N is higher than any previous proposal number received from any Proposer by the Acceptor, then the Acceptor must return a promise to ignore all future proposals having a number less than N.</p>
+<p>If the Acceptor accepted a proposal at some point in the past, it must include the previous proposal number and previous value in its response to the Proposer.</p>
+<p>Otherwise, the Acceptor can ignore the received proposal.</p>
+<p>It does not have to answer in this case for Paxos to work.</p>
+<p>However, for the sake of optimization, sending a denial (Nack) response would tell the Proposer that it can stop its attempt to create consensus with proposal N.</p>
+<h4 id="43-phase-2a-accept-request">4.3 Phase 2a: Accept Request</h4>
+<p>If a Proposer receives enough promises from a Quorum of Acceptors, it needs to set a value to its proposal.</p>
+<p>If any Acceptors had previously accepted any proposal, then they&apos;ll have sent their values to the Proposer, who now must set the value of its proposal to the value associated with the highest proposal number reported by the Acceptors.</p>
+<p>If none of the Acceptors had accepted a proposal up to this point, then the Proposer may choose any value for its proposal.</p>
+<p>The Proposer sends an Accept Request message to a Quorum of Acceptors with the chosen value for its proposal.</p>
+<h4 id="44-phase-2b-accepted">4.4 Phase 2b: Accepted</h4>
+<p>If an Acceptor receives an Accept Request message for a proposal N, it must accept it if and only if it has not already promised to any prepare proposals having an identifier greater than N.</p>
+<p>In this case, it should register the corresponding value v and send an Accepted message to the Proposer and every Learner.</p>
+<p>Else, it can ignore the Accept Request.</p>
+<p>Note that an Acceptor can accept multiple proposals. These proposals may even have different values in the presence of certain failures.</p>
+<p>However, the Paxos protocol will guarantee that the Acceptors will ultimately agree on a single value.</p>
+<p>Rounds fail when multiple Proposers send conflicting Prepare messages, or when the Proposer does not receive a Quorum of responses (Promise or Accepted). In these cases, another round must be started with a higher proposal number.</p>
+<p>Notice that when Acceptors accept a request, they also acknowledge the leadership of the Proposer. Hence, Paxos can be used to select a leader in a cluster of nodes.</p>
+<h4 id="&#x6211;&#x7684;&#x7406;&#x89E3;">&#x6211;&#x7684;&#x7406;&#x89E3;</h4>
+<p>&#x53EA;&#x9700;3&#x5206;&#x949F;&#xFF0C;&#x4F60;&#x5C31;&#x4F1A;&#x548C;&#x6211;&#x4E00;&#x6837;&#xFF0C;&#x5F7B;&#x5E95;&#x7406;&#x89E3; Paxos &#x7B97;&#x6CD5;&#x3002;</p>
+<h4 id="1-&#x57FA;&#x672C;&#x6982;&#x5FF5;">1. &#x57FA;&#x672C;&#x6982;&#x5FF5;</h4>
+<ul>
+<li>&#x4E09;&#x79CD;&#x89D2;&#x8272;&#xFF1A;&#x53D1;&#x8D77;&#x4EBA;&#xFF1B;&#x51B3;&#x7B56;&#x4EBA;&#xFF1B;&#x8BB0;&#x5F55;&#x4EBA;</li>
+<li>&#x4E24;&#x4E2A;&#x9636;&#x6BB5;&#xFF1A;&#x9A8C;&#x8BC1;&#x9636;&#x6BB5;&#xFF1B;&#x63D0;&#x4EA4;&#x9636;&#x6BB5;</li>
+<li>&#x5E8F;&#x5217;&#x53F7;&#xFF1A;&#x5168;&#x5C40;&#x6709;&#x5E8F;&#x7F16;&#x53F7;</li>
+<li>&#x6D88;&#x606F;&#xFF1A;&#x5E8F;&#x5217;&#x53F7;+&#x503C;</li>
+<li>&#x4FE1;&#x606F;&#xFF1A;&#x5E8F;&#x5217;&#x53F7;&#x6216;&#x6D88;&#x606F;</li>
+<li>&#x8981;&#x6C42;&#xFF1A;&#x4FE1;&#x606F;&#x4E0D;&#x88AB;&#x7BE1;&#x6539;&#xFF1B;&#x4FE1;&#x606F;&#x5728;&#x4E24;&#x4E2A;&#x9636;&#x6BB5;&#x4E2D;&#x8D85;&#x8FC7;&#x534A;&#x6570;&#x51B3;&#x7B56;&#x4EBA;&#x901A;&#x8FC7;&#x624D;&#x6709;&#x6548;</li>
+</ul>
+<h4 id="2-&#x7B97;&#x6CD5;&#x63CF;&#x8FF0;">2. &#x7B97;&#x6CD5;&#x63CF;&#x8FF0;</h4>
+<h4 id="21-&#x9A8C;&#x8BC1;&#x9636;&#x6BB5;">2.1 &#x9A8C;&#x8BC1;&#x9636;&#x6BB5;</h4>
+<p><strong>&#x53D1;&#x8D77;&#x4EBA;</strong>&#xFF1A;</p>
+<pre><code class="lang-java">&#x53D1;&#x9001;&#x5E8F;&#x5217;&#x53F7;&#x81F3;&#x51B3;&#x7B56;&#x4EBA;
+</code></pre>
+<p><strong>&#x51B3;&#x7B56;&#x4EBA;</strong></p>
+<pre><code class="lang-java">IF &#x7B2C;&#x4E00;&#x6B21;&#x6536;&#x5230;&#x5E8F;&#x5217;&#x53F7;
+THEN &#x8BB0;&#x5F55;&#x5E8F;&#x5217;&#x53F7;&#xFF0C;&#x56DE;&#x590D;&#x901A;&#x8FC7;;
+ELSE IF &#x5E8F;&#x5217;&#x53F7;&#x6BD4;&#x8BB0;&#x5F55;&#x7684;&#x5E8F;&#x5217;&#x53F7;&#x5927;
+THEN &#x66F4;&#x65B0;&#x8BB0;&#x5F55;&#x7684;&#x5E8F;&#x5217;&#x53F7;&#xFF0C;&#x56DE;&#x590D;&#x901A;&#x8FC7;;
+ELSE &#x56DE;&#x590D;&#x62D2;&#x7EDD;;
+
+IF &#x56DE;&#x590D;&#x901A;&#x8FC7;&#x4E14;&#x6709;&#x8BB0;&#x5F55;&#x6D88;&#x606F;
+THEN &#x989D;&#x5916;&#x56DE;&#x590D;&#x8BB0;&#x5F55;&#x7684;&#x6D88;&#x606F;;
+</code></pre>
+<h4 id="22-&#x63D0;&#x4EA4;&#x9636;&#x6BB5;&#xFF1A;">2.2 &#x63D0;&#x4EA4;&#x9636;&#x6BB5;&#xFF1A;</h4>
+<p><strong>&#x53D1;&#x8D77;&#x4EBA;</strong></p>
+<pre><code class="lang-java">IF &#x9A8C;&#x8BC1;&#x9636;&#x6BB5;&#x51B3;&#x7B56;&#x4EBA;&#x56DE;&#x590D;&#x7684;&#x901A;&#x8FC7;&#x4E0D;&#x8D85;&#x8FC7;&#x534A;&#x6570;
+THEN &#x91CD;&#x65B0;&#x5F00;&#x59CB;&#x9A8C;&#x8BC1;&#x9636;&#x6BB5;;
+
+IF &#x672A;&#x6536;&#x5230;&#x51B3;&#x7B56;&#x4EBA;&#x56DE;&#x590D;&#x7684;&#x6D88;&#x606F;
+THEN &#x63D0;&#x4EA4;&#x9A8C;&#x8BC1;&#x9636;&#x6BB5;&#x7684;&#x5E8F;&#x5217;&#x53F7;+&#x4EFB;&#x610F;&#x503C;&#x81F3;&#x51B3;&#x7B56;&#x4EBA;;
+ELSE &#x63D0;&#x4EA4;&#x9A8C;&#x8BC1;&#x9636;&#x6BB5;&#x7684;&#x5E8F;&#x5217;&#x53F7;+&#x4ECE;&#x56DE;&#x590D;&#x7684;&#x6D88;&#x606F;&#x4E2D;&#x9009;&#x53D6;&#x5E8F;&#x5217;&#x53F7;&#x53F7;&#x6700;&#x5927;&#x7684;&#x90A3;&#x4E2A;&#x503C;&#x81F3;&#x51B3;&#x7B56;&#x4EBA;;
+</code></pre>
+<p><strong>&#x51B3;&#x7B56;&#x4EBA;</strong></p>
+<pre><code class="lang-java">IF &#x6D88;&#x606F;&#x7684;&#x5E8F;&#x5217;&#x53F7;&#x6BD4;&#x8BB0;&#x5F55;&#x7684;&#x5E8F;&#x5217;&#x53F7;&#x5927;&#x6216;&#x76F8;&#x540C;
+THEN &#x66F4;&#x65B0;&#x8BB0;&#x5F55;&#x7684;&#x6D88;&#x606F;&#xFF0C;&#x56DE;&#x590D;&#x901A;&#x8FC7;;
+ELSE &#x56DE;&#x590D;&#x62D2;&#x7EDD;;
+</code></pre>
+<p><strong>&#x8BB0;&#x5F55;&#x4EBA;</strong></p>
+<pre><code>&#x53EA;&#x8981;&#x67D0;&#x4E2A;&#x63D0;&#x4EA4;&#x7684;&#x6D88;&#x606F;&#x5F97;&#x5230;&#x8D85;&#x8FC7;&#x534A;&#x6570;&#x7684;&#x51B3;&#x7B56;&#x4EBA;&#x7684;&#x901A;&#x8FC7;&#x56DE;&#x590D;&#xFF0C;&#x5219;&#x8FD9;&#x4E2A;&#x6D88;&#x606F;&#x7684;&#x503C;&#x5728;&#x73B0;&#x5728;&#xFF0C;&#x4EE5;&#x53CA;&#x672A;&#x6765;&#x90FD;&#x662F;&#x8FD9;&#x4E00;&#x4E3B;&#x9898;&#x7684;&#x6700;&#x7EC8;&#x51B3;&#x5B9A;&#x503C;;
+&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x4EE5;&#x540E;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5404;&#x79CD;&#x6D88;&#x606F;&#xFF0C;&#x4F46;&#x53EA;&#x8981;&#x662F;&#x8FD9;&#x4E2A;&#x4E3B;&#x9898;&#xFF0C;&#x6D88;&#x606F;&#x7684;&#x503C;&#x90FD;&#x4E00;&#x6837;;
+&#x8FD9;&#x4E2A;&#x503C;&#x53EF;&#x4EE5;&#x7531;&#x53D1;&#x8D77;&#x4EBA;&#x901A;&#x77E5;&#x8BB0;&#x5F55;&#x4EBA;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x51B3;&#x7B56;&#x4EBA;&#x56DE;&#x590D;&#x6D88;&#x606F;&#x901A;&#x8FC7;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x901A;&#x77E5;&#x8BB0;&#x5F55;&#x4EBA;&#x3002;
+</code></pre><h3 id="5-2pc&#xFF08;&#x4E24;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x534F;&#x8BAE;&#xFF09;">5. 2PC&#xFF08;&#x4E24;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x534F;&#x8BAE;&#xFF09;</h3>
+<p>&#x786E;&#x5207;&#x5730;&#x8BF4;&#xFF1A;&#x4E24;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x4E3B;&#x8981;&#x4FDD;&#x8BC1;&#x4E86;&#x5206;&#x5E03;&#x5F0F;&#x4E8B;&#x52A1;&#x7684;&#x539F;&#x5B50;&#x6027;&#xFF1A;&#x5373;&#x6240;&#x6709;&#x7ED3;&#x70B9;&#x8981;&#x4E48;&#x5168;&#x505A;&#x8981;&#x4E48;&#x5168;&#x4E0D;&#x505A;</p>
+<p>&#x4E8C;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;(Two-phaseCommit)&#x662F;&#x6307;&#xFF0C;&#x5728;&#x8BA1;&#x7B97;&#x673A;&#x7F51;&#x7EDC;&#x4EE5;&#x53CA;&#x6570;&#x636E;&#x5E93;&#x9886;&#x57DF;&#x5185;&#xFF0C;&#x4E3A;&#x4E86;&#x4F7F;&#x57FA;&#x4E8E;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x67B6;&#x6784;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x8282;&#x70B9;&#x5728;&#x8FDB;&#x884C;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x65F6;&#x4FDD;&#x6301;&#x4E00;&#x81F4;&#x6027;&#x800C;&#x8BBE;&#x8BA1;&#x7684;&#x4E00;&#x79CD;&#x7B97;&#x6CD5;(Algorithm)&#x3002;</p>
+<p>&#x901A;&#x5E38;&#xFF0C;&#x4E8C;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x4E5F;&#x88AB;&#x79F0;&#x4E3A;&#x662F;&#x4E00;&#x79CD;&#x534F;&#x8BAE;(Protocol))&#x3002;&#x5728;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x867D;&#x7136;&#x53EF;&#x4EE5;&#x77E5;&#x6653;&#x81EA;&#x5DF1;&#x7684;&#x64CD;&#x4F5C;&#x65F6;&#x6210;&#x529F;&#x6216;&#x8005;&#x5931;&#x8D25;&#xFF0C;&#x5374;&#x65E0;&#x6CD5;&#x77E5;&#x9053;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x7684;&#x64CD;&#x4F5C;&#x7684;&#x6210;&#x529F;&#x6216;&#x5931;&#x8D25;&#x3002;&#x5F53;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x8DE8;&#x8D8A;&#x591A;&#x4E2A;&#x8282;&#x70B9;&#x65F6;&#xFF0C;&#x4E3A;&#x4E86;&#x4FDD;&#x6301;&#x4E8B;&#x52A1;&#x7684;ACID&#x7279;&#x6027;&#xFF0C;&#x9700;&#x8981;&#x5F15;&#x5165;&#x4E00;&#x4E2A;&#x4F5C;&#x4E3A;&#x534F;&#x8C03;&#x8005;&#x7684;&#x7EC4;&#x4EF6;&#x6765;&#x7EDF;&#x4E00;&#x638C;&#x63A7;&#x6240;&#x6709;&#x8282;&#x70B9;(&#x79F0;&#x4F5C;&#x53C2;&#x4E0E;&#x8005;)&#x7684;&#x64CD;&#x4F5C;&#x7ED3;&#x679C;&#x5E76;&#x6700;&#x7EC8;&#x6307;&#x793A;&#x8FD9;&#x4E9B;&#x8282;&#x70B9;&#x662F;&#x5426;&#x8981;&#x628A;&#x64CD;&#x4F5C;&#x7ED3;&#x679C;&#x8FDB;&#x884C;&#x771F;&#x6B63;&#x7684;&#x63D0;&#x4EA4;(&#x6BD4;&#x5982;&#x5C06;&#x66F4;&#x65B0;&#x540E;&#x7684;&#x6570;&#x636E;&#x5199;&#x5165;&#x78C1;&#x76D8;&#x7B49;&#x7B49;)&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x4E8C;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x7684;&#x7B97;&#x6CD5;&#x601D;&#x8DEF;&#x53EF;&#x4EE5;&#x6982;&#x62EC;&#x4E3A;&#xFF1A;&#x53C2;&#x4E0E;&#x8005;&#x5C06;&#x64CD;&#x4F5C;&#x6210;&#x8D25;&#x901A;&#x77E5;&#x534F;&#x8C03;&#x8005;&#xFF0C;&#x518D;&#x7531;&#x534F;&#x8C03;&#x8005;&#x6839;&#x636E;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x7684;&#x53CD;&#x9988;&#x60C5;&#x62A5;&#x51B3;&#x5B9A;&#x5404;&#x53C2;&#x4E0E;&#x8005;&#x662F;&#x5426;&#x8981;&#x63D0;&#x4EA4;&#x64CD;&#x4F5C;&#x8FD8;&#x662F;&#x4E2D;&#x6B62;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x6240;&#x8C13;&#x7684;&#x4E24;&#x4E2A;&#x9636;&#x6BB5;&#x662F;&#x6307;&#xFF1A;&#x7B2C;&#x4E00;&#x9636;&#x6BB5;&#xFF1A;&#x51C6;&#x5907;&#x9636;&#x6BB5;(&#x6295;&#x7968;&#x9636;&#x6BB5;)&#x548C;&#x7B2C;&#x4E8C;&#x9636;&#x6BB5;&#xFF1A;&#x63D0;&#x4EA4;&#x9636;&#x6BB5;&#xFF08;&#x6267;&#x884C;&#x9636;&#x6BB5;&#xFF09;&#x3002;</p>
+<h4 id="51-&#x51C6;&#x5907;&#x9636;&#x6BB5;">5.1 &#x51C6;&#x5907;&#x9636;&#x6BB5;</h4>
+<p>&#x4E8B;&#x52A1;&#x534F;&#x8C03;&#x8005;(&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x5668;)&#x7ED9;&#x6BCF;&#x4E2A;&#x53C2;&#x4E0E;&#x8005;(&#x8D44;&#x6E90;&#x7BA1;&#x7406;&#x5668;)&#x53D1;&#x9001;Prepare&#x6D88;&#x606F;&#xFF0C;&#x6BCF;&#x4E2A;&#x53C2;&#x4E0E;&#x8005;&#x8981;&#x4E48;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x5931;&#x8D25;(&#x5982;&#x6743;&#x9650;&#x9A8C;&#x8BC1;&#x5931;&#x8D25;)&#xFF0C;&#x8981;&#x4E48;&#x5728;&#x672C;&#x5730;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#xFF0C;&#x5199;&#x672C;&#x5730;&#x7684;redo&#x548C;undo&#x65E5;&#x5FD7;&#xFF0C;&#x4F46;&#x4E0D;&#x63D0;&#x4EA4;&#xFF0C;&#x5230;&#x8FBE;&#x4E00;&#x79CD;&#x201C;&#x4E07;&#x4E8B;&#x4FF1;&#x5907;&#xFF0C;&#x53EA;&#x6B20;&#x4E1C;&#x98CE;&#x201D;&#x7684;&#x72B6;&#x6001;&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x8FDB;&#x4E00;&#x6B65;&#x5C06;&#x51C6;&#x5907;&#x9636;&#x6BB5;&#x5206;&#x4E3A;&#x4EE5;&#x4E0B;&#x4E09;&#x4E2A;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<p>1&#xFF09;&#x534F;&#x8C03;&#x8005;&#x8282;&#x70B9;&#x5411;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x8BE2;&#x95EE;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x63D0;&#x4EA4;&#x64CD;&#x4F5C;(vote)&#xFF0C;&#x5E76;&#x5F00;&#x59CB;&#x7B49;&#x5F85;&#x5404;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x7684;&#x54CD;&#x5E94;&#x3002;</p>
+<p>2&#xFF09;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x6267;&#x884C;&#x8BE2;&#x95EE;&#x53D1;&#x8D77;&#x4E3A;&#x6B62;&#x7684;&#x6240;&#x6709;&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;&#xFF0C;&#x5E76;&#x5C06;Undo&#x4FE1;&#x606F;&#x548C;Redo&#x4FE1;&#x606F;&#x5199;&#x5165;&#x65E5;&#x5FD7;&#x3002;&#xFF08;&#x6CE8;&#x610F;&#xFF1A;&#x82E5;&#x6210;&#x529F;&#x8FD9;&#x91CC;&#x5176;&#x5B9E;&#x6BCF;&#x4E2A;&#x53C2;&#x4E0E;&#x8005;&#x5DF2;&#x7ECF;&#x6267;&#x884C;&#x4E86;&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;&#xFF09;</p>
+<p>3&#xFF09;&#x5404;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x54CD;&#x5E94;&#x534F;&#x8C03;&#x8005;&#x8282;&#x70B9;&#x53D1;&#x8D77;&#x7684;&#x8BE2;&#x95EE;&#x3002;&#x5982;&#x679C;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x7684;&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;&#x5B9E;&#x9645;&#x6267;&#x884C;&#x6210;&#x529F;&#xFF0C;&#x5219;&#x5B83;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x201D;&#x540C;&#x610F;&#x201D;&#x6D88;&#x606F;&#xFF1B;&#x5982;&#x679C;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x7684;&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;&#x5B9E;&#x9645;&#x6267;&#x884C;&#x5931;&#x8D25;&#xFF0C;&#x5219;&#x5B83;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x201D;&#x4E2D;&#x6B62;&#x201D;&#x6D88;&#x606F;&#x3002;</p>
+<h4 id="52-&#x63D0;&#x4EA4;&#x9636;&#x6BB5;">5.2 &#x63D0;&#x4EA4;&#x9636;&#x6BB5;</h4>
+<p>&#x5982;&#x679C;&#x534F;&#x8C03;&#x8005;&#x6536;&#x5230;&#x4E86;&#x53C2;&#x4E0E;&#x8005;&#x7684;&#x5931;&#x8D25;&#x6D88;&#x606F;&#x6216;&#x8005;&#x8D85;&#x65F6;&#xFF0C;&#x76F4;&#x63A5;&#x7ED9;&#x6BCF;&#x4E2A;&#x53C2;&#x4E0E;&#x8005;&#x53D1;&#x9001;&#x56DE;&#x6EDA;(Rollback)&#x6D88;&#x606F;&#xFF1B;&#x5426;&#x5219;&#xFF0C;&#x53D1;&#x9001;&#x63D0;&#x4EA4;(Commit)&#x6D88;&#x606F;&#xFF1B;&#x53C2;&#x4E0E;&#x8005;&#x6839;&#x636E;&#x534F;&#x8C03;&#x8005;&#x7684;&#x6307;&#x4EE4;&#x6267;&#x884C;&#x63D0;&#x4EA4;&#x6216;&#x8005;&#x56DE;&#x6EDA;&#x64CD;&#x4F5C;&#xFF0C;&#x91CA;&#x653E;&#x6240;&#x6709;&#x4E8B;&#x52A1;&#x5904;&#x7406;&#x8FC7;&#x7A0B;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x9501;&#x8D44;&#x6E90;&#x3002;(&#x6CE8;&#x610F;:&#x5FC5;&#x987B;&#x5728;&#x6700;&#x540E;&#x9636;&#x6BB5;&#x91CA;&#x653E;&#x9501;&#x8D44;&#x6E90;)</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x5206;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#x5206;&#x522B;&#x8BA8;&#x8BBA;&#x63D0;&#x4EA4;&#x9636;&#x6BB5;&#x7684;&#x8FC7;&#x7A0B;&#x3002;</p>
+<p>&#x5F53;&#x534F;&#x8C03;&#x8005;&#x8282;&#x70B9;&#x4ECE;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x83B7;&#x5F97;&#x7684;&#x76F8;&#x5E94;&#x6D88;&#x606F;&#x90FD;&#x4E3A;&#x201D;&#x540C;&#x610F;&#x201D;&#x65F6;:</p>
+<p>success</p>
+<p>1&#xFF09;&#x534F;&#x8C03;&#x8005;&#x8282;&#x70B9;&#x5411;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x53D1;&#x51FA;&#x201D;&#x6B63;&#x5F0F;&#x63D0;&#x4EA4;(commit)&#x201D;&#x7684;&#x8BF7;&#x6C42;&#x3002;</p>
+<p>2&#xFF09;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x6B63;&#x5F0F;&#x5B8C;&#x6210;&#x64CD;&#x4F5C;&#xFF0C;&#x5E76;&#x91CA;&#x653E;&#x5728;&#x6574;&#x4E2A;&#x4E8B;&#x52A1;&#x671F;&#x95F4;&#x5185;&#x5360;&#x7528;&#x7684;&#x8D44;&#x6E90;&#x3002;</p>
+<p>3&#xFF09;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x5411;&#x534F;&#x8C03;&#x8005;&#x8282;&#x70B9;&#x53D1;&#x9001;&#x201D;&#x5B8C;&#x6210;&#x201D;&#x6D88;&#x606F;&#x3002;</p>
+<p>4&#xFF09;&#x534F;&#x8C03;&#x8005;&#x8282;&#x70B9;&#x53D7;&#x5230;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x53CD;&#x9988;&#x7684;&#x201D;&#x5B8C;&#x6210;&#x201D;&#x6D88;&#x606F;&#x540E;&#xFF0C;&#x5B8C;&#x6210;&#x4E8B;&#x52A1;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4EFB;&#x4E00;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x5728;&#x7B2C;&#x4E00;&#x9636;&#x6BB5;&#x8FD4;&#x56DE;&#x7684;&#x54CD;&#x5E94;&#x6D88;&#x606F;&#x4E3A;&#x201D;&#x4E2D;&#x6B62;&#x201D;&#xFF0C;&#x6216;&#x8005; &#x534F;&#x8C03;&#x8005;&#x8282;&#x70B9;&#x5728;&#x7B2C;&#x4E00;&#x9636;&#x6BB5;&#x7684;&#x8BE2;&#x95EE;&#x8D85;&#x65F6;&#x4E4B;&#x524D;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x7684;&#x54CD;&#x5E94;&#x6D88;&#x606F;&#x65F6;&#xFF1A;</p>
+<p>fail</p>
+<p>1&#xFF09;&#x534F;&#x8C03;&#x8005;&#x8282;&#x70B9;&#x5411;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x53D1;&#x51FA;&#x201D;&#x56DE;&#x6EDA;&#x64CD;&#x4F5C;(rollback)&#x201D;&#x7684;&#x8BF7;&#x6C42;&#x3002;</p>
+<p>2&#xFF09;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x5229;&#x7528;&#x4E4B;&#x524D;&#x5199;&#x5165;&#x7684;Undo&#x4FE1;&#x606F;&#x6267;&#x884C;&#x56DE;&#x6EDA;&#xFF0C;&#x5E76;&#x91CA;&#x653E;&#x5728;&#x6574;&#x4E2A;&#x4E8B;&#x52A1;&#x671F;&#x95F4;&#x5185;&#x5360;&#x7528;&#x7684;&#x8D44;&#x6E90;&#x3002;</p>
+<p>3&#xFF09;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x5411;&#x534F;&#x8C03;&#x8005;&#x8282;&#x70B9;&#x53D1;&#x9001;&#x201D;&#x56DE;&#x6EDA;&#x5B8C;&#x6210;&#x201D;&#x6D88;&#x606F;&#x3002;</p>
+<p>4&#xFF09;&#x534F;&#x8C03;&#x8005;&#x8282;&#x70B9;&#x53D7;&#x5230;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x8282;&#x70B9;&#x53CD;&#x9988;&#x7684;&#x201D;&#x56DE;&#x6EDA;&#x5B8C;&#x6210;&#x201D;&#x6D88;&#x606F;&#x540E;&#xFF0C;&#x53D6;&#x6D88;&#x4E8B;&#x52A1;&#x3002;</p>
+<p>&#x4E0D;&#x7BA1;&#x6700;&#x540E;&#x7ED3;&#x679C;&#x5982;&#x4F55;&#xFF0C;&#x7B2C;&#x4E8C;&#x9636;&#x6BB5;&#x90FD;&#x4F1A;&#x7ED3;&#x675F;&#x5F53;&#x524D;&#x4E8B;&#x52A1;&#x3002;</p>
+<p>&#x4E8C;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x770B;&#x8D77;&#x6765;&#x786E;&#x5B9E;&#x80FD;&#x591F;&#x63D0;&#x4F9B;&#x539F;&#x5B50;&#x6027;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x5E78;&#x7684;&#x4E8B;&#xFF0C;&#x4E8C;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x8FD8;&#x662F;&#x6709;&#x51E0;&#x4E2A;&#x7F3A;&#x70B9;&#x7684;&#xFF1A;</p>
+<p>1&#x3001;&#x540C;&#x6B65;&#x963B;&#x585E;&#x95EE;&#x9898;&#x3002;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8282;&#x70B9;&#x90FD;&#x662F;&#x4E8B;&#x52A1;&#x963B;&#x585E;&#x578B;&#x7684;&#x3002;&#x5F53;&#x53C2;&#x4E0E;&#x8005;&#x5360;&#x6709;&#x516C;&#x5171;&#x8D44;&#x6E90;&#x65F6;&#xFF0C;&#x5176;&#x4ED6;&#x7B2C;&#x4E09;&#x65B9;&#x8282;&#x70B9;&#x8BBF;&#x95EE;&#x516C;&#x5171;&#x8D44;&#x6E90;&#x4E0D;&#x5F97;&#x4E0D;&#x5904;&#x4E8E;&#x963B;&#x585E;&#x72B6;&#x6001;&#x3002;</p>
+<p>2&#x3001;&#x5355;&#x70B9;&#x6545;&#x969C;&#x3002;&#x7531;&#x4E8E;&#x534F;&#x8C03;&#x8005;&#x7684;&#x91CD;&#x8981;&#x6027;&#xFF0C;&#x4E00;&#x65E6;&#x534F;&#x8C03;&#x8005;&#x53D1;&#x751F;&#x6545;&#x969C;&#x3002;&#x53C2;&#x4E0E;&#x8005;&#x4F1A;&#x4E00;&#x76F4;&#x963B;&#x585E;&#x4E0B;&#x53BB;&#x3002;&#x5C24;&#x5176;&#x5728;&#x7B2C;&#x4E8C;&#x9636;&#x6BB5;&#xFF0C;&#x534F;&#x8C03;&#x8005;&#x53D1;&#x751F;&#x6545;&#x969C;&#xFF0C;&#x90A3;&#x4E48;&#x6240;&#x6709;&#x7684;&#x53C2;&#x4E0E;&#x8005;&#x8FD8;&#x90FD;&#x5904;&#x4E8E;&#x9501;&#x5B9A;&#x4E8B;&#x52A1;&#x8D44;&#x6E90;&#x7684;&#x72B6;&#x6001;&#x4E2D;&#xFF0C;&#x800C;&#x65E0;&#x6CD5;&#x7EE7;&#x7EED;&#x5B8C;&#x6210;&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;&#x3002;&#xFF08;&#x5982;&#x679C;&#x662F;&#x534F;&#x8C03;&#x8005;&#x6302;&#x6389;&#xFF0C;&#x53EF;&#x4EE5;&#x91CD;&#x65B0;&#x9009;&#x4E3E;&#x4E00;&#x4E2A;&#x534F;&#x8C03;&#x8005;&#xFF0C;&#x4F46;&#x662F;&#x65E0;&#x6CD5;&#x89E3;&#x51B3;&#x56E0;&#x4E3A;&#x534F;&#x8C03;&#x8005;&#x5B95;&#x673A;&#x5BFC;&#x81F4;&#x7684;&#x53C2;&#x4E0E;&#x8005;&#x5904;&#x4E8E;&#x963B;&#x585E;&#x72B6;&#x6001;&#x7684;&#x95EE;&#x9898;&#xFF09;</p>
+<p>3&#x3001;&#x6570;&#x636E;&#x4E0D;&#x4E00;&#x81F4;&#x3002;&#x5728;&#x4E8C;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x7684;&#x9636;&#x6BB5;&#x4E8C;&#x4E2D;&#xFF0C;&#x5F53;&#x534F;&#x8C03;&#x8005;&#x5411;&#x53C2;&#x4E0E;&#x8005;&#x53D1;&#x9001;commit&#x8BF7;&#x6C42;&#x4E4B;&#x540E;&#xFF0C;&#x53D1;&#x751F;&#x4E86;&#x5C40;&#x90E8;&#x7F51;&#x7EDC;&#x5F02;&#x5E38;&#x6216;&#x8005;&#x5728;&#x53D1;&#x9001;commit&#x8BF7;&#x6C42;&#x8FC7;&#x7A0B;&#x4E2D;&#x534F;&#x8C03;&#x8005;&#x53D1;&#x751F;&#x4E86;&#x6545;&#x969C;&#xFF0C;&#x8FD9;&#x56DE;&#x5BFC;&#x81F4;&#x53EA;&#x6709;&#x4E00;&#x90E8;&#x5206;&#x53C2;&#x4E0E;&#x8005;&#x63A5;&#x53D7;&#x5230;&#x4E86;commit&#x8BF7;&#x6C42;&#x3002;&#x800C;&#x5728;&#x8FD9;&#x90E8;&#x5206;&#x53C2;&#x4E0E;&#x8005;&#x63A5;&#x5230;commit&#x8BF7;&#x6C42;&#x4E4B;&#x540E;&#x5C31;&#x4F1A;&#x6267;&#x884C;commit&#x64CD;&#x4F5C;&#x3002;&#x4F46;&#x662F;&#x5176;&#x4ED6;&#x90E8;&#x5206;&#x672A;&#x63A5;&#x5230;commit&#x8BF7;&#x6C42;&#x7684;&#x673A;&#x5668;&#x5219;&#x65E0;&#x6CD5;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x3002;&#x4E8E;&#x662F;&#x6574;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x4FBF;&#x51FA;&#x73B0;&#x4E86;&#x6570;&#x636E;&#x90E8;&#x4E00;&#x81F4;&#x6027;&#x7684;&#x73B0;&#x8C61;&#x3002;</p>
+<p>4&#x3001;&#x4E8C;&#x9636;&#x6BB5;&#x65E0;&#x6CD5;&#x89E3;&#x51B3;&#x7684;&#x95EE;&#x9898;&#xFF1A;&#x534F;&#x8C03;&#x8005;&#x518D;&#x53D1;&#x51FA;commit&#x6D88;&#x606F;&#x4E4B;&#x540E;&#x5B95;&#x673A;&#xFF0C;&#x800C;&#x552F;&#x4E00;&#x63A5;&#x6536;&#x5230;&#x8FD9;&#x6761;&#x6D88;&#x606F;&#x7684;&#x53C2;&#x4E0E;&#x8005;&#x540C;&#x65F6;&#x4E5F;&#x5B95;&#x673A;&#x4E86;&#x3002;&#x90A3;&#x4E48;&#x5373;&#x4F7F;&#x534F;&#x8C03;&#x8005;&#x901A;&#x8FC7;&#x9009;&#x4E3E;&#x534F;&#x8BAE;&#x4EA7;&#x751F;&#x4E86;&#x65B0;&#x7684;&#x534F;&#x8C03;&#x8005;&#xFF0C;&#x8FD9;&#x6761;&#x4E8B;&#x52A1;&#x7684;&#x72B6;&#x6001;&#x4E5F;&#x662F;&#x4E0D;&#x786E;&#x5B9A;&#x7684;&#xFF0C;&#x6CA1;&#x4EBA;&#x77E5;&#x9053;&#x4E8B;&#x52A1;&#x662F;&#x5426;&#x88AB;&#x5DF2;&#x7ECF;&#x63D0;&#x4EA4;&#x3002;</p>
+<p>&#x7531;&#x4E8E;&#x4E8C;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x5B58;&#x5728;&#x7740;&#x8BF8;&#x5982;&#x540C;&#x6B65;&#x963B;&#x585E;&#x3001;&#x5355;&#x70B9;&#x95EE;&#x9898;&#x3001;&#x8111;&#x88C2;&#x7B49;&#x7F3A;&#x9677;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x7814;&#x7A76;&#x8005;&#x4EEC;&#x5728;&#x4E8C;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x505A;&#x4E86;&#x6539;&#x8FDB;&#xFF0C;&#x63D0;&#x51FA;&#x4E86;&#x4E09;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x3002;</p>
+<h3 id="6-3pc&#xFF08;&#x4E09;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x534F;&#x8BAE;&#xFF09;">6. 3PC&#xFF08;&#x4E09;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x534F;&#x8BAE;&#xFF09;</h3>
+<p>&#x4E09;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#xFF08;Three-phase commit&#xFF09;&#xFF0C;&#x4E5F;&#x53EB;&#x4E09;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x534F;&#x8BAE;&#xFF08;Three-phase commit protocol&#xFF09;&#xFF0C;&#x662F;&#x4E8C;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#xFF08;2PC&#xFF09;&#x7684;&#x6539;&#x8FDB;&#x7248;&#x672C;&#x3002;</p>
+<p>&#x4E0E;&#x4E24;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x4E0D;&#x540C;&#x7684;&#x662F;&#xFF0C;&#x4E09;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x6709;&#x4E24;&#x4E2A;&#x6539;&#x52A8;&#x70B9;&#x3002;</p>
+<p>1&#x3001;&#x5F15;&#x5165;&#x8D85;&#x65F6;&#x673A;&#x5236;&#x3002;&#x540C;&#x65F6;&#x5728;&#x534F;&#x8C03;&#x8005;&#x548C;&#x53C2;&#x4E0E;&#x8005;&#x4E2D;&#x90FD;&#x5F15;&#x5165;&#x8D85;&#x65F6;&#x673A;&#x5236;&#x3002;</p>
+<p>2&#x3001;&#x5728;&#x7B2C;&#x4E00;&#x9636;&#x6BB5;&#x548C;&#x7B2C;&#x4E8C;&#x9636;&#x6BB5;&#x4E2D;&#x63D2;&#x5165;&#x4E00;&#x4E2A;&#x51C6;&#x5907;&#x9636;&#x6BB5;&#x3002;&#x4FDD;&#x8BC1;&#x4E86;&#x5728;&#x6700;&#x540E;&#x63D0;&#x4EA4;&#x9636;&#x6BB5;&#x4E4B;&#x524D;&#x5404;&#x53C2;&#x4E0E;&#x8282;&#x70B9;&#x7684;&#x72B6;&#x6001;&#x662F;&#x4E00;&#x81F4;&#x7684;&#x3002;</p>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x9664;&#x4E86;&#x5F15;&#x5165;&#x8D85;&#x65F6;&#x673A;&#x5236;&#x4E4B;&#x5916;&#xFF0C;3PC&#x628A;2PC&#x7684;&#x51C6;&#x5907;&#x9636;&#x6BB5;&#x518D;&#x6B21;&#x4E00;&#x5206;&#x4E3A;&#x4E8C;&#xFF0C;&#x8FD9;&#x6837;&#x4E09;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x5C31;&#x6709;CanCommit&#x3001;PreCommit&#x3001;DoCommit&#x4E09;&#x4E2A;&#x9636;&#x6BB5;&#x3002;</p>
+<h4 id="61-cancommit&#x9636;&#x6BB5;">6.1 CanCommit&#x9636;&#x6BB5;</h4>
+<p>3PC&#x7684;CanCommit&#x9636;&#x6BB5;&#x5176;&#x5B9E;&#x548C;2PC&#x7684;&#x51C6;&#x5907;&#x9636;&#x6BB5;&#x5F88;&#x50CF;&#x3002;&#x534F;&#x8C03;&#x8005;&#x5411;&#x53C2;&#x4E0E;&#x8005;&#x53D1;&#x9001;commit&#x8BF7;&#x6C42;&#xFF0C;&#x53C2;&#x4E0E;&#x8005;&#x5982;&#x679C;&#x53EF;&#x4EE5;&#x63D0;&#x4EA4;&#x5C31;&#x8FD4;&#x56DE;Yes&#x54CD;&#x5E94;&#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE;No&#x54CD;&#x5E94;&#x3002;</p>
+<p>1.&#x4E8B;&#x52A1;&#x8BE2;&#x95EE;&#xFF1A;&#x534F;&#x8C03;&#x8005;&#x5411;&#x53C2;&#x4E0E;&#x8005;&#x53D1;&#x9001;CanCommit&#x8BF7;&#x6C42;&#x3002;&#x8BE2;&#x95EE;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x64CD;&#x4F5C;&#x3002;&#x7136;&#x540E;&#x5F00;&#x59CB;&#x7B49;&#x5F85;&#x53C2;&#x4E0E;&#x8005;&#x7684;&#x54CD;&#x5E94;&#x3002;</p>
+<p>2.&#x54CD;&#x5E94;&#x53CD;&#x9988;&#xFF1A;&#x53C2;&#x4E0E;&#x8005;&#x63A5;&#x5230;CanCommit&#x8BF7;&#x6C42;&#x4E4B;&#x540E;&#xFF0C;&#x6B63;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5982;&#x679C;&#x5176;&#x81EA;&#x8EAB;&#x8BA4;&#x4E3A;&#x53EF;&#x4EE5;&#x987A;&#x5229;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;Yes&#x54CD;&#x5E94;&#xFF0C;&#x5E76;&#x8FDB;&#x5165;&#x9884;&#x5907;&#x72B6;&#x6001;&#x3002;&#x5426;&#x5219;&#x53CD;&#x9988;No</p>
+<h4 id="62-precommit&#x9636;&#x6BB5;">6.2 PreCommit&#x9636;&#x6BB5;</h4>
+<p>&#x534F;&#x8C03;&#x8005;&#x6839;&#x636E;&#x53C2;&#x4E0E;&#x8005;&#x7684;&#x53CD;&#x5E94;&#x60C5;&#x51B5;&#x6765;&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x8BB0;&#x6027;&#x4E8B;&#x52A1;&#x7684;PreCommit&#x64CD;&#x4F5C;&#x3002;&#x6839;&#x636E;&#x54CD;&#x5E94;&#x60C5;&#x51B5;&#xFF0C;&#x6709;&#x4EE5;&#x4E0B;&#x4E24;&#x79CD;&#x53EF;&#x80FD;&#x3002;</p>
+<p>&#x5047;&#x5982;&#x534F;&#x8C03;&#x8005;&#x4ECE;&#x6240;&#x6709;&#x7684;&#x53C2;&#x4E0E;&#x8005;&#x83B7;&#x5F97;&#x7684;&#x53CD;&#x9988;&#x90FD;&#x662F;Yes&#x54CD;&#x5E94;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4F1A;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x7684;&#x9884;&#x6267;&#x884C;&#x3002;</p>
+<p>1.&#x53D1;&#x9001;&#x9884;&#x63D0;&#x4EA4;&#x8BF7;&#x6C42;&#xFF1A;&#x534F;&#x8C03;&#x8005;&#x5411;&#x53C2;&#x4E0E;&#x8005;&#x53D1;&#x9001;PreCommit&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x8FDB;&#x5165;Prepared&#x9636;&#x6BB5;&#x3002;</p>
+<p>2.&#x4E8B;&#x52A1;&#x9884;&#x63D0;&#x4EA4;&#xFF1A;&#x53C2;&#x4E0E;&#x8005;&#x63A5;&#x6536;&#x5230;PreCommit&#x8BF7;&#x6C42;&#x540E;&#xFF0C;&#x4F1A;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;&#xFF0C;&#x5E76;&#x5C06;undo&#x548C;redo&#x4FE1;&#x606F;&#x8BB0;&#x5F55;&#x5230;&#x4E8B;&#x52A1;&#x65E5;&#x5FD7;&#x4E2D;&#x3002;</p>
+<p>3.&#x54CD;&#x5E94;&#x53CD;&#x9988;&#xFF1A;&#x5982;&#x679C;&#x53C2;&#x4E0E;&#x8005;&#x6210;&#x529F;&#x7684;&#x6267;&#x884C;&#x4E86;&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;ACK&#x54CD;&#x5E94;&#xFF0C;&#x540C;&#x65F6;&#x5F00;&#x59CB;&#x7B49;&#x5F85;&#x6700;&#x7EC8;&#x6307;&#x4EE4;&#x3002;</p>
+<p>&#x5047;&#x5982;&#x6709;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x53C2;&#x4E0E;&#x8005;&#x5411;&#x534F;&#x8C03;&#x8005;&#x53D1;&#x9001;&#x4E86;No&#x54CD;&#x5E94;&#xFF0C;&#x6216;&#x8005;&#x7B49;&#x5F85;&#x8D85;&#x65F6;&#x4E4B;&#x540E;&#xFF0C;&#x534F;&#x8C03;&#x8005;&#x90FD;&#x6CA1;&#x6709;&#x63A5;&#x5230;&#x53C2;&#x4E0E;&#x8005;&#x7684;&#x54CD;&#x5E94;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x7684;&#x4E2D;&#x65AD;&#x3002;</p>
+<p>1.&#x53D1;&#x9001;&#x4E2D;&#x65AD;&#x8BF7;&#x6C42;&#xFF1A;&#x534F;&#x8C03;&#x8005;&#x5411;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x53D1;&#x9001;abort&#x8BF7;&#x6C42;&#x3002;</p>
+<p>2.&#x4E2D;&#x65AD;&#x4E8B;&#x52A1;&#xFF1A;&#x53C2;&#x4E0E;&#x8005;&#x6536;&#x5230;&#x6765;&#x81EA;&#x534F;&#x8C03;&#x8005;&#x7684;abort&#x8BF7;&#x6C42;&#x4E4B;&#x540E;&#xFF08;&#x6216;&#x8D85;&#x65F6;&#x4E4B;&#x540E;&#xFF0C;&#x4ECD;&#x672A;&#x6536;&#x5230;&#x534F;&#x8C03;&#x8005;&#x7684;&#x8BF7;&#x6C42;&#xFF09;&#xFF0C;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x7684;&#x4E2D;&#x65AD;&#x3002;</p>
+<h4 id="63-docommit&#x9636;&#x6BB5;">6.3 doCommit&#x9636;&#x6BB5;</h4>
+<p>&#x8BE5;&#x9636;&#x6BB5;&#x8FDB;&#x884C;&#x771F;&#x6B63;&#x7684;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4EE5;&#x4E0B;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#x3002;</p>
+<p>&#x6267;&#x884C;&#x63D0;&#x4EA4;</p>
+<p>1.&#x53D1;&#x9001;&#x63D0;&#x4EA4;&#x8BF7;&#x6C42;&#xFF1A;&#x534F;&#x8C03;&#x63A5;&#x6536;&#x5230;&#x53C2;&#x4E0E;&#x8005;&#x53D1;&#x9001;&#x7684;ACK&#x54CD;&#x5E94;&#xFF0C;&#x90A3;&#x4E48;&#x4ED6;&#x5C06;&#x4ECE;&#x9884;&#x63D0;&#x4EA4;&#x72B6;&#x6001;&#x8FDB;&#x5165;&#x5230;&#x63D0;&#x4EA4;&#x72B6;&#x6001;&#x3002;&#x5E76;&#x5411;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x53D1;&#x9001;doCommit&#x8BF7;&#x6C42;&#x3002;</p>
+<p>2.&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#xFF1A;&#x53C2;&#x4E0E;&#x8005;&#x63A5;&#x6536;&#x5230;doCommit&#x8BF7;&#x6C42;&#x4E4B;&#x540E;&#xFF0C;&#x6267;&#x884C;&#x6B63;&#x5F0F;&#x7684;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x3002;&#x5E76;&#x5728;&#x5B8C;&#x6210;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x4E4B;&#x540E;&#x91CA;&#x653E;&#x6240;&#x6709;&#x4E8B;&#x52A1;&#x8D44;&#x6E90;&#x3002;</p>
+<p>3.&#x54CD;&#x5E94;&#x53CD;&#x9988;&#xFF1A;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x5B8C;&#x4E4B;&#x540E;&#xFF0C;&#x5411;&#x534F;&#x8C03;&#x8005;&#x53D1;&#x9001;Ack&#x54CD;&#x5E94;&#x3002;</p>
+<p>4.&#x5B8C;&#x6210;&#x4E8B;&#x52A1;&#xFF1A;&#x534F;&#x8C03;&#x8005;&#x63A5;&#x6536;&#x5230;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x7684;ack&#x54CD;&#x5E94;&#x4E4B;&#x540E;&#xFF0C;&#x5B8C;&#x6210;&#x4E8B;&#x52A1;&#x3002;</p>
+<p>&#x4E2D;&#x65AD;&#x4E8B;&#x52A1;&#xFF1A;&#x534F;&#x8C03;&#x8005;&#x6CA1;&#x6709;&#x63A5;&#x6536;&#x5230;&#x53C2;&#x4E0E;&#x8005;&#x53D1;&#x9001;&#x7684;ACK&#x54CD;&#x5E94;&#xFF08;&#x53EF;&#x80FD;&#x662F;&#x63A5;&#x53D7;&#x8005;&#x53D1;&#x9001;&#x7684;&#x4E0D;&#x662F;ACK&#x54CD;&#x5E94;&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x54CD;&#x5E94;&#x8D85;&#x65F6;&#xFF09;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4F1A;&#x6267;&#x884C;&#x4E2D;&#x65AD;&#x4E8B;&#x52A1;&#x3002;</p>
+<p>1.&#x53D1;&#x9001;&#x4E2D;&#x65AD;&#x8BF7;&#x6C42;&#xFF1A;&#x534F;&#x8C03;&#x8005;&#x5411;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x53D1;&#x9001;abort&#x8BF7;&#x6C42;</p>
+<p>2.&#x4E8B;&#x52A1;&#x56DE;&#x6EDA;&#xFF1A;&#x53C2;&#x4E0E;&#x8005;&#x63A5;&#x6536;&#x5230;abort&#x8BF7;&#x6C42;&#x4E4B;&#x540E;&#xFF0C;&#x5229;&#x7528;&#x5176;&#x5728;&#x9636;&#x6BB5;&#x4E8C;&#x8BB0;&#x5F55;&#x7684;undo&#x4FE1;&#x606F;&#x6765;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x7684;&#x56DE;&#x6EDA;&#x64CD;&#x4F5C;&#xFF0C;&#x5E76;&#x5728;&#x5B8C;&#x6210;&#x56DE;&#x6EDA;&#x4E4B;&#x540E;&#x91CA;&#x653E;&#x6240;&#x6709;&#x7684;&#x4E8B;&#x52A1;&#x8D44;&#x6E90;&#x3002;</p>
+<p>3.&#x53CD;&#x9988;&#x7ED3;&#x679C;&#xFF1A;&#x53C2;&#x4E0E;&#x8005;&#x5B8C;&#x6210;&#x4E8B;&#x52A1;&#x56DE;&#x6EDA;&#x4E4B;&#x540E;&#xFF0C;&#x5411;&#x534F;&#x8C03;&#x8005;&#x53D1;&#x9001;ACK&#x6D88;&#x606F;</p>
+<p>4.&#x4E2D;&#x65AD;&#x4E8B;&#x52A1;&#xFF1A;&#x534F;&#x8C03;&#x8005;&#x63A5;&#x6536;&#x5230;&#x53C2;&#x4E0E;&#x8005;&#x53CD;&#x9988;&#x7684;ACK&#x6D88;&#x606F;&#x4E4B;&#x540E;&#xFF0C;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x7684;&#x4E2D;&#x65AD;&#x3002;</p>
+<p>&#x5728;doCommit&#x9636;&#x6BB5;&#xFF0C;&#x5982;&#x679C;&#x53C2;&#x4E0E;&#x8005;&#x65E0;&#x6CD5;&#x53CA;&#x65F6;&#x63A5;&#x6536;&#x5230;&#x6765;&#x81EA;&#x534F;&#x8C03;&#x8005;&#x7684;doCommit&#x6216;&#x8005;rebort&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x4F1A;&#x5728;&#x7B49;&#x5F85;&#x8D85;&#x65F6;&#x4E4B;&#x540E;&#xFF0C;&#x4F1A;&#x7EE7;&#x7EED;&#x8FDB;&#x884C;&#x4E8B;&#x52A1;&#x7684;&#x63D0;&#x4EA4;&#x3002;&#xFF08;&#x5176;&#x5B9E;&#x8FD9;&#x4E2A;&#x5E94;&#x8BE5;&#x662F;&#x57FA;&#x4E8E;&#x6982;&#x7387;&#x6765;&#x51B3;&#x5B9A;&#x7684;&#xFF0C;&#x5F53;&#x8FDB;&#x5165;&#x7B2C;&#x4E09;&#x9636;&#x6BB5;&#x65F6;&#xFF0C;&#x8BF4;&#x660E;&#x53C2;&#x4E0E;&#x8005;&#x5728;&#x7B2C;&#x4E8C;&#x9636;&#x6BB5;&#x5DF2;&#x7ECF;&#x6536;&#x5230;&#x4E86;PreCommit&#x8BF7;&#x6C42;&#xFF0C;&#x90A3;&#x4E48;&#x534F;&#x8C03;&#x8005;&#x4EA7;&#x751F;PreCommit&#x8BF7;&#x6C42;&#x7684;&#x524D;&#x63D0;&#x6761;&#x4EF6;&#x662F;&#x4ED6;&#x5728;&#x7B2C;&#x4E8C;&#x9636;&#x6BB5;&#x5F00;&#x59CB;&#x4E4B;&#x524D;&#xFF0C;&#x6536;&#x5230;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x8005;&#x7684;CanCommit&#x54CD;&#x5E94;&#x90FD;&#x662F;Yes&#x3002;&#xFF08;&#x4E00;&#x65E6;&#x53C2;&#x4E0E;&#x8005;&#x6536;&#x5230;&#x4E86;PreCommit&#xFF0C;&#x610F;&#x5473;&#x4ED6;&#x77E5;&#x9053;&#x5927;&#x5BB6;&#x5176;&#x5B9E;&#x90FD;&#x540C;&#x610F;&#x4FEE;&#x6539;&#x4E86;&#xFF09;</p>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x4E00;&#x53E5;&#x8BDD;&#x6982;&#x62EC;&#x5C31;&#x662F;&#xFF0C;&#x5F53;&#x8FDB;&#x5165;&#x7B2C;&#x4E09;&#x9636;&#x6BB5;&#x65F6;&#xFF0C;&#x7531;&#x4E8E;&#x7F51;&#x7EDC;&#x8D85;&#x65F6;&#x7B49;&#x539F;&#x56E0;&#xFF0C;&#x867D;&#x7136;&#x53C2;&#x4E0E;&#x8005;&#x6CA1;&#x6709;&#x6536;&#x5230;commit&#x6216;&#x8005;abort&#x54CD;&#x5E94;&#xFF0C;&#x4F46;&#x662F;&#x4ED6;&#x6709;&#x7406;&#x7531;&#x76F8;&#x4FE1;&#xFF1A;&#x6210;&#x529F;&#x63D0;&#x4EA4;&#x7684;&#x51E0;&#x7387;&#x5F88;&#x5927;&#x3002; &#xFF09;</p>
+<h3 id="7-2pc&#x4E0E;3pc&#x7684;&#x533A;&#x522B;">7. 2PC&#x4E0E;3PC&#x7684;&#x533A;&#x522B;</h3>
+<p>&#x76F8;&#x5BF9;&#x4E8E;2PC&#xFF0C;3PC&#x4E3B;&#x8981;&#x89E3;&#x51B3;&#x7684;&#x5355;&#x70B9;&#x6545;&#x969C;&#x95EE;&#x9898;&#xFF0C;&#x5E76;&#x51CF;&#x5C11;&#x963B;&#x585E;&#xFF0C;&#x56E0;&#x4E3A;&#x4E00;&#x65E6;&#x53C2;&#x4E0E;&#x8005;&#x65E0;&#x6CD5;&#x53CA;&#x65F6;&#x6536;&#x5230;&#x6765;&#x81EA;&#x534F;&#x8C03;&#x8005;&#x7684;&#x4FE1;&#x606F;&#x4E4B;&#x540E;&#xFF0C;&#x4ED6;&#x4F1A;&#x9ED8;&#x8BA4;&#x6267;&#x884C;commit&#x3002;&#x800C;&#x4E0D;&#x4F1A;&#x4E00;&#x76F4;&#x6301;&#x6709;&#x4E8B;&#x52A1;&#x8D44;&#x6E90;&#x5E76;&#x5904;&#x4E8E;&#x963B;&#x585E;&#x72B6;&#x6001;&#x3002;&#x4F46;&#x662F;&#x8FD9;&#x79CD;&#x673A;&#x5236;&#x4E5F;&#x4F1A;&#x5BFC;&#x81F4;&#x6570;&#x636E;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;&#xFF0C;&#x56E0;&#x4E3A;&#xFF0C;&#x7531;&#x4E8E;&#x7F51;&#x7EDC;&#x539F;&#x56E0;&#xFF0C;&#x534F;&#x8C03;&#x8005;&#x53D1;&#x9001;&#x7684;abort&#x54CD;&#x5E94;&#x6CA1;&#x6709;&#x53CA;&#x65F6;&#x88AB;&#x53C2;&#x4E0E;&#x8005;&#x63A5;&#x6536;&#x5230;&#xFF0C;&#x90A3;&#x4E48;&#x53C2;&#x4E0E;&#x8005;&#x5728;&#x7B49;&#x5F85;&#x8D85;&#x65F6;&#x4E4B;&#x540E;&#x6267;&#x884C;&#x4E86;commit&#x64CD;&#x4F5C;&#x3002;&#x8FD9;&#x6837;&#x5C31;&#x548C;&#x5176;&#x4ED6;&#x63A5;&#x5230;abort&#x547D;&#x4EE4;&#x5E76;&#x6267;&#x884C;&#x56DE;&#x6EDA;&#x7684;&#x53C2;&#x4E0E;&#x8005;&#x4E4B;&#x95F4;&#x5B58;&#x5728;&#x6570;&#x636E;&#x4E0D;&#x4E00;&#x81F4;&#x7684;&#x60C5;&#x51B5;&#x3002;</p>
+<p>&#x4E86;&#x89E3;&#x4E86;2PC&#x548C;3PC&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF0C;&#x65E0;&#x8BBA;&#x662F;&#x4E8C;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x8FD8;&#x662F;&#x4E09;&#x9636;&#x6BB5;&#x63D0;&#x4EA4;&#x90FD;&#x65E0;&#x6CD5;&#x5F7B;&#x5E95;&#x89E3;&#x51B3;&#x5206;&#x5E03;&#x5F0F;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;&#x3002;</p>
+<p>Google Chubby&#x7684;&#x4F5C;&#x8005;Mike Burrows&#x8BF4;&#x8FC7;&#xFF0C; there is only one consensus protocol, and that&#x2019;s Paxos&#x201D; &#x2013; all other approaches are just broken versions of Paxos. &#x610F;&#x5373;&#x4E16;&#x4E0A;&#x53EA;&#x6709;&#x4E00;&#x79CD;&#x4E00;&#x81F4;&#x6027;&#x7B97;&#x6CD5;&#xFF0C;&#x90A3;&#x5C31;&#x662F;Paxos&#xFF0C;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x4E00;&#x81F4;&#x6027;&#x7B97;&#x6CD5;&#x90FD;&#x662F;Paxos&#x7B97;&#x6CD5;&#x7684;&#x4E0D;&#x5B8C;&#x6574;&#x7248;&#x3002;</p>
+<h3 id="&#x53C2;&#x8003;&#x8D44;&#x6599;">&#x53C2;&#x8003;&#x8D44;&#x6599;</h3>
+<h4 id="1-2pc&#x5230;3pc&#x5230;paxos&#x5230;raft&#x5230;isr">1. 2PC&#x5230;3PC&#x5230;Paxos&#x5230;Raft&#x5230;ISR</h4>
+<p><a href="https://segmentfault.com/a/1190000004474543" target="_blank">https://segmentfault.com/a/1190000004474543</a></p>
+<h4 id="2-&#x7EF4;&#x57FA;&#x767E;&#x79D1;&#x4E2D;paxos&#x6761;&#x76EE;">2. &#x7EF4;&#x57FA;&#x767E;&#x79D1;&#x4E2D;Paxos&#x6761;&#x76EE;</h4>
+<p><a href="https://en.wikipedia.org/wiki/Paxos_(computer_science" target="_blank">https://en.wikipedia.org/wiki/Paxos_(computer_science</a>)</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="raft-zh_cn.html" class="navigation navigation-prev " aria-label="Previous page: 1.4 RAFT算法">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../" class="navigation navigation-next " aria-label="Next page: 2 Java">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"1.5 3分钟理解PAXOS算法","level":"1.2.5","depth":2,"next":{"title":"2 Java","level":"1.3","depth":1,"path":"README.md","ref":"README.md","articles":[{"title":"2.1 JavaGC优化","level":"1.3.1","depth":2,"path":"java/从实际案例聊聊Java应用的GC优化.md","ref":"java/从实际案例聊聊Java应用的GC优化.md","articles":[]},{"title":"2.2 设计模式","level":"1.3.2","depth":2,"path":"java/设计模式23.md","ref":"java/设计模式23.md","articles":[]},{"title":"2.3 EffectiveJava","level":"1.3.3","depth":2,"path":"java/Effective Java.md","ref":"java/Effective Java.md","articles":[]},{"title":"2.4 Java学习笔记","level":"1.3.4","depth":2,"path":"java/Java学习笔记.md","ref":"java/Java学习笔记.md","articles":[]},{"title":"2.5 JDK相关","level":"1.3.5","depth":2,"path":"java/JDK相关.md","ref":"java/JDK相关.md","articles":[]},{"title":"2.6 阿里Java编码规范整理","level":"1.3.6","depth":2,"path":"java/AlibabaJavaCodingGuidelines.md","ref":"java/AlibabaJavaCodingGuidelines.md","articles":[]},{"title":"2.7 深入了解Java程序执行顺序","level":"1.3.7","depth":2,"path":"java/Java程序执行次序.md","ref":"java/Java程序执行次序.md","articles":[]},{"title":"2.8 JDK定时任务对比","level":"1.3.8","depth":2,"path":"java/JDK定时任务对比.md","ref":"java/JDK定时任务对比.md","articles":[]}]},"previous":{"title":"1.4 RAFT算法","level":"1.2.4","depth":2,"path":"algorithm/raft-zh_cn.md","ref":"algorithm/raft-zh_cn.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"algorithm/PAXOS.md","mtime":"2018-06-26T13:03:27.987Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-26T13:49:56.226Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

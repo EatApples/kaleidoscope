@@ -1,0 +1,1224 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>3.2 SpringBoot的注解 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Eureka.html" />
+    
+    
+    <link rel="prev" href="SpringBoot-pom-xml.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    0 Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    1 Algorithm
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../algorithm/CAP.html">
+            
+                <a href="../algorithm/CAP.html">
+            
+                    
+                    1.1 CAP理论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../algorithm/ZAB协议.html">
+            
+                <a href="../algorithm/ZAB协议.html">
+            
+                    
+                    1.2 ZAB协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../algorithm/分布式锁.html">
+            
+                <a href="../algorithm/分布式锁.html">
+            
+                    
+                    1.3 分布式锁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../algorithm/raft-zh_cn.html">
+            
+                <a href="../algorithm/raft-zh_cn.html">
+            
+                    
+                    1.4 RAFT算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../algorithm/PAXOS.html">
+            
+                <a href="../algorithm/PAXOS.html">
+            
+                    
+                    1.5 3分钟理解PAXOS算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    2 Java
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../java/从实际案例聊聊Java应用的GC优化.html">
+            
+                <a href="../java/从实际案例聊聊Java应用的GC优化.html">
+            
+                    
+                    2.1 JavaGC优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../java/设计模式23.html">
+            
+                <a href="../java/设计模式23.html">
+            
+                    
+                    2.2 设计模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../java/Effective Java.html">
+            
+                <a href="../java/Effective Java.html">
+            
+                    
+                    2.3 EffectiveJava
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../java/Java学习笔记.html">
+            
+                <a href="../java/Java学习笔记.html">
+            
+                    
+                    2.4 Java学习笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../java/JDK相关.html">
+            
+                <a href="../java/JDK相关.html">
+            
+                    
+                    2.5 JDK相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../java/AlibabaJavaCodingGuidelines.html">
+            
+                <a href="../java/AlibabaJavaCodingGuidelines.html">
+            
+                    
+                    2.6 阿里Java编码规范整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../java/Java程序执行次序.html">
+            
+                <a href="../java/Java程序执行次序.html">
+            
+                    
+                    2.7 深入了解Java程序执行顺序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../java/JDK定时任务对比.html">
+            
+                <a href="../java/JDK定时任务对比.html">
+            
+                    
+                    2.8 JDK定时任务对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    3 SpringBoot
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="SpringBoot-pom-xml.html">
+            
+                <a href="SpringBoot-pom-xml.html">
+            
+                    
+                    3.1 SpringBoot的pom.xml
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.2" data-path="SpringBoot注解.html">
+            
+                <a href="SpringBoot注解.html">
+            
+                    
+                    3.2 SpringBoot的注解
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="Eureka.html">
+            
+                <a href="Eureka.html">
+            
+                    
+                    3.3 Eureka
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="LogBack相关.html">
+            
+                <a href="LogBack相关.html">
+            
+                    
+                    3.4 LogBack
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="Maven相关.html">
+            
+                <a href="Maven相关.html">
+            
+                    
+                    3.5 Maven
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="OAuth2.0.html">
+            
+                <a href="OAuth2.0.html">
+            
+                    
+                    3.6 OAuth2.0
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="SpringBoot排错.html">
+            
+                <a href="SpringBoot排错.html">
+            
+                    
+                    3.7 SpringBoot排错
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="SpringBoot排雷现场.html">
+            
+                <a href="SpringBoot排雷现场.html">
+            
+                    
+                    3.8 SpringBoot排雷现场
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="SpringBoot释疑.html">
+            
+                <a href="SpringBoot释疑.html">
+            
+                    
+                    3.9 SpringBoot释疑
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="SpringBoot引入log4j的配置.html">
+            
+                <a href="SpringBoot引入log4j的配置.html">
+            
+                    
+                    3.10 SpringBoot引入log4j的配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="SpringBoot启动脚本.html">
+            
+                <a href="SpringBoot启动脚本.html">
+            
+                    
+                    3.11 SpringBoot启动脚本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="SpringBoot定时任务.html">
+            
+                <a href="SpringBoot定时任务.html">
+            
+                    
+                    3.12 SpringBoot定时任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13" data-path="SpringBoot初始化任务.html">
+            
+                <a href="SpringBoot初始化任务.html">
+            
+                    
+                    3.13 SpringBoot初始化任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.14" data-path="SpringBootRedis.html">
+            
+                <a href="SpringBootRedis.html">
+            
+                    
+                    3.14 SpringBootRedis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.15" data-path="SpringBootRabbitMQ.html">
+            
+                <a href="SpringBootRabbitMQ.html">
+            
+                    
+                    3.15 SpringBootRabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.16" data-path="packaging为pom标签的用法.html">
+            
+                <a href="packaging为pom标签的用法.html">
+            
+                    
+                    3.16 pom标签
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17" data-path="客户端配置更新.html">
+            
+                <a href="客户端配置更新.html">
+            
+                    
+                    3.17 客户端配置更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.18" data-path="SpringBoot配置优先级.html">
+            
+                <a href="SpringBoot配置优先级.html">
+            
+                    
+                    3.18 SpringBoot配置优先级
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    4 RabbitMQ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../rabbitmq/RabbitMQ相关.html">
+            
+                <a href="../rabbitmq/RabbitMQ相关.html">
+            
+                    
+                    4.1 RabbitMQ相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../rabbitmq/RabbitMQ四种发送方式区别.html">
+            
+                <a href="../rabbitmq/RabbitMQ四种发送方式区别.html">
+            
+                    
+                    4.2 RabbitMQ四种发送方式区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../rabbitmq/RabbitMQ安装全记录.html">
+            
+                <a href="../rabbitmq/RabbitMQ安装全记录.html">
+            
+                    
+                    4.3 RabbitMQ安装全记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../rabbitmq/RabbitMQ多地址连接.html">
+            
+                <a href="../rabbitmq/RabbitMQ多地址连接.html">
+            
+                    
+                    4.4 RabbitMQ多地址连接
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    5 Shell
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../shell/免密登陆.html">
+            
+                <a href="../shell/免密登陆.html">
+            
+                    
+                    5.1 免密登陆
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../shell/iptables命令.html">
+            
+                <a href="../shell/iptables命令.html">
+            
+                    
+                    5.2 iptables命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../shell/scp命令.html">
+            
+                <a href="../shell/scp命令.html">
+            
+                    
+                    5.3 scp命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../shell/shell特殊变量的含义.html">
+            
+                <a href="../shell/shell特殊变量的含义.html">
+            
+                    
+                    5.4 shell特殊变量的含义
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../shell/TCP最大连接数.html">
+            
+                <a href="../shell/TCP最大连接数.html">
+            
+                    
+                    5.5 TCP最大连接数
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    6 ZooKeeper
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../zookeeper/ZooKeeper集群安装.html">
+            
+                <a href="../zookeeper/ZooKeeper集群安装.html">
+            
+                    
+                    6.1 ZooKeeper集群安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../zookeeper/ZooKeeper权限控制.html">
+            
+                <a href="../zookeeper/ZooKeeper权限控制.html">
+            
+                    
+                    6.2 ZooKeeper权限控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../zookeeper/ZooKeeperWatcher.html">
+            
+                <a href="../zookeeper/ZooKeeperWatcher.html">
+            
+                    
+                    6.3 ZooKeeperWatcher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../zookeeper/ZooKeeper连接.html">
+            
+                <a href="../zookeeper/ZooKeeper连接.html">
+            
+                    
+                    6.4 ZooKeeper连接
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../pic/PIC.html">
+            
+                <a href="../pic/PIC.html">
+            
+                    
+                    7 Pic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    8 Other
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../other/GitBook.html">
+            
+                <a href="../other/GitBook.html">
+            
+                    
+                    1 GitBook
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../other/MySQL.html">
+            
+                <a href="../other/MySQL.html">
+            
+                    
+                    2 MySQL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../other/MD语法.html">
+            
+                <a href="../other/MD语法.html">
+            
+                    
+                    3 MarkDown
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../other/windows相关.html">
+            
+                <a href="../other/windows相关.html">
+            
+                    
+                    4 Windows相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="../other/Sublime Text 3 快捷键精华版.html">
+            
+                <a href="../other/Sublime Text 3 快捷键精华版.html">
+            
+                    
+                    5 SublimeText3快捷键精华版
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="../other/zabbix.html">
+            
+                <a href="../other/zabbix.html">
+            
+                    
+                    6 Zabbix
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="../other/Nginx安装.html">
+            
+                <a href="../other/Nginx安装.html">
+            
+                    
+                    7 Nginx
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.8" data-path="../other/TBSchedule.html">
+            
+                <a href="../other/TBSchedule.html">
+            
+                    
+                    8 TBSchedule
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.9" data-path="../other/webdis安装.html">
+            
+                <a href="../other/webdis安装.html">
+            
+                    
+                    9 webdis安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >3.2 SpringBoot的注解</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h3 id="&#x4EC0;&#x4E48;&#x662F;&#x6CE8;&#x89E3;">&#x4EC0;&#x4E48;&#x662F;&#x6CE8;&#x89E3;</h3>
+<p>&#x6CE8;&#x89E3;&#x4E5F;&#x53EB;&#x5143;&#x6570;&#x636E;&#xFF0C;&#x4F8B;&#x5982;&#x6211;&#x4EEC;&#x5E38;&#x89C1;&#x7684;@Override&#x548C;@Deprecated&#xFF0C;&#x6CE8;&#x89E3;&#x662F;JDK1.5&#x7248;&#x672C;&#x5F00;&#x59CB;&#x5F15;&#x5165;&#x7684;&#x4E00;&#x4E2A;&#x7279;&#x6027;&#xFF0C;&#x7528;&#x4E8E;&#x5BF9;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x8BF4;&#x660E;&#xFF0C;&#x53EF;&#x4EE5;&#x5BF9;&#x5305;&#x3001;&#x7C7B;&#x3001;&#x63A5;&#x53E3;&#x3001;&#x5B57;&#x6BB5;&#x3001;&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x3001;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x7B49;&#x8FDB;&#x884C;&#x6CE8;&#x89E3;&#x3002;&#x5B83;&#x4E3B;&#x8981;&#x7684;&#x4F5C;&#x7528;&#x6709;&#x4EE5;&#x4E0B;&#x56DB;&#x65B9;&#x9762;&#xFF1A;</p>
+<p>&#x751F;&#x6210;&#x6587;&#x6863;&#xFF0C;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x91CC;&#x6807;&#x8BC6;&#x7684;&#x5143;&#x6570;&#x636E;&#x751F;&#x6210;javadoc&#x6587;&#x6863;&#x3002;
+&#x7F16;&#x8BD1;&#x68C0;&#x67E5;&#xFF0C;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x91CC;&#x6807;&#x8BC6;&#x7684;&#x5143;&#x6570;&#x636E;&#x8BA9;&#x7F16;&#x8BD1;&#x5668;&#x5728;&#x7F16;&#x8BD1;&#x671F;&#x95F4;&#x8FDB;&#x884C;&#x68C0;&#x67E5;&#x9A8C;&#x8BC1;&#x3002;
+&#x7F16;&#x8BD1;&#x65F6;&#x52A8;&#x6001;&#x5904;&#x7406;&#xFF0C;&#x7F16;&#x8BD1;&#x65F6;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x91CC;&#x6807;&#x8BC6;&#x7684;&#x5143;&#x6570;&#x636E;&#x52A8;&#x6001;&#x5904;&#x7406;&#xFF0C;&#x4F8B;&#x5982;&#x52A8;&#x6001;&#x751F;&#x6210;&#x4EE3;&#x7801;&#x3002;
+&#x8FD0;&#x884C;&#x65F6;&#x52A8;&#x6001;&#x5904;&#x7406;&#xFF0C;&#x8FD0;&#x884C;&#x65F6;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x91CC;&#x6807;&#x8BC6;&#x7684;&#x5143;&#x6570;&#x636E;&#x52A8;&#x6001;&#x5904;&#x7406;&#xFF0C;&#x4F8B;&#x5982;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x6CE8;&#x5165;&#x5B9E;&#x4F8B;&#x3002;</p>
+<h3 id="&#x4E00;&#x822C;&#x6CE8;&#x89E3;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x7C7B;&#xFF1A;">&#x4E00;&#x822C;&#x6CE8;&#x89E3;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x7C7B;&#xFF1A;</h3>
+<ol>
+<li><p>&#x4E00;&#x7C7B;&#x662F;Java&#x81EA;&#x5E26;&#x7684;&#x6807;&#x51C6;&#x6CE8;&#x89E3;&#xFF0C;&#x5305;&#x62EC;@Override&#x3001;@Deprecated&#x548C;@SuppressWarnings&#xFF0C;&#x5206;&#x522B;&#x7528;&#x4E8E;&#x6807;&#x660E;&#x91CD;&#x5199;&#x67D0;&#x4E2A;&#x65B9;&#x6CD5;&#x3001;&#x6807;&#x660E;&#x67D0;&#x4E2A;&#x7C7B;&#x6216;&#x65B9;&#x6CD5;&#x8FC7;&#x65F6;&#x3001;&#x6807;&#x660E;&#x8981;&#x5FFD;&#x7565;&#x7684;&#x8B66;&#x544A;&#xFF0C;&#x7528;&#x8FD9;&#x4E9B;&#x6CE8;&#x89E3;&#x6807;&#x660E;&#x540E;&#x7F16;&#x8BD1;&#x5668;&#x5C31;&#x4F1A;&#x8FDB;&#x884C;&#x68C0;&#x67E5;&#x3002;</p>
+</li>
+<li><p>&#x4E00;&#x7C7B;&#x4E3A;&#x5143;&#x6CE8;&#x89E3;&#xFF0C;&#x5143;&#x6CE8;&#x89E3;&#x662F;&#x7528;&#x4E8E;&#x5B9A;&#x4E49;&#x6CE8;&#x89E3;&#x7684;&#x6CE8;&#x89E3;&#xFF0C;&#x5305;&#x62EC;@Retention&#x3001;@Target&#x3001;@Inherited&#x3001;@Documented&#xFF0C;
+@Retention&#x7528;&#x4E8E;&#x6807;&#x660E;&#x6CE8;&#x89E3;&#x88AB;&#x4FDD;&#x7559;&#x7684;&#x9636;&#x6BB5;&#xFF0C;
+@Target&#x7528;&#x4E8E;&#x6807;&#x660E;&#x6CE8;&#x89E3;&#x4F7F;&#x7528;&#x7684;&#x8303;&#x56F4;&#xFF0C;
+@Inherited&#x7528;&#x4E8E;&#x6807;&#x660E;&#x6CE8;&#x89E3;&#x53EF;&#x7EE7;&#x627F;&#xFF0C;
+@Documented&#x7528;&#x4E8E;&#x6807;&#x660E;&#x662F;&#x5426;&#x751F;&#x6210;javadoc&#x6587;&#x6863;&#x3002;</p>
+</li>
+<li><p>&#x4E00;&#x7C7B;&#x4E3A;&#x81EA;&#x5B9A;&#x4E49;&#x6CE8;&#x89E3;&#xFF0C;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x81EA;&#x5DF1;&#x7684;&#x9700;&#x6C42;&#x5B9A;&#x4E49;&#x6CE8;&#x89E3;&#xFF0C;&#x5E76;&#x53EF;&#x7528;&#x5143;&#x6CE8;&#x89E3;&#x5BF9;&#x81EA;&#x5B9A;&#x4E49;&#x6CE8;&#x89E3;&#x8FDB;&#x884C;&#x6CE8;&#x89E3;&#x3002;</p>
+</li>
+</ol>
+<p>Java&#x5185;&#x7F6E;&#x7684;&#x6CE8;&#x89E3;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x5373;&#x53EF;&#xFF0C;&#x4F46;&#x5F88;&#x591A;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x5B9A;&#x4E49;&#x4E00;&#x4E9B;&#x6CE8;&#x89E3;&#xFF0C;&#x4F8B;&#x5982;&#x5E38;&#x89C1;&#x7684;spring&#x5C31;&#x7528;&#x4E86;&#x5927;&#x91CF;&#x7684;&#x6CE8;&#x89E3;&#x6765;&#x7BA1;&#x7406;&#x5BF9;&#x8C61;&#x4E4B;&#x95F4;&#x7684;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x3002;</p>
+<h3 id="&#x5982;&#x4F55;&#x83B7;&#x53D6;&#x6CE8;&#x89E3;&#x53C2;&#x6570;">&#x5982;&#x4F55;&#x83B7;&#x53D6;&#x6CE8;&#x89E3;&#x53C2;&#x6570;</h3>
+<p>&#x8FD9;&#x91CC;&#x5F3A;&#x8C03;&#x4E00;&#x4E0B;&#xFF0C;Annotation&#x662F;&#x88AB;&#x52A8;&#x7684;&#x5143;&#x6570;&#x636E;&#xFF0C;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x6709;&#x4E3B;&#x52A8;&#x884C;&#x4E3A;&#xFF0C;&#x4F46;&#x51E1;Annotation&#x8D77;&#x4F5C;&#x7528;&#x7684;&#x573A;&#x5408;&#x90FD;&#x662F;&#x6709;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x673A;&#x5236;/&#x8C03;&#x7528;&#x8005;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x83B7;&#x5F97;&#x4E86;&#x8FD9;&#x4E2A;&#x5143;&#x6570;&#x636E;&#x7136;&#x540E;&#x6839;&#x636E;&#x5B83;&#x91C7;&#x53D6;&#x884C;&#x52A8;</p>
+<p>&#x6CE8;&#x89E3;&#x672C;&#x8EAB;&#x4E0D;&#x505A;&#x4EFB;&#x4F55;&#x4E8B;&#x60C5;&#xFF0C;&#x53EA;&#x662F;&#x50CF;xml&#x6587;&#x4EF6;&#x4E00;&#x6837;&#x8D77;&#x5230;&#x914D;&#x7F6E;&#x4F5C;&#x7528;&#x3002;&#x6CE8;&#x89E3;&#x4EE3;&#x8868;&#x7684;&#x662F;&#x67D0;&#x79CD;&#x4E1A;&#x52A1;&#x610F;&#x4E49;&#xFF0C;&#x6CE8;&#x89E3;&#x80CC;&#x540E;&#x5904;&#x7406;&#x5668;&#x7684;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#x5982;&#x4E0A;&#x6E90;&#x7801;&#x5B9E;&#x73B0;&#xFF1A;&#x9996;&#x5148;&#x89E3;&#x6790;&#x6240;&#x6709;&#x5C5E;&#x6027;&#xFF0C;&#x5224;&#x65AD;&#x5C5E;&#x6027;&#x4E0A;&#x662F;&#x5426;&#x5B58;&#x5728;&#x6307;&#x5B9A;&#x6CE8;&#x89E3;&#xFF0C;&#x5982;&#x679C;&#x5B58;&#x5728;&#x5219;&#x6839;&#x636E;&#x641C;&#x7D22;&#x89C4;&#x5219;&#x53D6;&#x5F97;bean&#xFF0C;&#x7136;&#x540E;&#x5229;&#x7528;&#x53CD;&#x5C04;&#x539F;&#x7406;&#x6CE8;&#x5165;&#x3002;&#x5982;&#x679C;&#x6807;&#x6CE8;&#x5728;&#x5B57;&#x6BB5;&#x4E0A;&#x9762;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5B57;&#x6BB5;&#x7684;&#x53CD;&#x5C04;&#x6280;&#x672F;&#x53D6;&#x5F97;&#x6CE8;&#x89E3;&#xFF0C;&#x6839;&#x636E;&#x641C;&#x7D22;&#x89C4;&#x5219;&#x53D6;&#x5F97;bean&#xFF0C;&#x7136;&#x540E;&#x5229;&#x7528;&#x53CD;&#x5C04;&#x6280;&#x672F;&#x6CE8;&#x5165;&#x3002;</p>
+<p>&#x770B;&#x6765;&#x5982;&#x679C;&#x60F3;&#x7528;&#x81EA;&#x5DF1;&#x7684;&#x6CE8;&#x89E3;&#x7C7B;&#xFF0C;&#x8FD8;&#x662F;&#x5F97;&#x7F16;&#x5199;&#x81EA;&#x5DF1;&#x7684;&#x89E3;&#x6790;&#x5904;&#x7406;&#x7C7B;</p>
+<h3 id="1-springbootapplication">1. @SpringBootApplication</h3>
+<p>&#x4F7F;&#x7528; @ComponentScan, @EntityScan or @SpringBootApplication &#x6CE8;&#x89E3;&#x6765;&#x89E6;&#x53D1;&#x4F9D;&#x8D56;&#x6CE8;&#x5165;</p>
+<p>&#x4E4B;&#x524D;&#x7528;&#x6237;&#x4F7F;&#x7528;&#x7684;&#x662F;3&#x4E2A;&#x6CE8;&#x89E3;&#x6CE8;&#x89E3;&#x4ED6;&#x4EEC;&#x7684;main&#x7C7B;&#xFF0C;&#x5206;&#x522B;&#x662F;@Configuration&#x3001;@EnableAutoConfiguration&#x3001;@ComponentScan&#x3002;&#x7531;&#x4E8E;&#x8FD9;&#x4E9B;&#x6CE8;&#x89E3;&#x4E00;&#x822C;&#x90FD;&#x662F;&#x4E00;&#x8D77;&#x4F7F;&#x7528;&#xFF0C;spring boot&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x7EDF;&#x4E00;&#x7684;&#x6CE8;&#x89E3; @SpringBootApplication&#x3002;</p>
+<blockquote>
+<p>@SpringBootApplication = (&#x9ED8;&#x8BA4;&#x5C5E;&#x6027;) @Configuration + @EnableAutoConfiguration+ @ComponentScan</p>
+</blockquote>
+<h3 id="2-configuration">2. @Configuration</h3>
+<p>@Configuration&#xFF1A;&#x63D0;&#x5230;@Configuration&#x5C31;&#x8981;&#x63D0;&#x5230;&#x4ED6;&#x7684;&#x642D;&#x6863;@Bean&#x3002;&#x4F7F;&#x7528;&#x8FD9;&#x4E24;&#x4E2A;&#x6CE8;&#x89E3;&#x5C31;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;spring&#x914D;&#x7F6E;&#x7C7B;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x66FF;&#x4EE3;&#x76F8;&#x5E94;&#x7684;xml&#x914D;&#x7F6E;&#x6587;&#x4EF6;</p>
+<h3 id="3-enableautoconfiguration">3. @EnableAutoConfiguration</h3>
+<p>@EnableAutoConfiguration&#xFF1A;&#x80FD;&#x591F;&#x81EA;&#x52A8;&#x914D;&#x7F6E;spring&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x8BD5;&#x56FE;&#x731C;&#x6D4B;&#x548C;&#x914D;&#x7F6E;&#x4F60;&#x60F3;&#x8981;&#x7684;bean&#x7C7B;&#xFF0C;&#x901A;&#x5E38;&#x4F1A;&#x81EA;&#x52A8;&#x6839;&#x636E;&#x4F60;&#x7684;&#x7C7B;&#x8DEF;&#x5F84;&#x548C;&#x4F60;&#x7684;bean&#x5B9A;&#x4E49;&#x81EA;&#x52A8;&#x914D;&#x7F6E;
+&#x6392;&#x9664;&#x4E0D;&#x60F3;&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x7684;&#x7C7B;</p>
+<blockquote>
+<p>@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})</p>
+</blockquote>
+<h3 id="4-componentscan">4. @ComponentScan</h3>
+<p>@ComponentScan&#xFF1A;&#x4F1A;&#x81EA;&#x52A8;&#x626B;&#x63CF;&#x6307;&#x5B9A;&#x5305;&#x4E0B;&#x7684;&#x5168;&#x90E8;&#x6807;&#x6709;@Component&#x7684;&#x7C7B;&#xFF0C;&#x5E76;&#x6CE8;&#x518C;&#x6210;bean&#xFF0C;&#x5F53;&#x7136;&#x5305;&#x62EC;@Component&#x4E0B;&#x7684;&#x5B50;&#x6CE8;&#x89E3; @Service&#xFF0C;@Repository&#xFF0C;@Controller</p>
+<blockquote>
+<p>@ComponentScan &#x627E; beans(@Component,@Service, @Repository, @Controller etc.) + @Autowired &#x6CE8;&#x5165;</p>
+</blockquote>
+<h3 id="5-importresource">5. @ImportResource</h3>
+<p>@ImportResource &#x52A0;&#x8F7D; XML</p>
+<h3 id="6-spring-&#x6CE8;&#x91CA;-autowired-&#x548C;resource-&#x7684;&#x533A;&#x522B;">6. Spring &#x6CE8;&#x91CA; @Autowired &#x548C;@Resource &#x7684;&#x533A;&#x522B;</h3>
+<pre><code>&#xFF08;1&#xFF09;@Autowired&#x548C;@Resource&#x90FD;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x88C5;&#x914D;bean&#xFF0C;&#x90FD;&#x53EF;&#x4EE5;&#x5199;&#x5728;&#x5B57;&#x6BB5;&#x4E0A;&#xFF0C;&#x6216;&#x8005;&#x65B9;&#x6CD5;&#x4E0A;&#x3002;
+&#xFF08;2&#xFF09;@Autowired&#x5C5E;&#x4E8E;Spring&#x7684;&#xFF1B;@Resource&#x4E3A;JSR-250&#x6807;&#x51C6;&#x7684;&#x6CE8;&#x91CA;&#xFF0C;&#x5C5E;&#x4E8E;J2EE&#x7684;&#x3002;
+&#xFF08;3&#xFF09;@Autowired&#x9ED8;&#x8BA4;&#x6309;&#x7C7B;&#x578B;&#x88C5;&#x914D;&#xFF0C;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x5FC5;&#x987B;&#x8981;&#x6C42;&#x4F9D;&#x8D56;&#x5BF9;&#x8C61;&#x5FC5;&#x987B;&#x5B58;&#x5728;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x5141;&#x8BB8;null&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x5B83;&#x7684;required&#x5C5E;&#x6027;&#x4E3A;false&#xFF0C;
+&#x4F8B;&#x5982;&#xFF1A;@Autowired(required=false) &#xFF0C;
+&#x5982;&#x679C;&#x6211;&#x4EEC;&#x60F3;&#x4F7F;&#x7528;&#x540D;&#x79F0;&#x88C5;&#x914D;&#x53EF;&#x4EE5;&#x7ED3;&#x5408;@Qualifier&#x6CE8;&#x89E3;&#x8FDB;&#x884C;&#x4F7F;&#x7528;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;
+    @Autowired()
+    @Qualifier(&quot;baseDao&quot;)
+    private BaseDao baseDao;
+
+&#xFF08;4&#xFF09;@Resource&#xFF0C;&#x9ED8;&#x8BA4;&#x5B89;&#x88C5;&#x540D;&#x79F0;&#x8FDB;&#x884C;&#x88C5;&#x914D;&#xFF0C;&#x540D;&#x79F0;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;name&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x6307;&#x5B9A;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A;name&#x5C5E;&#x6027;&#xFF0C;&#x5F53;&#x6CE8;&#x89E3;&#x5199;&#x5728;&#x5B57;&#x6BB5;&#x4E0A;&#x65F6;&#xFF0C;&#x9ED8;&#x8BA4;&#x53D6;&#x5B57;&#x6BB5;&#x540D;&#x8FDB;&#x884C;&#x5B89;&#x88C5;&#x540D;&#x79F0;&#x67E5;&#x627E;&#xFF0C;&#x5982;&#x679C;&#x6CE8;&#x89E3;&#x5199;&#x5728;setter&#x65B9;&#x6CD5;&#x4E0A;&#x9ED8;&#x8BA4;&#x53D6;&#x5C5E;&#x6027;&#x540D;&#x8FDB;&#x884C;&#x88C5;&#x914D;&#x3002;&#x5F53;&#x627E;&#x4E0D;&#x5230;&#x4E0E;&#x540D;&#x79F0;&#x5339;&#x914D;&#x7684;bean&#x65F6;&#x624D;&#x6309;&#x7167;&#x7C7B;&#x578B;&#x8FDB;&#x884C;&#x88C5;&#x914D;&#x3002;&#x4F46;&#x662F;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5982;&#x679C;name&#x5C5E;&#x6027;&#x4E00;&#x65E6;&#x6307;&#x5B9A;&#xFF0C;&#x5C31;&#x53EA;&#x4F1A;&#x6309;&#x7167;&#x540D;&#x79F0;&#x8FDB;&#x884C;&#x88C5;&#x914D;&#x3002;
+&#x4F8B;&#x5982;&#xFF1A;
+@Resource(name=&quot;baseDao&quot;)
+private BaseDao baseDao;
+&#xFF08;5&#xFF09;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#xFF1A;@Resource&#x6CE8;&#x89E3;&#x5728;&#x5B57;&#x6BB5;&#x4E0A;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4E0D;&#x7528;&#x5199;setter&#x65B9;&#x6CD5;&#x4E86;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A;&#x6CE8;&#x89E3;&#x662F;&#x5C5E;&#x4E8E;J2EE&#x7684;&#xFF0C;&#x51CF;&#x5C11;&#x4E86;&#x4E0E;spring&#x7684;&#x8026;&#x5408;&#x3002;&#x8FD9;&#x6837;&#x4EE3;&#x7801;&#x770B;&#x8D77;&#x5C31;&#x6BD4;&#x8F83;&#x4F18;&#x96C5;&#x3002;
+</code></pre><h3 id="7-component-service-controller--repository-&#x7684;&#x533A;&#x522B;">7. @Component, @Service, @Controller , @Repository &#x7684;&#x533A;&#x522B;</h3>
+<blockquote>
+<p>@Service, @Controller , @Repository = {@Component + &#x4E00;&#x4E9B;&#x7279;&#x5B9A;&#x7684;&#x529F;&#x80FD;}&#x3002;</p>
+</blockquote>
+<p>&#x8FD9;&#x4E2A;&#x5C31;&#x610F;&#x5473;&#x7740;&#x8FD9;&#x4E9B;&#x6CE8;&#x89E3;&#x5728;&#x90E8;&#x5206;&#x529F;&#x80FD;&#x4E0A;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x6CE8;&#x89E3;</th>
+<th>&#x542B;&#x4E49;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@Component</td>
+<td>&#x6700;&#x666E;&#x901A;&#x7684;&#x7EC4;&#x4EF6;&#xFF0C;&#x53EF;&#x4EE5;&#x88AB;&#x6CE8;&#x5165;&#x5230;spring&#x5BB9;&#x5668;&#x8FDB;&#x884C;&#x7BA1;&#x7406;</td>
+</tr>
+<tr>
+<td>@Repository</td>
+<td>&#x4F5C;&#x7528;&#x4E8E;&#x6301;&#x4E45;&#x5C42;</td>
+</tr>
+<tr>
+<td>@Service</td>
+<td>&#x4F5C;&#x7528;&#x4E8E;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x5C42;</td>
+</tr>
+<tr>
+<td>@Controller</td>
+<td>&#x4F5C;&#x7528;&#x4E8E;&#x8868;&#x73B0;&#x5C42;&#xFF08;spring-mvc&#x7684;&#x6CE8;&#x89E3;&#xFF09;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="8-handler-method-&#x53C2;&#x6570;&#x7ED1;&#x5B9A;&#x5E38;&#x7528;&#x7684;&#x6CE8;&#x89E3;">8. handler method &#x53C2;&#x6570;&#x7ED1;&#x5B9A;&#x5E38;&#x7528;&#x7684;&#x6CE8;&#x89E3;</h3>
+<p>@see
+<a href="http://blog.csdn.net/walkerjong/article/details/7946109" target="_blank">http://blog.csdn.net/walkerjong/article/details/7946109</a></p>
+<p>handler method &#x53C2;&#x6570;&#x7ED1;&#x5B9A;&#x5E38;&#x7528;&#x7684;&#x6CE8;&#x89E3;&#xFF0C;&#x6839;&#x636E;&#x4ED6;&#x4EEC;&#x5904;&#x7406;&#x7684;Request&#x7684;&#x4E0D;&#x540C;&#x5185;&#x5BB9;&#x90E8;&#x5206;&#x5206;&#x4E3A;&#x56DB;&#x7C7B;&#xFF1A;&#xFF08;&#x4E3B;&#x8981;&#x8BB2;&#x89E3;&#x5E38;&#x7528;&#x7C7B;&#x578B;&#xFF09;</p>
+<ul>
+<li>&#x5904;&#x7406;request uri &#x90E8;&#x5206;&#xFF08;&#x8FD9;&#x91CC;&#x6307;uri template&#x4E2D;variable&#xFF0C;&#x4E0D;&#x542B;queryString&#x90E8;&#x5206;&#xFF09;&#x7684;&#x6CE8;&#x89E3;&#xFF1A;@PathVariable;</li>
+<li>&#x5904;&#x7406;request header&#x90E8;&#x5206;&#x7684;&#x6CE8;&#x89E3;&#xFF1A;@RequestHeader, @CookieValue;</li>
+<li>&#x5904;&#x7406;request body&#x90E8;&#x5206;&#x7684;&#x6CE8;&#x89E3;&#xFF1A;@RequestParam,  @RequestBody;</li>
+<li>&#x5904;&#x7406;attribute&#x7C7B;&#x578B;&#x662F;&#x6CE8;&#x89E3;&#xFF1A; @SessionAttributes, @ModelAttribute;</li>
+</ul>
+<h3 id="9-pathvariable">9. @PathVariable</h3>
+<p>&#x5F53;&#x4F7F;&#x7528;@RequestMapping URI template &#x6837;&#x5F0F;&#x6620;&#x5C04;&#x65F6;&#xFF0C;&#x5373;someUrl/{paramId}, &#x8FD9;&#x65F6;&#x7684;paramId&#x53EF;&#x901A;&#x8FC7; @Pathvariable&#x6CE8;&#x89E3;&#x7ED1;&#x5B9A;&#x5B83;&#x4F20;&#x8FC7;&#x6765;&#x7684;&#x503C;&#x5230;&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;&#x4E0A;</p>
+<p>&#x82E5;&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x540D;&#x79F0;&#x548C;&#x9700;&#x8981;&#x7ED1;&#x5B9A;&#x7684;uri template&#x4E2D;&#x53D8;&#x91CF;&#x540D;&#x79F0;&#x4E0D;&#x4E00;&#x81F4;&#xFF0C;&#x9700;&#x8981;&#x5728;@PathVariable(&quot;name&quot;)&#x6307;&#x5B9A;uri template&#x4E2D;&#x7684;&#x540D;&#x79F0;</p>
+<h3 id="10-requestparam">10. @RequestParam</h3>
+<ul>
+<li>&#x5E38;&#x7528;&#x6765;&#x5904;&#x7406;&#x7B80;&#x5355;&#x7C7B;&#x578B;&#x7684;&#x7ED1;&#x5B9A;&#xFF0C;&#x901A;&#x8FC7;Request.getParameter() &#x83B7;&#x53D6;&#x7684;String&#x53EF;&#x76F4;&#x63A5;&#x8F6C;&#x6362;&#x4E3A;&#x7B80;&#x5355;&#x7C7B;&#x578B;&#x7684;&#x60C5;&#x51B5;&#xFF08; String--&gt; &#x7B80;&#x5355;&#x7C7B;&#x578B;&#x7684;&#x8F6C;&#x6362;&#x64CD;&#x4F5C;&#x7531;ConversionService&#x914D;&#x7F6E;&#x7684;&#x8F6C;&#x6362;&#x5668;&#x6765;&#x5B8C;&#x6210;&#xFF09;&#xFF1B;&#x56E0;&#x4E3A;&#x4F7F;&#x7528;request.getParameter()&#x65B9;&#x5F0F;&#x83B7;&#x53D6;&#x53C2;&#x6570;&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x5904;&#x7406;get &#x65B9;&#x5F0F;&#x4E2D;queryString&#x7684;&#x503C;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5904;&#x7406;post&#x65B9;&#x5F0F;&#x4E2D; body data&#x7684;&#x503C;&#xFF1B;</li>
+<li>&#x7528;&#x6765;&#x5904;&#x7406;Content-Type: &#x4E3A; application/x-www-form-urlencoded&#x7F16;&#x7801;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x63D0;&#x4EA4;&#x65B9;&#x5F0F;GET&#x3001;POST&#xFF1B;</li>
+<li>&#x8BE5;&#x6CE8;&#x89E3;&#x6709;&#x4E24;&#x4E2A;&#x5C5E;&#x6027;&#xFF1A; value&#x3001;required&#xFF1B; value&#x7528;&#x6765;&#x6307;&#x5B9A;&#x8981;&#x4F20;&#x5165;&#x503C;&#x7684;id&#x540D;&#x79F0;&#xFF0C;required&#x7528;&#x6765;&#x6307;&#x793A;&#x53C2;&#x6570;&#x662F;&#x5426;&#x5FC5;&#x987B;&#x7ED1;&#x5B9A;&#xFF1B;</li>
+</ul>
+<pre><code>&#x95EE;&#x9898;&#xFF1A;
+Fiegn Client with Spring Boot: RequestParam.value() was empty on parameter 3
+
+&#x89E3;&#x91CA;&#xFF1A;
+Both Spring MVC and Spring cloud feign are using same ParameterNameDiscoverer - named DefaultParameterNameDiscoverer to find parameter name. It tries to find the parameter names with the following step.
+
+First, it uses StandardReflectionParameterNameDiscoverer. It tries to find the variable name with reflection. It is only possible when your classes are compiled with -parameter.
+
+Second, if it fails, it uses LocalVariableTableParameterNameDiscoverer. It tries to find the variable name from the debugging info in the class file with ASM libraries.
+
+The difference between Spring MVC and Feign occurs here. Feign uses above annotations (like @RequestParam) on methods of Java interfaces. But, we use these on methods of Java classes when using Spring MVC. Unfortunately, javac compiler omits the debug information of parameter name from class file for java interfaces. That&apos;s why feign fails to find parameter name without -parameter.
+
+Namely, if you compile your code with -parameter, both Spring MVC and Feign will succeed to acquire parameter names. But if you compile without -parameter, only Spring MVC will succeed.
+
+As a result, it&apos;s not a bug. it&apos;s a limitation of Feign at this moment as I think.
+
+&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;
+&#x6700;&#x597D;&#x7684;&#x505A;&#x6CD5;&#x662F;&#x901A;&#x8FC7;@RequestParam&#x6CE8;&#x89E3;&#x6307;&#x5B9A;&#x5177;&#x4F53;&#x7684;&#x53C2;&#x6570;&#x540D;&#x79F0;
+</code></pre><h3 id="11-requestbody">11. @RequestBody</h3>
+<p>&#x8BE5;&#x6CE8;&#x89E3;&#x5E38;&#x7528;&#x6765;&#x5904;&#x7406;Content-Type: &#x4E0D;&#x662F;application/x-www-form-urlencoded&#x7F16;&#x7801;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x4F8B;&#x5982;application/json, application/xml&#x7B49;</p>
+<p>1&#xFF0C;@RequestBody&#x9700;&#x8981;&#x628A;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#x53C2;&#x6570;&#x4F5C;&#x4E3A;json&#x89E3;&#x6790;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x4E0D;&#x80FD;&#x5305;&#x542B;key=value&#x8FD9;&#x6837;&#x7684;&#x5199;&#x6CD5;&#x5728;&#x8BF7;&#x6C42;url&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x8BF7;&#x6C42;&#x53C2;&#x6570;&#x90FD;&#x662F;&#x4E00;&#x4E2A;json</p>
+<p>2&#xFF0C;&#x76F4;&#x63A5;&#x901A;&#x8FC7;&#x6D4F;&#x89C8;&#x5668;&#x8F93;&#x5165;url&#x65F6;&#xFF0C;@RequestBody&#x83B7;&#x53D6;&#x4E0D;&#x5230;json&#x5BF9;&#x8C61;&#xFF0C;&#x9700;&#x8981;&#x7528;java&#x7F16;&#x7A0B;&#x6216;&#x8005;&#x57FA;&#x4E8E;ajax&#x7684;&#x65B9;&#x6CD5;&#x8BF7;&#x6C42;&#xFF0C;&#x5C06;Content-Type&#x8BBE;&#x7F6E;&#x4E3A;application/json</p>
+<h3 id="12-value">12. @Value</h3>
+<p>&#x9ED8;&#x8BA4;&#x503C;&#x8BBE;&#x7F6E;&#xFF1A;</p>
+<p>@Value(&quot;${PROPERTY:DEFAULT_VALUE}&quot;)
+&#x3000;</p>
+<h3 id="13-configuration-&#x548C;-component">13. @Configuration &#x548C; @Component</h3>
+<p>&#x9996;&#x5148;&#x770B;&#x4E00;&#x4E0B;Spring&#x5B98;&#x65B9;&#x6587;&#x6863;&#x662F;&#x600E;&#x4E48;&#x8BF4;&#x7684;&#xFF1A;</p>
+<pre><code>The @Bean methods in a Spring component are processed differently than their counterparts inside a Spring @Configuration class. The difference is that @Component classes are not enhanced with CGLIB to intercept the invocation of methods and fields. CGLIB proxying is the means by which invoking methods or fields within @Bean methods in @Configuration classes creates bean metadata references to collaborating objects; such methods are not invoked with normal Java semantics but rather go through the container in order to provide the usual lifecycle management and proxying of Spring beans even when referring to other beans via programmatic calls to @Bean methods. In contrast, invoking a method or field in an @Bean method within a plain @Component class has standard Java semantics, with no special CGLIB processing or other constraints applying.
+
+&#x5728;Component&#x4E2D;(@Component&#x6807;&#x6CE8;&#x7684;&#x7C7B;&#xFF0C;&#x5305;&#x62EC;@Service,@Repository, @Controller)&#x4F7F;&#x7528;@Bean&#x6CE8;&#x89E3;&#x548C;&#x5728;@Configuration&#x4E2D;&#x4F7F;&#x7528;&#x662F;&#x4E0D;&#x540C;&#x7684;&#x3002;&#x5728;@Component&#x7C7B;&#x4E2D;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x6216;&#x5B57;&#x6BB5;&#x65F6;&#x4E0D;&#x4F1A;&#x4F7F;&#x7528;CGLIB&#x589E;&#x5F3A;(&#x53CA;&#x4E0D;&#x4F7F;&#x7528;&#x4EE3;&#x7406;&#x7C7B;&#xFF1A;&#x8C03;&#x7528;&#x4EFB;&#x4F55;&#x65B9;&#x6CD5;&#xFF0C;&#x4F7F;&#x7528;&#x4EFB;&#x4F55;&#x53D8;&#x91CF;&#xFF0C;&#x62FF;&#x5230;&#x7684;&#x662F;&#x539F;&#x59CB;&#x5BF9;&#x8C61;&#xFF0C;&#x540E;&#x9762;&#x4F1A;&#x6709;&#x4F8B;&#x5B50;&#x89E3;&#x91CA;)&#x3002;&#x800C;&#x5728;@Configuration&#x7C7B;&#x4E2D;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x6216;&#x5B57;&#x6BB5;&#x65F6;&#x5219;&#x4F7F;&#x7528;CGLIB&#x521B;&#x9020;&#x534F;&#x4F5C;&#x5BF9;&#x8C61;&#xFF08;&#x53CA;&#x4F7F;&#x7528;&#x4EE3;&#x7406;&#xFF1A;&#x62FF;&#x5230;&#x7684;&#x662F;&#x4EE3;&#x7406;&#x5BF9;&#x8C61;&#xFF09;;&#x5F53;&#x8C03;&#x7528;@Bean&#x6CE8;&#x89E3;&#x7684;&#x65B9;&#x6CD5;&#x65F6;&#x5B83;&#x4E0D;&#x662F;&#x666E;&#x901A;&#x7684;Java&#x8BED;&#x4E49;&#xFF0C;&#x800C;&#x662F;&#x4ECE;&#x5BB9;&#x5668;&#x4E2D;&#x62FF;&#x5230;&#x7531;Spring&#x751F;&#x547D;&#x5468;&#x671F;&#x7BA1;&#x7406;&#x3001;&#x88AB;Spring&#x4EE3;&#x7406;&#x751A;&#x81F3;&#x4F9D;&#x8D56;&#x4E8E;&#x5176;&#x4ED6;Bean&#x7684;&#x5BF9;&#x8C61;&#x5F15;&#x7528;&#x3002;&#x5728;@Component&#x4E2D;&#x8C03;&#x7528;@Bean&#x6CE8;&#x89E3;&#x7684;&#x65B9;&#x6CD5;&#x548C;&#x5B57;&#x6BB5;&#x5219;&#x662F;&#x666E;&#x901A;&#x7684;Java&#x8BED;&#x4E49;&#xFF0C;&#x4E0D;&#x7ECF;&#x8FC7;CGLIB&#x5904;&#x7406;&#x3002;
+</code></pre><p>&#x4E00;&#x53E5;&#x8BDD;&#x6982;&#x62EC;&#x5C31;&#x662F; @Configuration &#x4E2D;&#x6240;&#x6709;&#x5E26; @Bean &#x6CE8;&#x89E3;&#x7684;&#x65B9;&#x6CD5;&#x90FD;&#x4F1A;&#x88AB;&#x52A8;&#x6001;&#x4EE3;&#x7406;&#xFF0C;&#x56E0;&#x6B64;&#x8C03;&#x7528;&#x8BE5;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x90FD;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x5BF9;&#x4E8E;@Component&#xFF0C;@Component &#x6CE8;&#x89E3;&#x5E76;&#x6CA1;&#x6709;&#x901A;&#x8FC7;cglib&#x6765;&#x4EE3;&#x7406;@Bean&#x65B9;&#x6CD5;&#x7684;&#x8C03;&#x7528;&#xFF0C;&#x56E0;&#x6B64;&#x8C03;&#x7528;&#x5E26;@Bean&#x6CE8;&#x89E3;&#x7684;&#x65B9;&#x6CD5;&#x6001;&#x8FD4;&#x56DE;&#x7684;&#x90FD;&#x662F;&#x65B0;&#x7684;&#x5B9E;&#x4F8B;&#x3002;</p>
+<p>&#x4ECE;&#x5B9A;&#x4E49;&#x6765;&#x770B;&#xFF0C; @Configuration &#x6CE8;&#x89E3;&#x672C;&#x8D28;&#x4E0A;&#x8FD8;&#x662F; @Component&#xFF0C;&#x56E0;&#x6B64; <context:component-scan> &#x6216;&#x8005; @ComponentScan &#x90FD;&#x80FD;&#x5904;&#x7406;@Configuration &#x6CE8;&#x89E3;&#x7684;&#x7C7B;&#x3002;</context:component-scan></p>
+<p>@Configuration &#x6807;&#x8BB0;&#x7684;&#x7C7B;&#x5FC5;&#x987B;&#x7B26;&#x5408;&#x4E0B;&#x9762;&#x7684;&#x8981;&#x6C42;&#xFF1A;</p>
+<pre><code>&#x914D;&#x7F6E;&#x7C7B;&#x5FC5;&#x987B;&#x4EE5;&#x7C7B;&#x7684;&#x5F62;&#x5F0F;&#x63D0;&#x4F9B;&#xFF08;&#x4E0D;&#x80FD;&#x662F;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x5B9E;&#x4F8B;&#xFF09;&#xFF0C;&#x5141;&#x8BB8;&#x901A;&#x8FC7;&#x751F;&#x6210;&#x5B50;&#x7C7B;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#x589E;&#x5F3A;&#xFF08;cglib &#x52A8;&#x6001;&#x4EE3;&#x7406;&#xFF09;&#x3002;
+&#x914D;&#x7F6E;&#x7C7B;&#x4E0D;&#x80FD;&#x662F; final &#x7C7B;&#xFF08;&#x6CA1;&#x6CD5;&#x52A8;&#x6001;&#x4EE3;&#x7406;&#xFF09;&#x3002;
+&#x914D;&#x7F6E;&#x6CE8;&#x89E3;&#x901A;&#x5E38;&#x4E3A;&#x4E86;&#x901A;&#x8FC7; @Bean &#x6CE8;&#x89E3;&#x751F;&#x6210; Spring &#x5BB9;&#x5668;&#x7BA1;&#x7406;&#x7684;&#x7C7B;&#x3002;
+&#x914D;&#x7F6E;&#x7C7B;&#x5FC5;&#x987B;&#x662F;&#x975E;&#x672C;&#x5730;&#x7684;&#xFF08;&#x5373;&#x4E0D;&#x80FD;&#x5728;&#x65B9;&#x6CD5;&#x4E2D;&#x58F0;&#x660E;&#xFF0C;&#x4E0D;&#x80FD;&#x662F; private&#xFF09;&#x3002;
+&#x4EFB;&#x4F55;&#x5D4C;&#x5957;&#x914D;&#x7F6E;&#x7C7B;&#x90FD;&#x5FC5;&#x987B;&#x58F0;&#x660E;&#x4E3A;static&#x3002;
+@Bean&#x65B9;&#x6CD5;&#x4E0D;&#x80FD;&#x521B;&#x5EFA;&#x8FDB;&#x4E00;&#x6B65;&#x7684;&#x914D;&#x7F6E;&#x7C7B;&#xFF08;&#x4E5F;&#x5C31;&#x662F;&#x8FD4;&#x56DE;&#x7684;bean&#x5982;&#x679C;&#x5E26;&#x6709;@Configuration&#xFF0C;&#x4E5F;&#x4E0D;&#x4F1A;&#x88AB;&#x7279;&#x6B8A;&#x5904;&#x7406;&#xFF0C;&#x53EA;&#x4F1A;&#x4F5C;&#x4E3A;&#x666E;&#x901A;&#x7684; bean&#xFF09;&#x3002;
+</code></pre><h3 id="&#x53C2;&#x8003;&#x8D44;&#x6599;">&#x53C2;&#x8003;&#x8D44;&#x6599;</h3>
+<h4 id="1-bean&#x5728;configuration&#x548C;&#x5728;component&#x4E2D;&#x7684;&#x533A;&#x522B;">1. @Bean&#x5728;@Configuration&#x548C;&#x5728;@Component&#x4E2D;&#x7684;&#x533A;&#x522B;</h4>
+<p><a href="https://blog.csdn.net/ttjxtjx/article/details/49866011" target="_blank">https://blog.csdn.net/ttjxtjx/article/details/49866011</a></p>
+<h4 id="2-spring-configuration-&#x548C;-component-&#x533A;&#x522B;">2. Spring @Configuration &#x548C; @Component &#x533A;&#x522B;</h4>
+<p><a href="https://blog.csdn.net/isea533/article/details/78072133?locationNum=7&amp;fps=1" target="_blank">https://blog.csdn.net/isea533/article/details/78072133?locationNum=7&amp;fps=1</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="SpringBoot-pom-xml.html" class="navigation navigation-prev " aria-label="Previous page: 3.1 SpringBoot的pom.xml">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Eureka.html" class="navigation navigation-next " aria-label="Next page: 3.3 Eureka">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"3.2 SpringBoot的注解","level":"1.4.2","depth":2,"next":{"title":"3.3 Eureka","level":"1.4.3","depth":2,"path":"springboot/Eureka.md","ref":"springboot/Eureka.md","articles":[]},"previous":{"title":"3.1 SpringBoot的pom.xml","level":"1.4.1","depth":2,"path":"springboot/SpringBoot-pom-xml.md","ref":"springboot/SpringBoot-pom-xml.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"springboot/SpringBoot注解.md","mtime":"2018-05-31T02:25:50.908Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-26T13:49:56.226Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
