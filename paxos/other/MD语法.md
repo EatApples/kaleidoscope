@@ -1,3 +1,4 @@
+### `MD`基本语法
 ```
 #1. 斜体和粗体
 
@@ -58,3 +59,23 @@
 | zebra stripes | are neat      |    $1 |
 
 ```
+
+### 推荐编辑器
+安装了 `Atom`，除了不能编译，不能`[toc]`，`github`官方出品，值得信赖。
+
+推荐`Atom`插件：
++ `pretty json`
++ `minimap`
++ `markdown-preview-plus`
++ `markdown-scroll-sync`
++ `markdown-table-editor`
+
+### 扩展阅读
+#### 1. `Markdown`语法说明 (简体中文版)
+http://wowubuntu.com/markdown/index.html
+
+#### 2. 推荐使用`Atom`编辑器
+https://atom.io/
+
+#### 3. 推荐使用`gitbook`编译`MD`文件
+http://www.chengweiyang.cn/gitbook/index.html

@@ -1,4 +1,4 @@
-## iptables命令
+## `iptables`命令
 来自: [http://man.linuxde.net/iptables](http://man.linuxde.net/iptables)
 ```
 iptables(选项)(参数)
@@ -8,7 +8,7 @@ iptables(选项)(参数)
 -i：向规则链中插入条目；
 -R：替换规则链中的条目；
 -L：显示规则链中已有的条目；
--F：清楚规则链中已有的条目；
+-F：清除规则链中已有的条目；
 -Z：清空规则链中的数据包计算器和字节计数器；
 -N：创建新的用户自定义规则链；
 -P：定义规则链中的默认目标；
@@ -20,7 +20,7 @@ iptables(选项)(参数)
 -o<网络接口>：指定数据包要离开本机所使用的网络接口。
 ```
 
-### 1 iptables命令选项输入顺序：
+### 1 `iptables`命令选项输入顺序：
 ```
 iptables -t 表名 <-A/I/D/R> 规则链名 [规则号] <-i/o 网卡名> -p 协议名 <-s 源IP/源子网> --sport 源端口 <-d 目标IP/目标子网> --dport 目标端口 -j 动作
 ```
@@ -49,7 +49,7 @@ SNAT：源地址转换。
 DNAT：目标地址转换。
 MASQUERADE：IP伪装（NAT），用于ADSL。 LOG：日志记录。
 ```
-### 2 清除已有iptables规则
+### 2 清除已有`iptables`规则
 ```
 iptables -F
 iptables -X
@@ -69,7 +69,7 @@ iptables -A INPUT -j reject #禁止其他未允许的规则访问
 iptables -A FORWARD -j REJECT #禁止其他未允许的规则访问
 ```
 
-### 4 屏蔽IP
+### 4 屏蔽`IP`
 ```
 iptables -I INPUT -s 123.45.6.7 -j DROP #屏蔽单个IP的命令
 iptables -I INPUT -s 123.0.0.0/8 -j DROP #封整个段即从123.0.0.1到123.255.255.254的命令
@@ -77,22 +77,22 @@ iptables -I INPUT -s 124.45.0.0/16 -j DROP #封IP段即从123.45.0.1到123.45.25
 iptables -I INPUT -s 123.45.6.0/24 -j DROP #封IP段即从123.45.6.1到123.45.6.254的命令
 ```
 
-### 5 查看已添加的iptables规则
+### 5 查看已添加的`iptables`规则
 ```
 iptables -L -n -v
 ```
 
-### 6 将所有iptables以序号标记显示，执行：
+### 6 将所有`iptables`以序号标记显示，执行：
 ```
 iptables -L -n --line-numbers
 ```
 
-### 7 比如要删除INPUT里序号为8的规则，执行：
+### 7 比如要删除`INPUT`里序号为8的规则，执行：
 ```
 iptables -D INPUT 8
 ```
 
-### 8 检查iptables是否关闭
+### 8 检查`iptables`是否关闭
 ```
 service iptables status
 ```
@@ -102,4 +102,11 @@ service iptables status
 service iptables stop
 
 chkconfig iptables off
+```
+
+### 10 开启防火墙
+```
+service iptables start
+
+service iptables restart
 ```
