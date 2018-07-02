@@ -17,4 +17,5 @@ gitbook builid --debug //输出错误信息
 ```
 
 ### 扩展阅读
-#### [1] [GitBook 简明教程](http://www.chengweiyang.cn/gitbook/index.html)
+#### 1. GitBook简明教程
+http://www.chengweiyang.cn/gitbook/index.html
