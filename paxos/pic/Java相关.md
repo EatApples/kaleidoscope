@@ -6,3 +6,6 @@
 
 #### 3. GC组合
 ![](./GC.png)
+
+#### 4. Java thread status
+![](./ThreadStatus.jpg)
