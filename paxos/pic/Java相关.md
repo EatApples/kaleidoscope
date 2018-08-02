@@ -9,3 +9,6 @@
 
 #### 4. Java thread status
 ![](./ThreadStatus.jpg)
+
+#### 5. 雪花算法
+![](./SnowFlake.jpg)
