@@ -1,14 +1,14 @@
 #### 1. 定时任务对比
-![](./定时任务对比.png)
+![](../photo/定时任务对比.png)
 
 #### 2. ConcurrentHashMap
-![](./ConcurrentHashMap.jpg)
+![](../photo/ConcurrentHashMap.jpg)
 
 #### 3. GC组合
-![](./GC.png)
+![](../photo/GC.png)
 
 #### 4. Java thread status
-![](./ThreadStatus.jpg)
+![](../photo/ThreadStatus.jpg)
 
 #### 5. 雪花算法
-![](./SnowFlake.jpg)
+![](../photo/SnowFlake.jpg)

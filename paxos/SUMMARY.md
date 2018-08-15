@@ -44,6 +44,7 @@
   * [4.2 `RabbitMQ`四种发送方式区别](rabbitmq/RabbitMQ四种发送方式区别.md)
   * [4.3 `RabbitMQ`安装全记录](rabbitmq/RabbitMQ安装全记录.md)
   * [4.4 `RabbitMQ`多地址连接](rabbitmq/RabbitMQ多地址连接.md)
+  * [4.5 `RabbitMQConsumer`源码解析](rabbitmq/RabbitMQConsumer源码解析.md)
 * [5 `Shell`](README.md)
   * [5.1 免密登陆](shell/免密登陆.md)
   * [5.2 `iptables`命令](shell/iptables命令.md)
