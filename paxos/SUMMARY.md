@@ -20,6 +20,7 @@
   * [2.10 动态代理](java/动态代理.md)
   * [2.11 `Cron`大乱斗](java/Cron大乱斗.md)
   * [2.12 `Java`虚拟机](java/Java虚拟机.md)
+  * [2.13 负载均衡与高可用](java/负载均衡与高可用.md)
 * [3 `SpringBoot`](README.md)
   * [3.1 `SpringBoot`的`pom.xml`](springboot/SpringBoot-pom-xml.md)
   * [3.2 `SpringBoot`的注解](springboot/SpringBoot注解.md)
