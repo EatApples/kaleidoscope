@@ -82,6 +82,11 @@ IP3  HOST3
 
 # chmod 600 ~/.erlang.cookie
 
+注意：RabbitMQ 的集群是依赖于 Erlang 的集群来工作的，所以必须先构建起 Erlang 的集群环境。Erlang 的集群中各节点是通过一个 magic cookie 来实现的，这个cookie 就是上文的 .erlang.cookie，文件路径一般在 home 路径。所以必须保证各节点 cookie 保持一致，否则节点之间就无法通信。这里的保持一致指的是 .erlang.cookie 的权限（不一定是600，还有可能是400）和属主属组。例如：
+
+.erlang.cookie
+-r--------.  1 root root    20 8月   4 2016 .erlang.cookie
+
 3. 执行以下命令，加入 RabbitMQ 集群
 
 3.0 开启控制台
@@ -91,6 +96,10 @@ IP3  HOST3
 3.1 启动服务
 
 # nohup ./rabbitmq-server start > rabbitmq.log &
+
+注意：如果增加节点停止节点后再次启动遇到无法启动可以使用detached参数独立运行，这步很关键。
+
+# ./rabbitmq-server -detached
 
 3.2 停止服务应用
 
@@ -242,7 +251,7 @@ Virtual host	Configure regexp	Write regexp	Read regexp
 
 /var/lib/rabbitmq/mnesia
 
-文件，再做操作
+文件，再做操作（慎用，删除就没有元信息了）
 
 ```
 ### 10 集群官方文档
@@ -534,3 +543,9 @@ rabbit2$ rabbitmqctl start_app
 Besides rabbitmqctl forget_cluster_node and the automatic cleanup of unknown nodes by some peer discovery plugins, there are no scenarios in which a RabbitMQ node will permanently remove its peer node from a cluster.
 
 ***这里 rabbit@rabbit2 保留了集群的原始信息（因为 rabbit1 和 rabbit3 都 reset 过，重置清空），可以把  rabbit1 和 rabbit3 当做新节点加入 rabbit@rabbit2 集群（如果不行***，**可以改名再战!!!!**）
+
+### 扩展阅读
+#### 1. Rabbitmq集群高可用测试
+https://www.cnblogs.com/flat_peach/archive/2013/04/07/3004008.html
+#### 2. RabbitMQ 集群与高可用配置
+https://88250.b3log.org/rabbitmq-clustering-ha
