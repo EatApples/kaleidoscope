@@ -2,7 +2,7 @@
 
 * [0 `Introduction`](README.md)
 * [1 `Algorithm`](README.md)
-  * [1.1 `CAP`理论](algorithm/CAP.md)
+  * [1.1 `CAP`理论](paxos/algorithm/CAP.md)
   * [1.2 `ZAB`协议](algorithm/ZAB协议.md)
   * [1.3 分布式锁](algorithm/分布式锁.md)
   * [1.4 `RAFT`算法](algorithm/raft-zh_cn.md)
