@@ -1,8 +1,28 @@
+为了达到redis的高可用，有两种部署方式：主从复制+哨兵机制；集群模式。哨兵机制是redis2.8开始支持。集群模式是redis3.0开始支持。
+
+不管是哨兵模式还是集群模式，Jedis客户端都支持！
+
 ### 1. 直接启动
 > nohup ./redis-server --protected-mode no 1>/dev/null 2>&1 &
 
 ### 2. 指定配置文件启动
 > nohup ./redis-server 配置文件路径/redis.conf 1>/dev/null 2>&1 &
+
+配置文件中，注意：
+```
+bind IP                          # IP白名单，这里应该注释掉
+protected-mode no                # 保护模式，这里应该关掉
+daemonize yes                    # 后台启动
+requirepass YOUR_PASSWORD        # 设置密码
+masterauth  YOUR_PASSWORD        # 集群主从同步需要密码，与上面的相同
+port 6379                        # 监听端口
+cluster-enabled yes              # 集群模式或单点模式
+cluster-config-file nodes.conf   # 集群模式下节点信息的存储文件，用户无需编辑
+cluster-node-timeout 5000        # 集群节点超时时间
+appendonly yes                   # 开启AOF模式
+```
+
+如果集群中设置了密码，如果需要使用 redis-trib.rb 的各种命令，需要找到 client.rb（与Redis版本相关的那个，一般在 /usr/local/lib/ruby 目录下），然后修改password！
 
 ### 3. 客户端连接
 > ./redis-cli -h HOST -p PORT -a  PASSWORD
@@ -180,9 +200,62 @@ You can remove a master node in the same way as well, `however in order to remov
 
 An alternative to remove a master node is to perform a manual failover of it over one of its slaves and remove the node after it turned into a slave of the new master. Obviously this does not help when you want to reduce the actual number of masters in your cluster, in that case, a resharding is needed.
 
+### 12. Replicas migration
+In Redis Cluster it is possible to reconfigure a slave to replicate with a different master at any time just using the following command:
+```
+CLUSTER REPLICATE <master-node-id>
+```
+
+### 13. Resharding the cluster
+Resharding basically means to move hash slots from a set of nodes to another set of nodes, and like cluster creation it is accomplished using the redis-trib utility.
+
+To start a resharding just type:
+```
+./redis-trib.rb reshard <IP:PORT>
+```
+You only need to specify a single node, redis-trib will find the other nodes automatically.
+
+After the final confirmation you'll see a message for every slot that redis-trib is going to move from a node to another, and a dot will be printed for every actual key moved from one side to the other.
+
+While the resharding is in progress you should be able to see your example program running unaffected. You can stop and restart it multiple times during the resharding if you want.
+
+At the end of the resharding, you can test the health of the cluster with the following command:
+```
+./redis-trib.rb check <IP:PORT>
+```
+Reshardings can be performed automatically without the need to manually enter the parameters in an interactive way. This is possible using a command line like the following:
+```
+./redis-trib.rb reshard --from <node-id> --to <node-id> --slots <number of slots> --yes <host>:<port>
+```
+This allows to build some automatism if you are likely to reshard often, however currently there is no way for redis-trib to automatically rebalance the cluster checking the distribution of keys across the cluster nodes and intelligently moving slots as needed. This feature will be added in the future.
+
+### 14. Creating the cluster
+Note that the minimal cluster that works as expected requires to contain `at least three master nodes`. For your first tests it is strongly suggested to start a six nodes cluster with three masters and three slaves.
+
+
+Now that we have a number of instances running, we need to create our cluster by writing some meaningful configuration to the nodes.
+
+This is very easy to accomplish as we are helped by the Redis Cluster command line utility called `redis-trib`, a Ruby program executing special commands on instances in order to create new clusters, check or reshard an existing cluster, and so forth.
+
+The redis-trib utility is in the src directory of the Redis source code distribution. You need to install redis gem to be able to run redis-trib.
+```
+gem install redis
+```
+To create your cluster simply type:
+```
+./redis-trib.rb create --replicas 1 <IP:PORT> <IP:PORT> <IP:PORT> （共6个实例）
+```
+
+The command used here is create, since we want to create a new cluster. The option --replicas 1 means that we want a slave for every master created. The other arguments are the list of addresses of the instances I want to use to create the new cluster.
+
+Obviously the only setup with our requirements is to create a cluster with 3 masters and 3 slaves.
+
 ### 扩展阅读
 #### 1. redis持久化方法对比分析
 https://www.cnblogs.com/Fairy-02-11/p/6182478.html
 
 #### 2. Redis：默认配置文件redis.conf详解
 https://www.cnblogs.com/zxtceq/p/7676911.html
+
+#### 3. Redis 命令参考
+http://doc.redisfans.com/index.html
