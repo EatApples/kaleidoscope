@@ -28,3 +28,34 @@ for (Address addr : shuffled) {
 （3）客户端一次只与一个服务器建立连接。
 
 （4）若建立连接的服务器 DOWN，连接恢复时仍是依次选取。
+
+### Spring Boot项目配置RabbitMQ集群
+来自：https://my.oschina.net/placeholder/blog/1612946
+```yml
+//具体参看了配置的源码
+org.springframework.boot.autoconfigure.amqp.RabbitProperties
+
+
+//RabbitMQ单机
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: your_username
+    password: your_password
+
+//或者  RabbitMQ单机，只使用addresses
+spring:
+  rabbitmq:
+    addresses:ip1:port1
+    username: your_username
+    password: your_password
+
+
+//RabbitMQ集群，addresses一定要逗号分隔
+spring:
+  rabbitmq:
+    addresses:ip1:port1,ip2:port2,ip3:port3
+    username: your_username
+    password: your_password
+```

@@ -1,11 +1,36 @@
-### 1. 直接启动
-> nohup ./redis-server --protected-mode no 1>/dev/null 2>&1 &
+为了达到redis的高可用，有两种部署方式：主从复制+哨兵机制；集群模式。哨兵机制是redis2.8开始支持。集群模式是redis3.0开始支持。
 
+不管是哨兵模式还是集群模式，Jedis客户端都支持！
+
+### 1. 直接启动
+```
+nohup ./redis-server --protected-mode no 1>/dev/null 2>&1 &
+```
 ### 2. 指定配置文件启动
-> nohup ./redis-server 配置文件路径/redis.conf 1>/dev/null 2>&1 &
+```
+nohup ./redis-server 配置文件路径/redis.conf 1>/dev/null 2>&1 &
+```
+
+配置文件中，注意：
+```
+bind IP                          # IP白名单，这里应该注释掉
+protected-mode no                # 保护模式，这里应该关掉
+daemonize yes                    # 后台启动
+requirepass YOUR_PASSWORD        # 设置密码
+masterauth  YOUR_PASSWORD        # 集群主从同步需要密码，与上面的相同
+port 6379                        # 监听端口
+cluster-enabled yes              # 集群模式或单点模式
+cluster-config-file nodes.conf   # 集群模式下节点信息的存储文件，用户无需编辑
+cluster-node-timeout 5000        # 集群节点超时时间
+appendonly yes                   # 开启AOF模式
+```
+
+如果集群中设置了密码，如果需要使用 redis-trib.rb 的各种命令，需要找到 client.rb（与Redis版本相关的那个，一般在 /usr/local/lib/ruby 目录下），然后修改password！
 
 ### 3. 客户端连接
-> ./redis-cli -h HOST -p PORT -a  PASSWORD
+```
+./redis-cli -h HOST -p PORT -a  PASSWORD
+```
 
 连接操作相关的命令
 + quit：关闭连接（connection）
@@ -49,6 +74,7 @@ AOF持久化以日志的形式记录服务器所处理的每一个写、删除�
 
 优势：
 + （1）更高的数据安全性（即数据持久性）。在Redis的配置文件中存在三种同步方式，它们分别是：
+
 ```
 appendfsync always     #每次有数据修改发生时都会写入AOF文件。
 
@@ -56,6 +82,7 @@ appendfsync everysec   #每秒钟同步一次，该策略为AOF的缺省策略�
 
 appendfsync no         #从不同步。高效但是数据不会被持久化。
 ```
+
 + （2）采用的是 append 模式，不会破坏日志文件中已经存在的内容。如果只是写入了一半数据就出现了系统崩溃问题，可以通过redis-check-aof工具来解决数据一致性的问题。
 
 + （3）如果日志过大，Redis可以自动启用rewrite机制。即Redis以append模式不断的将修改数据写入到老的磁盘文件中，同时Redis还会创建一个新的文件用于记录此期间有哪些修改命令被执行。因此在进行rewrite切换时可以更好的保证数据安全性。
@@ -73,8 +100,9 @@ appendfsync no         #从不同步。高效但是数据不会被持久化。
 
 ### 5. 恢复
 如果需要恢复数据，只需将备份文件 (dump.rdb) 移动到 redis 安装目录并启动服务即可。获取 redis 目录可以使用 CONFIG 命令：
-> config get dir
-
+```
+config get dir
+```
 ### 6. 远程服务控制
 + info：提供服务器的信息和统计
 + monitor：实时转储收到的请求
@@ -115,7 +143,7 @@ We are about to create an example cluster deployment. Before we continue, let's 
 集群节点迁移阈值，低于阈值则slave迁移。
 ```
  892	# cluster-migration-barrier 1
-````
+```
 
 + `cluster-require-full-coverage <yes/no>`: If this is set to yes, as it is by default, the cluster stops accepting writes if some percentage of the key space is not covered by any node. If the option is set to no, the cluster will still serve queries even if only requests about a subset of keys can be processed.
 集群是否需要全覆盖才提供服务。
@@ -180,9 +208,62 @@ You can remove a master node in the same way as well, `however in order to remov
 
 An alternative to remove a master node is to perform a manual failover of it over one of its slaves and remove the node after it turned into a slave of the new master. Obviously this does not help when you want to reduce the actual number of masters in your cluster, in that case, a resharding is needed.
 
+### 12. Replicas migration
+In Redis Cluster it is possible to reconfigure a slave to replicate with a different master at any time just using the following command:
+```
+CLUSTER REPLICATE <master-node-id>
+```
+
+### 13. Resharding the cluster
+Resharding basically means to move hash slots from a set of nodes to another set of nodes, and like cluster creation it is accomplished using the redis-trib utility.
+
+To start a resharding just type:
+```
+./redis-trib.rb reshard <IP:PORT>
+```
+You only need to specify a single node, redis-trib will find the other nodes automatically.
+
+After the final confirmation you'll see a message for every slot that redis-trib is going to move from a node to another, and a dot will be printed for every actual key moved from one side to the other.
+
+While the resharding is in progress you should be able to see your example program running unaffected. You can stop and restart it multiple times during the resharding if you want.
+
+At the end of the resharding, you can test the health of the cluster with the following command:
+```
+./redis-trib.rb check <IP:PORT>
+```
+Reshardings can be performed automatically without the need to manually enter the parameters in an interactive way. This is possible using a command line like the following:
+```
+./redis-trib.rb reshard --from <node-id> --to <node-id> --slots <number of slots> --yes <host>:<port>
+```
+This allows to build some automatism if you are likely to reshard often, however currently there is no way for redis-trib to automatically rebalance the cluster checking the distribution of keys across the cluster nodes and intelligently moving slots as needed. This feature will be added in the future.
+
+### 14. Creating the cluster
+Note that the minimal cluster that works as expected requires to contain `at least three master nodes`. For your first tests it is strongly suggested to start a six nodes cluster with three masters and three slaves.
+
+
+Now that we have a number of instances running, we need to create our cluster by writing some meaningful configuration to the nodes.
+
+This is very easy to accomplish as we are helped by the Redis Cluster command line utility called `redis-trib`, a Ruby program executing special commands on instances in order to create new clusters, check or reshard an existing cluster, and so forth.
+
+The redis-trib utility is in the src directory of the Redis source code distribution. You need to install redis gem to be able to run redis-trib.
+```
+gem install redis
+```
+To create your cluster simply type:
+```
+./redis-trib.rb create --replicas 1 <IP:PORT> <IP:PORT> <IP:PORT> （共6个实例）
+```
+
+The command used here is create, since we want to create a new cluster. The option --replicas 1 means that we want a slave for every master created. The other arguments are the list of addresses of the instances I want to use to create the new cluster.
+
+Obviously the only setup with our requirements is to create a cluster with 3 masters and 3 slaves.
+
 ### 扩展阅读
 #### 1. redis持久化方法对比分析
 https://www.cnblogs.com/Fairy-02-11/p/6182478.html
 
 #### 2. Redis：默认配置文件redis.conf详解
 https://www.cnblogs.com/zxtceq/p/7676911.html
+
+#### 3. Redis 命令参考
+http://doc.redisfans.com/index.html

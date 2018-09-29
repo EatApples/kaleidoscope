@@ -23,6 +23,7 @@
   * [2.13 负载均衡与高可用](java/负载均衡与高可用.md)
   * [2.14 网络协议](java/网络协议.md)
   * [2.15 `Java-Servlet-4.0`阅读笔记](java/JSR-369-Java-Servlet-4.0阅读笔记.md  )
+  * [2.16 Safe Publication and Safe Initialization in Java](java/Safe-Publication-and-Safe-Initialization-in-Java.md)
 * [3 `SpringBoot`](README.md)
   * [3.1 `SpringBoot`的`pom.xml`](springboot/SpringBoot-pom-xml.md)
   * [3.2 `SpringBoot`的注解](springboot/SpringBoot注解.md)
