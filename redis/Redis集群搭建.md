@@ -3,10 +3,13 @@
 不管是哨兵模式还是集群模式，Jedis客户端都支持！
 
 ### 1. 直接启动
-> nohup ./redis-server --protected-mode no 1>/dev/null 2>&1 &
-
+```
+nohup ./redis-server --protected-mode no 1>/dev/null 2>&1 &
+```
 ### 2. 指定配置文件启动
-> nohup ./redis-server 配置文件路径/redis.conf 1>/dev/null 2>&1 &
+```
+nohup ./redis-server 配置文件路径/redis.conf 1>/dev/null 2>&1 &
+```
 
 配置文件中，注意：
 ```
@@ -25,7 +28,9 @@ appendonly yes                   # 开启AOF模式
 如果集群中设置了密码，如果需要使用 redis-trib.rb 的各种命令，需要找到 client.rb（与Redis版本相关的那个，一般在 /usr/local/lib/ruby 目录下），然后修改password！
 
 ### 3. 客户端连接
-> ./redis-cli -h HOST -p PORT -a  PASSWORD
+```
+./redis-cli -h HOST -p PORT -a  PASSWORD
+```
 
 连接操作相关的命令
 + quit：关闭连接（connection）
@@ -69,6 +74,7 @@ AOF持久化以日志的形式记录服务器所处理的每一个写、删除�
 
 优势：
 + （1）更高的数据安全性（即数据持久性）。在Redis的配置文件中存在三种同步方式，它们分别是：
+
 ```
 appendfsync always     #每次有数据修改发生时都会写入AOF文件。
 
@@ -76,6 +82,7 @@ appendfsync everysec   #每秒钟同步一次，该策略为AOF的缺省策略�
 
 appendfsync no         #从不同步。高效但是数据不会被持久化。
 ```
+
 + （2）采用的是 append 模式，不会破坏日志文件中已经存在的内容。如果只是写入了一半数据就出现了系统崩溃问题，可以通过redis-check-aof工具来解决数据一致性的问题。
 
 + （3）如果日志过大，Redis可以自动启用rewrite机制。即Redis以append模式不断的将修改数据写入到老的磁盘文件中，同时Redis还会创建一个新的文件用于记录此期间有哪些修改命令被执行。因此在进行rewrite切换时可以更好的保证数据安全性。
@@ -93,8 +100,9 @@ appendfsync no         #从不同步。高效但是数据不会被持久化。
 
 ### 5. 恢复
 如果需要恢复数据，只需将备份文件 (dump.rdb) 移动到 redis 安装目录并启动服务即可。获取 redis 目录可以使用 CONFIG 命令：
-> config get dir
-
+```
+config get dir
+```
 ### 6. 远程服务控制
 + info：提供服务器的信息和统计
 + monitor：实时转储收到的请求
@@ -135,7 +143,7 @@ We are about to create an example cluster deployment. Before we continue, let's 
 集群节点迁移阈值，低于阈值则slave迁移。
 ```
  892	# cluster-migration-barrier 1
-````
+```
 
 + `cluster-require-full-coverage <yes/no>`: If this is set to yes, as it is by default, the cluster stops accepting writes if some percentage of the key space is not covered by any node. If the option is set to no, the cluster will still serve queries even if only requests about a subset of keys can be processed.
 集群是否需要全覆盖才提供服务。
