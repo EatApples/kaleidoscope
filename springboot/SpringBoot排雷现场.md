@@ -82,6 +82,31 @@ public class ScheduleConfig implements SchedulingConfigurer {
 
 这样是为了确保当 SpringBoot 应用上下文关闭的时候任务执行器也被正确地关闭。
 
+### 二 SpringBoot将本地jar包打入jar包中
+#### 1 引入本地包
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-netflix-core</artifactId>
+    <version>1.3.6.RELEASE.REVIEW</version>
+    <scope>system</scope>
+    <systemPath>${basedir}/lib/spring-cloud-netflix-core-1.3.6.RELEASE.REVIEW.jar</systemPath>
+</dependency>
+```
+
+#### 2 将本地jar包打入jar包中
+```xml
+<plugins>
+      <plugin>
+          <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+             <includeSystemScope>true</includeSystemScope>
+        </configuration>
+      </plugin>
+</plugins>
+```
+
 ### 参考资料
 #### 1. Scheduled task with cron not working as expected #478 https://github.com/codecentric/spring-boot-admin/issues/478#issuecomment-311749930
 
@@ -93,3 +118,6 @@ http://ju.outofmemory.cn/entry/99456
 
 #### 4. springBoot中@Scheduled执行原理解析
 http://blog.csdn.net/gaodebao1/article/details/51789225
+
+#### 5. springboot怎么使用maven打包时将本地jar包一块打进去
+https://blog.csdn.net/qq_30698633/article/details/78331920

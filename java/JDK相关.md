@@ -1,4 +1,4 @@
-### 1 JVM加载jar包的顺序
+### 1. JVM加载jar包的顺序
 
 #### 1.1 问题：
 NoSuchMethodError
@@ -82,3 +82,18 @@ public class Test {
 
 #### 2.3 JDK有话说
 API告诉你了就是不响应中断，你中断了飙CPU怪我咯？
+
+### 3. BootStrap class 扩展方案
+Java 命令行提供了如何扩展 bootstrap 级别 class 的简单方法：
+
++ （1）-Xbootclasspath：完全取代基本核心的 Java class 搜索路径。不常用，否则要重新写所有 Java 核心 class
+
++ （2）-Xbootclasspath/a：后缀在核心 class 搜索路径后面。常用。
+
++ （3）-Xbootclasspath/p：前缀在核心 class 搜索路径前面。不常用，避免引起无意义的冲突。
+
+### 4. ExtClassLoader 加载器加载路径
+-Djava.ext.dirs 会覆盖 Java 本身的 ext 设置。java.ext.dirs 指定的目录由ExtClassLoader加载器加载。
+
+解决方案也很简单，只需在改路径后面补上ext 的路径即可！
+比如：-Djava.ext.dirs=./plugin:$JAVA_HOME/jre/lib/ext
