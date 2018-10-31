@@ -99,10 +99,10 @@ public class ScheduleConfig implements SchedulingConfigurer {
 <plugins>
       <plugin>
           <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-             <includeSystemScope>true</includeSystemScope>
-        </configuration>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <configuration>
+                <includeSystemScope>true</includeSystemScope>
+          </configuration>
       </plugin>
 </plugins>
 ```

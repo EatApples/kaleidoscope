@@ -158,3 +158,20 @@ default-character-set=utf8
 character-set-server=utf8
 ```
 这时只需要将下的默认编码 default-character-set=utf8 改为 default-character-set=gbk ，重新启动 MySQL 服务即可。
+
+### 9. 连接失效
+```java
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+```
+错误分析：数据库连接已经关闭或者失效后仍然在执行操作，导致mysql服务没返回数据
+```
+1，客户端连接池中连接已经失效。但是连接池还没有检测到，当操作数据库时，启用该连接，抛出该错误
+
+2，mysql服务器，已关闭该连接，但客户端连接池中该连接，尚未检测到。当用该连接操作数据库时，抛出该错
+```
+处理办法：
+```
+1，每次连接操作数据库时，检测该连接的有效性
+
+2，缩短监控空闲线程的时间
+```

@@ -1,5 +1,5 @@
 # Summary
-
+我，码农，单身狗，计算机研究僧，从入门到放弃践行者，代码使我快乐狂信徒，社会主义接班人！
 * [0 `Introduction`](README.md)
 * [1 `Algorithm`](README.md)
   * [1.1 `CAP`理论](algorithm/CAP.md)
@@ -7,6 +7,7 @@
   * [1.3 分布式锁](algorithm/分布式锁.md)
   * [1.4 `RAFT`算法](algorithm/raft-zh_cn.md)
   * [1.5 3分钟理解`PAXOS`算法](algorithm/PAXOS.md)
+  * [1.6 `The Art of Multiprocessor Programming, Revised Reprint`](algorithm/TAMP.md)
 * [2 Java](README.md)
   * [2.1 `JavaGC`优化](java/从实际案例聊聊Java应用的GC优化.md)
   * [2.2 设计模式](java/设计模式23.md)
@@ -54,6 +55,7 @@
   * [5.3 `scp`命令](shell/scp命令.md)
   * [5.4 `shell`特殊变量的含义](shell/shell特殊变量的含义.md)
   * [5.5 `TCP`最大连接数](shell/TCP最大连接数.md)
+  * [5.6 `Linux`命令整理.md](shell/Linux命令整理.md)
 * [6 `ZooKeeper`](README.md)
   * [6.1 `ZooKeeper`集群安装](zookeeper/ZooKeeper集群安装.md)
   * [6.2 `ZooKeeper`权限控制](zookeeper/ZooKeeper权限控制.md)
@@ -75,6 +77,8 @@
 * [10 `JSR`](README.md)
   * [10.1 `Java-Servlet-4.0`阅读笔记](JSR/JSR-369-Java-Servlet-4.0阅读笔记.md)
   * [10.2 `JSR133`-内存模型](JSR/JSR133-内存模型.md)
+* [11 `MongoDB`](README.md)
+  * [11.1 MongoDB](mongodb/MongoDB.md)
 * [`Other`](README.md)
   * [1 `GitBook`](other/GitBook.md)
   * [2 `MySQL`](other/MySQL.md)
@@ -85,3 +89,4 @@
   * [7 `Nginx`](other/Nginx安装.md)
   * [8 `Webdis`安装](other/webdis安装.md)
   * [9 `Atom`安装](other/Atom安装.md)
+  * [10 `jsch`的使用](other/jsch的使用.md)
