@@ -2,7 +2,7 @@
 
 #### 1.1 问题：
 NoSuchMethodError
-#### 2.2 解决方案：
+#### 1.2 解决方案：
 ```
 （1）使用-XX:+TraceClassPaths或者在服务器上执行jinfo时，都能得到classpath包含的jar包
 （2）这些jar的顺序不同的机器总是不一样的，如果有多个同名的类只会加载其中第一个
@@ -97,3 +97,47 @@ Java 命令行提供了如何扩展 bootstrap 级别 class 的简单方法：
 
 解决方案也很简单，只需在改路径后面补上ext 的路径即可！
 比如：-Djava.ext.dirs=./plugin:$JAVA_HOME/jre/lib/ext
+
+### 5. GC调试参数
+#### 5.1 配置堆区
+```
+-Xms
+-Xmx
+-XX:newSize
+-XX:MaxnewSize
+-Xmn
+```
+
++ -Xms：表示java虚拟机堆区内存初始内存分配的大小，通常为操作系统可用内存的1/64大小即可，但仍需按照实际情况进行分配。
+
++ -Xmx：表示java虚拟机堆区内存可被分配的最大上限，通常为操作系统可用内存的1/4大小。但是开发过程中，通常会将 -Xms 与 -Xmx两个参数的配置相同的值，其目的是为了能够在java垃圾回收机制清理完堆区后不需要重新分隔计算堆区的大小而浪费资源。
+
++ -XX:newSize：表示新生代初始内存的大小，应该小于 -Xms的值；
+
++ -XX:MaxnewSize：表示新生代可被分配的内存的最大上限；当然这个值应该小于 -Xmx的值；
+
++ -Xmn：至于这个参数则是对 -XX:newSize、-XX:MaxnewSize两个参数的同时配置，也就是说如果通过-Xmn来配置新生代的 内存大小，那么-XX:newSize = -XX:MaxnewSize = -Xmn，虽然会很方便，但需要注意的是这个参数是在JDK1.4版本以后才使用的。
+
+#### 5.2 配置非堆区
+```
+-XX:PermSize
+-XX:MaxPermSize
+```
++ -XX:PermSize：表示非堆区初始内存分配大小，其缩写为permanent size（持久化内存）
+
++ -XX:MaxPermSize：表示对非堆区分配的内存的最大上限。
+
+这里面非常要注意的一点是：在配置之前一定要慎重的考虑一下自身软件所需要的非堆区内存大小，因为此处内存是不会被java垃圾回收机制进行处理的地方。并且更加要注意的是 最大堆内存与最大非堆内存的和绝对不能够超出操作系统的可用内存。
+
++ -Xss: 设置每个线程可使用的内存大小。
+
+在相同物理内存下，减小这个值能生成更多的线程。当然操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。
+
++ -XX: MaxTenuringThreshold
+
+设置转入老生代的存活次数。如果是0，则直接跳过新生代进入老生代
+
+#### 5.3 常用内存参数配置
+``
+-Xms256m -Xmx256m -Xmn64m -Xss256k -XX:PermSize=128m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError
+```

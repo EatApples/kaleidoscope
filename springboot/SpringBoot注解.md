@@ -69,6 +69,8 @@ private BaseDao baseDao;
 （5）推荐使用：@Resource注解在字段上，这样就不用写setter方法了，并且这个注解是属于J2EE的，减少了与spring的耦合。这样代码看起就比较优雅。
 ```
 
+PS：Java变量的初始化顺序为：静态变量或静态语句块–>实例变量或初始化语句块–>构造方法–>@Autowired
+
 ### 7. @Component, @Service, @Controller , @Repository 的区别
 > @Service, @Controller , @Repository = {@Component + 一些特定的功能}。
 
@@ -155,6 +157,12 @@ The @Bean methods in a Spring component are processed differently than their cou
 配置类必须是非本地的（即不能在方法中声明，不能是 private）。
 任何嵌套配置类都必须声明为static。
 @Bean方法不能创建进一步的配置类（也就是返回的bean如果带有@Configuration，也不会被特殊处理，只会作为普通的 bean）。
+```
+
+### 14. @Scope
+```
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON) //默认类型是单例
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) //可生成多个对象
 ```
 
 ### 参考资料
