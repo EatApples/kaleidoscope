@@ -156,5 +156,5 @@ eureka.instance.metadataMap.instanceId=${spring.application.name}:${random.value
 默认情况下，Eureka使用Jersey和XStream配合JSON作为Server与Client之间的通讯协议。也可以选择实现自己的协议来代替。
 
 ### 参考资料
-#### 1. Spring Cloud构建微服务架构（四）分布式配置中心（续） 
+#### 1. Spring Cloud构建微服务架构（四）分布式配置中心（续）
 http://blog.csdn.net/sunhuiliang85/article/details/76222517

@@ -449,8 +449,8 @@ public final boolean compareAndSet(int expect, int update) {
 
 属性原子修改器（Updater）：AtomicIntegerFieldUpdater、AtomicLongFieldUpdater、AtomicReferenceFieldUpdater
 
-# 18. Volatile用法
-在多线程并发编程中synchronized和Volatile都扮演着重要的角色，Volatile是轻量级的synchronized，它在多处理器开发中保证了共享变量的“可见性”。可见性的意思是当一个线程修改一个共享变量时，另外一个线程能读到这个修改的值。它在某些情况下比synchronized的开销更小。有volatile变量修饰的共享变量进行写操作的时候会多第二行汇编代码，通过查IA-32架构软件开发者手册可知，lock前缀的指令在多核处理器下会引发了两件事情。
+# 18. volatile 用法
+在多线程并发编程中 synchronized 和 volatile 都扮演着重要的角色，volatile是轻量级的synchronized，它在多处理器开发中保证了共享变量的“可见性”。可见性的意思是当一个线程修改一个共享变量时，另外一个线程能读到这个修改的值。它在某些情况下比synchronized的开销更小。有volatile变量修饰的共享变量进行写操作的时候会多第二行汇编代码，通过查IA-32架构软件开发者手册可知，lock前缀的指令在多核处理器下会引发了两件事情。
 
 （1）将当前处理器缓存行的数据会写回到系统内存。
 
@@ -492,3 +492,208 @@ Java 的引用主要分为强引用、软引用、弱引用、虚引用。
 + 弱引用（WeakReference）：弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程，因此不一定会很快发现那些只具有弱引用的对象。弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被垃圾回收，Java 虚拟机就会把这个弱引用加入到与之关联的引用队列中。
 
 + 虚引用（PhantomReference）：“虚引用”顾名思义，就是形同虚设，与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。
+
+# 22. 线程 Heap 信息解析
+```
+"http-bio-8070-exec-7" daemon prio=10 tid=0x00007f9410004000 nid=0xc5c waiting on condition [0x00007f94439ee000]
+
+线程名："http-bio-8070-exec-7"
+线程优先级：prio=10
+java线程ID：tid=0x00007f9410004000
+native线程的id：nid=0xc5c
+线程栈起始地址：[0x00007f94439ee000]
+```
+
+# 23. 日志的切分
+java 自带日志系统，写数据为 write(int); 其实只写低8位，一字节
+
+对文件的操作需要加锁，使用内部流 MeteredStream 来计数写的字节数。
+```java
+    // A metered stream is a subclass of OutputStream that
+    //   (a) forwards all its output to a target stream
+    //   (b) keeps track of how many bytes have been written
+    //    通过 setOutputStream 来切换 writer
+        // Rotate the set of output files
+    private synchronized void rotate() {
+        Level oldLevel = getLevel();
+        setLevel(Level.OFF);
+
+        super.close();
+        for (int i = count-2; i >= 0; i--) {
+            File f1 = files[i];
+            File f2 = files[i+1];
+            if (f1.exists()) {
+                if (f2.exists()) {
+                    f2.delete();
+                }
+                f1.renameTo(f2);
+            }
+        }
+        try {
+            open(files[0], false); //append=true，则在未满的文件中追加
+        } catch (IOException ix) {
+            // We don't want to throw an exception here, but we
+            // report the exception to any registered ErrorManager.
+            reportError(null, ix, ErrorManager.OPEN_FAILURE);
+
+        }
+        setLevel(oldLevel);
+    }
+```
+
+每次输出日志时，通过 doLog -> public void log(LogRecord record) {
+```java
+for (Handler handler : logger.getHandlers()) {
+    handler.publish(record);
+}
+```
+
+调用 publish 方法，超过设置的 byte 数则 rotate(); 输出到另一个文件中！
+
+```java
+public synchronized void publish(LogRecord record) {
+....
+if (limit > 0 && meter.written >= limit) {
+            // We performed access checks in the "init" method to make sure
+            // we are only initialized from trusted code.  So we assume
+            // it is OK to write the target files, even if we are
+            // currently being called from untrusted code.
+            // So it is safe to raise privilege here.
+            AccessController.doPrivileged(new PrivilegedAction<Object>() {
+                public Object run() {
+                    rotate();
+                    return null;
+                }
+            });
+        }
+```
+
+# 24. java 序列化
+Java 序列化指的是将对象转换程字节格式并将对象状态保存在文件中，通常是`.ser`扩展名的文件。然后可以通过 `.ser` 文件重新创建 Java 对象，这个过程为反序列化
+
+（1）Java中的Serializable接口和Externalizable接口有什么区别？
+
+Externalizable 接口提供了两个方法 writeExternal() 和 readExternal()。这两个方法给我们提供了灵活处理 Java 序列化的方法，通过实现这个接口中的两个方法进行对象序列化可以替代 Java 中默认的序列化方法。正确的实现 Externalizable 接口可以大幅度的提高应用程序的性能。
+
+（2）Serializable 接口中有几个方法？如果没有方法的话，那么这么设计 Serializable 接口的目的是什么？
+
+Serializable 接口在 java.lang 包中，是 Java 序列化机制的核心组成部分。它里面没有包含任何方法，我们称这样的接口为标识接口。如果你的类实现了Serializable 接口，这意味着你的类被打上了“可以进行序列化”的标签，并且也给了编译器指示，可以使用序列化机制对这个对象进行序列化处理。
+
+（3）什么是 serialVersionUID ？如果你没有定义 serialVersionUID 意味着什么？
+
+SerialVersionUID 应该是你的类中的一个 public static final 类型的常量，如果你的类中没有定义的话，那么编译器将抛出警告。如果你的类中没有制定 serialVersionUID ，那么 Java 编译器会根据类的成员变量和一定的算法生成用来表达对象的 serialVersionUID ，通常是用来表示类的哈希值（hash code）。结论是，如果你的类没有实现 SerialVersionUID ，那么如果你的类中如果加入或者改变成员变量，那么已经序列化的对象将无法反序列化。这是因为类的成员变量的改变意味这编译器生成的  SerialVersionUID 的值不同。Java 序列化过程是通过正确 SerialVersionUID 来对已经序列化的对象进行状态恢复。
+
+（4）当对象进行序列化的时候，如果你不希望你的成员变量进行序列化，你怎么办？
+
+如果你不希望你的对象中的成员变量的状态得以保存，你可以根据需求选择 transient 或者 static 类型的变量，这样的变量不参与 Java 序列化处理的过程。
+
+（5）如果一个类中的成员变量是其它符合类型的 Java 类，而这个类没有实现 Serializable 接口，那么当对象序列化的时候会怎样？
+
+如果你的一个对象进行序列化，而这个对象中包含另外一个引用类型的成员编程，而这个引用的类没有实现 Serializable 接口，那么当对象进行序列化的时候会抛出“NotSerializableException”的运行时异常。
+
+（6）如果一个类是可序列化的，而他的超类没有，那么当进行反序列化的时候，那些从超类继承的实例变量的值是什么？
+
+Java 中的序列化处理实例变量只会在所有实现了 Serializable 接口的继承支路上展开。所以当一个类进行反序列化处理的时候，超类没有实现 Serializable 接口，那么从超类继承的实例变量会通过为实现序列化接口的超类的构造函数进行初始化。
+
+（7）你能够自定义序列化处理的代码吗或者你能重载 Java 中默认的序列化方法吗？
+
+答案是肯定的。我们都知道可以通过 ObjectOutputStream 中的 writeObject() 方法写入序列化对象，通过 ObjectInputStream 中的 readObject() 读入反序列化的对象。这些都是 Java 虚拟机提供给你的两个方法。如果你在你的类中定义了这两个方法，那么 JVM 就会用你的方法代替原有默认的序列化机制的方法。你可以通过这样的方式类自定义序列化和反序列化的行为。需要注意的一点是，最好将这两个方法定义为 private ，以防止他们被继承、重写和重载。也只有 JVM 可以访问到你的类中所有的私有方法，你不用担心方法私有不会被调用到，Java 序列化过程会正常工作。
+
+（8）假设一个新的类的超类实现了 Serializable 接口，那么如何让这个新的子类不被序列化？
+
+如果一个超类已经序列化了，那么无法通过是否实现什么接口的方式再避免序列化的过程了，但是也还有一种方式可以使用。那就是需要你在你的类中重新实现 writeObject() 和 readObject() 方法，并在方法实现中通过抛出 NotSerializableException 。
+
+（9）在 Java 进行序列化和反序列化处理的时候，哪些方法被使用了？
+
+Java 序列化是通过 java.io.ObjectOutputStream 这个类来完成的。这个类是一个过滤器流，这个类完成对底层字节流的包装来进行序列化处理。我们通过 ObjectOutputStream.writeObject(obj) 进行序列化，通过 ObjectInputStream.readObject() 进行反序列化。对 writeObject() 方法的调用会触发 Java 中的序列化机制。readObject() 方法用来将已经持久化的字节数据反向创建 Java 对象，该方法返回 Object 类型，需要强制转换成你需要的正确类型。
+
+（10）假设你有一个类并且已经将这个类的某一个对象序列化存储了，那么如果你在这个类中加入了新的成员变量，那么在反序列化刚才那个已经存在的对象的时候会怎么样？
+
+这个取决于这个类是否有 serialVersionUID 成员。通过上面的，我们已经知道如果你的类没有提供 serialVersionUID，那么编译器会自动生成，而这个 serialVersionUID 就是对象的 hash code 值。那么如果加入新的成员变量，重新生成的 serialVersionUID 将和之前的不同，那么在进行反序列化的时候就会产生 java.io.InvalidClassException 的异常。这就是为什么要建议为你的代码加入 serialVersionUID 的原因所在了。
+
+（11）java反序列化时会将NULL值变成""字符!!
+```java
+	private void writeObject(ObjectOutputStream out) {
+		try {
+			PutField putFields = out.putFields();
+			System.out.println("原密码:" + password);
+			password = "encryption";//模拟加密
+			putFields.put("password", password);
+			System.out.println("加密后的密码" + password);
+			out.writeFields();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void readObject(ObjectInputStream in) {
+		try {
+			GetField readFields = in.readFields();
+			Object object = readFields.get("password", "");
+			System.out.println("要解密的字符串:" + object.toString());
+			password = "pass";//模拟解密,需要获得本地的密钥
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+```
+
+# 25. javabean
+（1）javabean 是什么？
+
+Bean的中文含义是“豆子”，顾名思义，JavaBean是指一段特殊的Java类，就是有默然构造方法，只有get，set的方法的java类的对象。
+
+专业点解释是：JavaBean 定义了一组规则，JavaBean 就是遵循此规则的平常的Java对象。满足这三个条件:  
++ 实现 java.io.Serializable 接口
+
++ 提供无参数的构造器
+
++ 提供getter 和 setter方法访问它的属性.
+
+
+简单地说，JavaBean 是用Java语言描述的软件组件模型，其实际上是一个类。这些类遵循一个接口格式，以便于使函数命名、底层行为以及继承或实现的行为，可以把类看作标准的JavaBean组件进行构造和应用。
+
+JavaBean 一般分为可视化组件和非可视化组件两种。可视化组件可以是简单的GUI元素，如按钮或文本框，也可以是复杂的，如报表组件；非可视化组件没有GUI表现形式，用于封装业务逻辑、数据库操作等。其最大的优点在于可以实现代码的可重用性。JavaBean 又同时具有以下特性。
+
++ 易于维护、使用、编写。
+
++ 可实现代码的重用性。
+
++ 可移植性强，但仅限于Java工作平台。
+
++ 便于传输，不限于本地还是网络。
+
++ 可以以其他部件的模式进行工作。
+
+对于有过其他语言编程经验的读者，可以将其看作类似微软的ActiveX的编程组件。但是区别在于 JavaBean 是跨平台的，而ActiveX组件则仅局限于Windows系统。总之，JavaBean 比较适合于那些需要跨平台的、并具有可视化操作和定制特性的软件组件。
+
+JavaBean 组件与EJB（Enterprise JavaBean，企业级JavaBean）组件完全不同。EJB 是J2EE的核心，是一个用来创建分布式应用、服务器端以及基于Java应用的功能强大的组件模型。JavaBean 组件主要用于存储状态信息，而EJB组件可以存储业务逻辑。
+
+（2）使用JavaBean的原因
+
+程序中往往有重复使用的段落，JavaBean 就是为了能够重复使用而设计的程序段落，而且这些段落并不只服务于某一个程序，而且每个JavaBean都具有特定功能，当需要这个功能的时候就可以调用相应的JavaBean。从这个意义上来讲，JavaBean 大大简化了程序的设计过程，也方便了其他程序的重复使用。
+
+JavaBean 传统应用于可视化领域，如AWT（窗口工具集）下的应用。而现在，JavaBean更多地应用于非可视化领域，同时，JavaBean 在服务器端的应用也表现出强大的优势。非可视化的JavaBean可以很好地实现业务逻辑、控制逻辑和显示页面的分离，现在多用于后台处理，使得系统具有更好的健壮性和灵活性。JSP + JavaBean 和JSP + JavaBean + Servlet 成为当前开发Web应用的主流模式。
+
+（3）JavaBean的开发
+
+在程序设计的过程中，JavaBean不是独立的。为了能够更好地封装事务逻辑、数据库操作而便于实现业务逻辑和前台程序的分离，操作的过程往往是先开发需要的JavaBean，再在适当的时候进行调用。但一个完整有效的JavaBean必然会包含一个属性，伴随若干个get/set（只读/只写）函数的变量来设计和运行的。JavaBean作为一个特殊的类，具有自己独有的特性。应该注意以下3个方面。
+
++ JavaBean 类必须有一个没有参数的构造函数。
+
++ JavaBean 类所有的属性最好定义为私有的。
+
++ JavaBean 类中定义函数setXxx() 和getXxx()来对属性进行操作。其中Xxx是首字母大写的私有变量名称
+
+A JavaBean is just a standard
+
++ All properties private (use getters/setters)
+
++ A public no-argument constructor
+
++ Implements Serializable.
+
+That's it. It's just a convention. 

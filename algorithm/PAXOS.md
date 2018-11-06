@@ -335,6 +335,12 @@ fail
 
 Google Chubby的作者Mike Burrows说过， there is only one consensus protocol, and that’s Paxos” – all other approaches are just broken versions of Paxos. 意即世上只有一种一致性算法，那就是Paxos，所有其他一致性算法都是Paxos算法的不完整版。
 
+### 8. 操作原子性与数据一致性
+
+2PC，操作原子性
+
+Paxos，数据一致性
+
 ### 参考资料
 #### 1. 2PC到3PC到Paxos到Raft到ISR
 https://segmentfault.com/a/1190000004474543

@@ -9,6 +9,16 @@
 感觉Linux 的 cron “最二”，没有并行控制：到点就起，无论上一次是否执行完。
 
 ### 1. `quartz` 的 `cron`
+quartz 提供的定时任务
+
+从任务调度的触发时机来分，这里主要是针对作业使用的触发器，主要有以下两种：
++ 每隔指定时间则触发一次，在Quartz中对应的触发器为：org.springframework.scheduling.quartz.SimpleTriggerBean
+
++ 每到指定时间则触发一次，在Quartz中对应的调度器为：org.springframework.scheduling.quartz.CronTriggerBean
+
+并行执行啊，卧槽！！！（可以使用 `@DisallowConcurrentExecution` 来禁用）就是CRON（固定时刻）和FIXEDRATE（固定频率），没有FIXEDDELAY（固定时延）
+
+
 misfire产生的条件是：到了该触发执行时上一个执行还未完成，且线程池中没有空闲线程可以使用（或有空闲线程可以使用但job设置为@DisallowConcurrentExecution）且过期时间已经超过misfireThreshold就认为是misfire了，错失触发了
 
 + withMisfireHandlingInstructionDoNothing

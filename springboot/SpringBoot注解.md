@@ -165,6 +165,17 @@ The @Bean methods in a Spring component are processed differently than their cou
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) //可生成多个对象
 ```
 
+### 15. REST参数解析
+```
+@QueryParam 用于从请求 URL 的查询组件中提取查询参数
+如果需要为参数设置默认值，可以使用 @DefaultValue
+@FormParam 顾名思义是处理 HTML表单请求的
+@MatrixParam 从 URL 路径提取信息
+@HeaderParam 从 HTTP 头部提取信息
+@CookieParam从关联在 HTTP 头部的 cookies 里提取信息
+@BeanParam 允许注入参数到一个 bean
+@Context 一般可以用于获得一个Java类型关联请求或响应的上下文
+```
 ### 参考资料
 #### 1. @Bean在@Configuration和在@Component中的区别
 https://blog.csdn.net/ttjxtjx/article/details/49866011

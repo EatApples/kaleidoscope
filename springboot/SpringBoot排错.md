@@ -177,3 +177,18 @@ classNotFound
 （3）构造Map对象，使用 ObjectMapper 进行转换
 （4）直接构造JSON串
 ```
+
+### 7. config-server 启动报错
+#### 7.1 问题
+```java
+Caused by: org.eclipse.jgit.errors.TransportException: Read timed out after 5,000 ms
+```
+#### 7.2 原因
+原因是某项目除了配置文件，还有32M的代码，不超时才怪！！
+
+### 8. SpringCloudBus 问答
+
++ （1）Bus 传递的消息是 topic 的吗？ 是
++ （2）Bus 会触发所有不同名实例吗？根据 application+中间值+端口 确定
++ （3）Bus 流通的消息是什么样的？ 一个JSON
++ （4）Bus 必须要求客户端使用配置中心吗？否

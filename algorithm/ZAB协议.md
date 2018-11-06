@@ -41,6 +41,11 @@ Leader选举主要是依赖Paxos算法。Leader选举遇到的最大问题是，
 
 因为在老Leader中存在着数据删除（情况1），因此Zookeeper的数据存储要支持补偿操作，这也就需要像数据库一样记录log。
 
+### 3. ZK处于强一致与弱一致之间，单调一致？
+@see http://zookeeper.apache.org/doc/current/zookeeperProgrammers.html#ch_zkGuarantees
+
+顺序一致性（Sequential Consistency）
+
 ### 扩展阅读
 #### 1. Zab vs. Paxos
 https://cwiki.apache.org/confluence/display/ZOOKEEPER/Zab+vs.+Paxos
