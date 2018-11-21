@@ -24,7 +24,12 @@ Nacos会无缝支持Spring Cloud，为Spring Cloud用户其提供更简便的配
 #### 3.3 Nacos 支持Kubernetes DNS-based Service Discovery
 阿里巴巴这么多年在VIPServer DNS-based Service Discovery上的实践证明，在云原生时代，应用会更关注与基础设施的解耦合、多语言乃至多云的诉求，服务发现的未来一定是基于标准的DNS协议做，而不是像Eureka或者像ZooKeeper这样的私有API或者协议做, 同时在云上，在服务发现场景中，注册中心更关注的是可用性而不是数据一致性，所以Nacos会首推DNS-based Servcie Discovery，并优先关注可用性，而这也正是Nacos可以无缝融合进Kubernetes服务发现体系的原因所在。
 
-
 ### 资料来源
 #### 1. 支持Dubbo生态发展，阿里巴巴启动新的开源项目 Nacos
 https://yq.aliyun.com/articles/604028
+#### 2. Nacos 文档
+https://nacos.io/zh-cn/docs/what-is-nacos.html
+#### 3. alibaba/nacos
+https://github.com/alibaba/nacos
+#### 4. spring-cloud-incubator/spring-cloud-alibaba
+https://github.com/spring-cloud-incubator/spring-cloud-alibaba

@@ -569,6 +569,8 @@ if (limit > 0 && meter.written >= limit) {
 ```
 
 # 24. java 序列化
+@ see [对Java Serializable（序列化）的理解和总结](https://www.cnblogs.com/qq3111901846/p/7894532.html)
+
 Java 序列化指的是将对象转换程字节格式并将对象状态保存在文件中，通常是`.ser`扩展名的文件。然后可以通过 `.ser` 文件重新创建 Java 对象，这个过程为反序列化
 
 （1）Java中的Serializable接口和Externalizable接口有什么区别？
@@ -578,6 +580,31 @@ Externalizable 接口提供了两个方法 writeExternal() 和 readExternal()。
 （2）Serializable 接口中有几个方法？如果没有方法的话，那么这么设计 Serializable 接口的目的是什么？
 
 Serializable 接口在 java.lang 包中，是 Java 序列化机制的核心组成部分。它里面没有包含任何方法，我们称这样的接口为标识接口。如果你的类实现了Serializable 接口，这意味着你的类被打上了“可以进行序列化”的标签，并且也给了编译器指示，可以使用序列化机制对这个对象进行序列化处理。
+
+在 ObjectOutputStream 类中有如下代码：
+```java
+private void writeObject0(Object obj, boolean unshared) throws IOException {
+
+    if (obj instanceof String) {
+        writeString((String) obj, unshared);
+    } else if (cl.isArray()) {
+        writeArray(obj, desc, unshared);
+    } else if (obj instanceof Enum) {
+        writeEnum((Enum) obj, desc, unshared);
+    } else if (obj instanceof Serializable) {
+        writeOrdinaryObject(obj, desc, unshared);
+    } else {
+        if (extendedDebugInfo) {
+            throw new NotSerializableException(cl.getName() + "\n"
+                    + debugInfoStack.toString());
+        } else {
+            throw new NotSerializableException(cl.getName());
+        }
+    }
+
+}
+```
+从上述代码可知，如果被写对象的类型是String，或数组，或Enum，或Serializable，那么就可以对该对象进行序列化，否则将抛出NotSerializableException。
 
 （3）什么是 serialVersionUID ？如果你没有定义 serialVersionUID 意味着什么？
 
@@ -595,7 +622,7 @@ SerialVersionUID 应该是你的类中的一个 public static final 类型的常
 
 Java 中的序列化处理实例变量只会在所有实现了 Serializable 接口的继承支路上展开。所以当一个类进行反序列化处理的时候，超类没有实现 Serializable 接口，那么从超类继承的实例变量会通过为实现序列化接口的超类的构造函数进行初始化。
 
-（7）你能够自定义序列化处理的代码吗或者你能重载 Java 中默认的序列化方法吗？
+（7）你能够自定义序列化处理的代码吗？或者你能重载 Java 中默认的序列化方法吗？
 
 答案是肯定的。我们都知道可以通过 ObjectOutputStream 中的 writeObject() 方法写入序列化对象，通过 ObjectInputStream 中的 readObject() 读入反序列化的对象。这些都是 Java 虚拟机提供给你的两个方法。如果你在你的类中定义了这两个方法，那么 JVM 就会用你的方法代替原有默认的序列化机制的方法。你可以通过这样的方式类自定义序列化和反序列化的行为。需要注意的一点是，最好将这两个方法定义为 private ，以防止他们被继承、重写和重载。也只有 JVM 可以访问到你的类中所有的私有方法，你不用担心方法私有不会被调用到，Java 序列化过程会正常工作。
 
@@ -640,6 +667,7 @@ Java 序列化是通过 java.io.ObjectOutputStream 这个类来完成的。这�
 
 	}
 ```
+
 
 # 25. javabean
 （1）javabean 是什么？
@@ -696,4 +724,4 @@ A JavaBean is just a standard
 
 + Implements Serializable.
 
-That's it. It's just a convention. 
+That's it. It's just a convention.

@@ -16,21 +16,32 @@ RabbitMQ服务器连不上了
 ```
 
 ### 2. RabbitMQ 的延迟队列
-Time To Live(TTL)
+Time To Live（TTL）
 
 Dead Letter Exchanges（DLX）
 
 ### 3. RabbitMQ 事务
 RabbitMQ为我们提供了两种方式：
 
-+ 方式一：通过AMQP事务机制实现，这也是从AMQP协议层面提供的解决方案；
+（1）方式一：通过AMQP事务机制实现，这也是从AMQP协议层面提供的解决方案；
 
-+ 方式二：通过将channel设置成confirm模式来实现；
+事务的实现主要是对信道（Channel）的设置，主要的方法有三个：
 
-RabbitMQ中与事务机制有关的方法有三个，分别是Channel里面的txSelect()，txCommit()以及txRollback()，txSelect用于将当前Channel设置成是transaction模式，txCommit用于提交事务，txRollback用于回滚事务，在通过txSelect开启事务之后，我们便可以发布消息给broker代理服务器了，如果txCommit提交成功了，则消息一定是到达broker了，如果在txCommit执行之前broker异常奔溃或者由于其他原因抛出异常，这个时候我们便可以捕获异常通过txRollback回滚事务了；
+channel.txSelect() 声明启动事务模式；
 
-```
-1. 普通confirm模式。每发送一条消息后，调用waitForConfirms()方法，等待服务器端confirm。实际上是一种串行confirm了。
-2. 批量confirm模式。每次发送一批消息后，调用waitForConfirms()方法，等待服务器端confirm。
-3. 异步confirm模式。提供一个回调方法，服务器端confirm了一条(或多条)消息后SDK会回调这个方法。
-```
+channel.txComment() 提交事务；
+
+channel.txRollback() 回滚事务；
+
+（2）方式二：通过将channel设置成confirm模式来实现；
+
++ 普通confirm模式。每发送一条消息后，调用waitForConfirms()方法（channel.waitForConfirms() 或 channel.waitForConfirmsOrDie()），等待服务器端confirm。实际上是一种串行confirm了。
+
++ 批量confirm模式。每次发送一批消息后，调用waitForConfirms()（channel.waitForConfirms() 或 channel.waitForConfirmsOrDie()）方法，等待服务器端confirm。
+
++ 异步confirm模式。提供一个回调方法（channel.addConfirmListener()），服务器端confirm了一条(或多条)消息后SDK会回调这个方法。
+
+
+### 参考资料
+#### 1. RabbitMQ系列（四）RabbitMQ事务和Confirm发送方消息确认——深入解读
+https://www.cnblogs.com/vipstone/p/9350075.html

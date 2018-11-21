@@ -10,6 +10,7 @@
   * [1.6 `The Art of Multiprocessor Programming, Revised Reprint`](algorithm/TAMP.md)
   * [1.7 `BFPRT`算法](algorithm/BFPRT.md)
   * [1.8 `FisherYates`洗牌算法](algorithm/FisherYates洗牌算法.md)
+  * [1.9 `Dapper`笔记](algorithm/Dapper笔记.md)
 * [2 Java](README.md)
   * [2.1 `JavaGC`优化](java/从实际案例聊聊Java应用的GC优化.md)
   * [2.2 设计模式](java/设计模式23.md)

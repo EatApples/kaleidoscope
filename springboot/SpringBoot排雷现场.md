@@ -255,7 +255,21 @@ spring:
           searchPaths: foo,bar*
 ```
 
-在此示例中，服务器搜索顶级和“foo /”子目录以及名称以“bar”开头的任何子目录中的配置文件
+在此示例中，服务器搜索顶级和“foo/”子目录以及名称以“bar”开头的任何子目录中的配置文件
+
+Spring Cloud Config 服务器还支持具有{application}和{profile}（以及{label}（如果需要））占位符的搜索路径。例：
+
+```yml
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/spring-cloud-samples/config-repo
+          searchPaths: '{application}'
+```
+
+在资源库中搜索与目录（以及顶级）相同名称的文件。通配符在具有占位符的搜索路径中也是有效的（搜索中包含任何匹配的目录）。
 
 #### 5.4 示例
 ```yml
@@ -277,13 +291,14 @@ spring:
               basedir: ${git.home}/alice
             bob:
               pattern: bob-*
+              searchPaths: '{application}'
               cloneOnStart: true
               uri: http://XXX/bob.git
               force-pull: true
               basedir: ${git.home}/bob
             eve:
               pattern: eve-*
-              searchPaths: eve-a,eve-b
+              searchPaths: eve-a,eve-b*
               cloneOnStart: true
               uri: http://XXX/eve.git
               force-pull: true
@@ -320,3 +335,6 @@ https://blog.csdn.net/qq_30698633/article/details/78331920
 
 #### 6. Spring Cloud中，Eureka常见问题总结
 http://www.itmuch.com/spring-cloud-sum-eureka/
+
+#### 7. Spring Cloud Dalston中文文档
+https://springcloud.cc/spring-cloud-dalston.html
