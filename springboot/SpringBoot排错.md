@@ -1,4 +1,20 @@
-### 1 Fiegn Client
+### 1. Fiegn Client
+Feign是一种声明式、模板化的HTTP客户端
+
+Feign是简化Java HTTP客户端开发的工具（java-to-httpclient-binder），它的灵感来自于Retrofit、JAXRS-2.0和WebSocket。Feign的初衷是降低统一绑定Denominator到HTTP API的复杂度，不区分是否为restful
+
+Feign通过配置注入一个模板化请求进行工作。只需在发送之前关闭它，参数就可以被直接的运用到模板中。然而这也限制了Feign，只支持文本形式的API，它可以在响应请求方面来简化系统
+
+Feign将方法签名中方法参数对象序列化为请求参数放到HTTP请求中的过程，是由编码器(Encoder)完成的。同理，将HTTP响应数据反序列化为java对象是由解码器(Decoder)完成的
+
+Feign在默认情况下使用的是JDK原生的URLConnection发送HTTP请求，没有连接池，但是对每个地址会保持一个长连接，即利用HTTP的persistence connection
+
+简而言之：
+```
+feign 采用的是接口加注解
+feign 整合了ribbon
+```
+
 #### 1.1 问题：
 
 Fiegn Client with Spring Boot: RequestParam.value() was empty on parameter 3
@@ -28,7 +44,7 @@ Feign 将方法签名中方法参数对象序列化为请求参数放到 HTTP �
 
 最好的做法是通过 @RequestParam 注解指定具体的参数名称
 
-### 2 spring boot自动注入
+### 2. spring boot自动注入
 
 #### 2.1 问题：
 ```
@@ -40,7 +56,7 @@ spring boot自动注入出现Consider defining a bean of type 'xxx' in your conf
 或在指定的 application 类上加上 @SpringBootApplication(scanBasePackages = {"com.xxx.yyy"})
 
 TODO:
-### 3 spring boot 避免加载不必要的自动化配置
+### 3. spring boot 避免加载不必要的自动化配置
 
 ```
 @ComponentScan(basePackages = { "com..yyy.zzz" }, excludeFilters = {
@@ -48,7 +64,7 @@ TODO:
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = bbbb.class) })
 ```
 
-### 4 eureka 报错
+### 4. eureka 报错
 #### 4.1 问题：
 ```java
 2017-10-14 07:41:28.315 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry -
@@ -104,7 +120,7 @@ eureka.client.fetch-registry: false
 
 把server端yml里配置 register-with-eureka: false 的那两行注释给放开，看看eureka的server忽略自己后，是否能完成服务发现的高可用。可以看到和上面的最终结果是一样的，都是server1关闭后，server2依旧能进行client的发现。区别在于unavailable-replicas
 
-### 5 CSRF
+### 5. CSRF
 #### 5.1 问题
 ```
 POST访问报错：Invalid CSRF Token 'null' was found on the request parameter '_csrf' or header 'X-CSRF-TOKEN
@@ -121,3 +137,58 @@ CSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Clic
  @CrossOrigin(methods = { RequestMethod.GET, RequestMethod.POST }, origins = "*")
 
 ```
+### 6. JSONObject引发的惨案
+#### 6.1 问题
+classNotFound
+
+#### 6.2 原因
+（1）JSONObject 纯正来源于 org.json，但项目中没有引入
+```xml
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20171018</version>
+</dependency>
+```
+（2）项目能编译是因为starter-test带入了android-json
+```xml
+<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+</dependency>
+```
+然而<scope>test</scope>让它只在编译时生效，运行时就没了，所以classNotFound
+
+（3）很不幸的是在其他项目中，POM中又引入了
+```xml
+<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+</dependency>
+```
+意味着 org.json 只在编译时生效
+
+#### 6.3 解决方案：
+```
+（1）去掉starter-test的<scope>test</scope>，这样只因为一个对象，带入了全家桶，丑陋
+（2）引入org.json，删除 starter-test，最小依赖，觉得可行，最终采用这种
+（3）构造Map对象，使用 ObjectMapper 进行转换
+（4）直接构造JSON串
+```
+
+### 7. config-server 启动报错
+#### 7.1 问题
+```java
+Caused by: org.eclipse.jgit.errors.TransportException: Read timed out after 5,000 ms
+```
+#### 7.2 原因
+原因是某项目除了配置文件，还有32M的代码，不超时才怪！！
+
+### 8. SpringCloudBus 问答
+
++ （1）Bus 传递的消息是 topic 的吗？ 是
++ （2）Bus 会触发所有不同名实例吗？根据 application+中间值+端口 确定
++ （3）Bus 流通的消息是什么样的？ 一个JSON
++ （4）Bus 必须要求客户端使用配置中心吗？否

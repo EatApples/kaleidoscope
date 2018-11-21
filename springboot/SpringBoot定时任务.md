@@ -63,7 +63,7 @@ Seconds Minutes Hours DayofMonth Month DayofWeek
 #### 1.2 Spring 定时任务的区别
 &#8195;&#8195;图片来源：http://blog.csdn.net/applebomb/article/details/52400154
 
-![](../pic/定时任务对比.png)
+![](../photo/定时任务对比.png)
 
 * @Scheduled(cron = "0/5 * * * * ?")，在每分钟的0秒、5秒、10秒、15秒、20秒、25秒、30秒、35秒、40秒、45秒、50秒、55秒的时刻执行一次任务。这里由于0:00秒开始的任务耗时过长，超过下次执行任务的时间点（0:05秒），则0:05秒开始的任务直接取消。同理，0:20秒开始的任务也被取消了。
 

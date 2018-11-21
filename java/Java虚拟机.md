@@ -118,3 +118,25 @@
 ### 3. 代码优化
 
 ### 4. 虚拟机黑科技
+
+#### 4.0 UNSAFE
+```java
+// UNSAFE mechanics
+
+private static final sun.misc.Unsafe UNSAFE;
+private static final long nextOffset;
+
+static {
+    try {
+        java.lang.reflect.Field theUnsafe = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
+        theUnsafe.setAccessible(true);
+        UNSAFE = (sun.misc.Unsafe) theUnsafe.get(null);
+        // UNSAFE = sun.misc.Unsafe.getUnsafe();
+
+        nextOffset = UNSAFE.objectFieldOffset(Node.class.getDeclaredField("next"));
+    }
+    catch (Exception e) {
+        throw new Error(e);
+    }
+}
+```

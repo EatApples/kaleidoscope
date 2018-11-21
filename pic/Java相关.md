@@ -12,3 +12,6 @@
 
 #### 5. 雪花算法
 ![](../photo/SnowFlake.jpg)
+
+#### 6. TCP之3次握手与4次挥手
+![](../photo/TCP34.gif)

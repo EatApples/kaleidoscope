@@ -1,4 +1,4 @@
-### 1 问题：
+### 1. 问题：
 RabbitMQ服务器连不上了
 
 ### 1.1 原因：
@@ -14,3 +14,34 @@ RabbitMQ服务器连不上了
 （4）使设置生效：		source /etc/profile 	
 （5）重启RabbitMQ服务：	nohup /app/rabbitmq_server-3.6.6/sbin/rabbitmq-server start > rabbitmq.log &
 ```
+
+### 2. RabbitMQ 的延迟队列
+Time To Live（TTL）
+
+Dead Letter Exchanges（DLX）
+
+### 3. RabbitMQ 事务
+RabbitMQ为我们提供了两种方式：
+
+（1）方式一：通过AMQP事务机制实现，这也是从AMQP协议层面提供的解决方案；
+
+事务的实现主要是对信道（Channel）的设置，主要的方法有三个：
+
+channel.txSelect() 声明启动事务模式；
+
+channel.txComment() 提交事务；
+
+channel.txRollback() 回滚事务；
+
+（2）方式二：通过将channel设置成confirm模式来实现；
+
++ 普通confirm模式。每发送一条消息后，调用waitForConfirms()方法（channel.waitForConfirms() 或 channel.waitForConfirmsOrDie()），等待服务器端confirm。实际上是一种串行confirm了。
+
++ 批量confirm模式。每次发送一批消息后，调用waitForConfirms()（channel.waitForConfirms() 或 channel.waitForConfirmsOrDie()）方法，等待服务器端confirm。
+
++ 异步confirm模式。提供一个回调方法（channel.addConfirmListener()），服务器端confirm了一条(或多条)消息后SDK会回调这个方法。
+
+
+### 参考资料
+#### 1. RabbitMQ系列（四）RabbitMQ事务和Confirm发送方消息确认——深入解读
+https://www.cnblogs.com/vipstone/p/9350075.html

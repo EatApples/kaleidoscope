@@ -54,3 +54,32 @@ log4j.appender.rollingFile.layout=org.apache.log4j.PatternLayout
 log4j.appender.rollingFile.layout.ConversionPattern=%d %p [%c] - %m%n
 
 ```
+
+### Log4j在 web.xml 里的配置
+```xml
+    <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>/WEB-INF/log4j.properties</param-value>
+    </context-param>
+    <listener>
+    <listener-class>
+        org.springframework.web.util.Log4jConfigListener
+    </listener-class>
+    </listener>
+```
+
+### Log4j的依赖
+```xml
+<slf4j.version>1.7.2</slf4j.version>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+```

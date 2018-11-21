@@ -6,7 +6,7 @@ TBSchedule是一个支持分布式的调度框架，能让一种批量任务或�
 
 #### 2. 工作原理
 TBSchesule对分布式的支持包括调度机的分布式和执行机的分布式，其网络部署架构图如下：
-![](../pic/TBSchedule.png)
+![](../photo/TBSchedule.png)
 
 #####　2.1 数据存储
 执行机和调度机均以ZooKeeper为注册中心，所有数据以节点及节点内容的形式注册，通过定时汇报主机状态保持存活在ZooKeeper上。
