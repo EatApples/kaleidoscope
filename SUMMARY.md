@@ -1,5 +1,4 @@
 # Summary
-我，码农，单身狗，计算机研究僧，从入门到放弃践行者，代码使我快乐狂信徒，社会主义接班人！
 * [0 `Introduction`](README.md)
 * [1 `Algorithm`](README.md)
   * [1.1 `CAP`理论](algorithm/CAP.md)
