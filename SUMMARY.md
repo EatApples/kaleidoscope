@@ -57,6 +57,7 @@
   * [4.5 `RabbitMQConsumer`源码解析](rabbitmq/RabbitMQConsumer源码解析.md)
   * [4.6 `AMQP`协议](rabbitmq/AMQP协议.md)
   * [4.7 消息中间件选型图解](rabbitmq/消息中间件选型图解.md)
+  * [4.8 `RabbitMQ`消息存储](rabbitmq/RabbitMQ消息存储.md)
 * [5 `Shell`](README.md)
   * [5.1 免密登陆](shell/免密登陆.md)
   * [5.2 `iptables`命令](shell/iptables命令.md)

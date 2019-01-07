@@ -192,21 +192,34 @@ Options:
 ```
 在thread dump中，要留意下面几种状态
 
-+ 死锁，Deadlock（重点关注）
++ 死锁， Deadlock （重点关注）
 
-+ 等待资源，Waiting on condition（重点关注）
++ 等待资源， Waiting on condition （重点关注）
 
-+ 等待获取监视器，Waiting on monitor entry（重点关注）
++ 等待获取监视器， Waiting on monitor entry （重点关注）
 
-+ 阻塞，Blocked（重点关注）
++ 阻塞， Blocked （重点关注）
 
-+ 执行中，Runnable
++ 执行中， Runnable
 
-+ 暂停，Suspended
++ 暂停， Suspended
 
-+ 对象等待中，Object.wait() 或 TIMED_WAITING
++ 对象等待中， Object.wait() 或 TIMED_WAITING
 
-+ 停止，Parked
++ 停止， Parked
+
+线程信息示例："http-bio-8070-exec-7" daemon prio=10 tid=0x00007f9410004000 nid=0xc5c waiting on condition [0x00007f94439ee000]
+
+解析如下：
++ 线程名："http-bio-8070-exec-7"
+
++ 线程优先级：prio=10
+
++ java线程ID：tid=0x00007f9410004000
+
++ native线程的id：nid=0xc5c
+
++ 线程栈起始地址：[0x00007f94439ee000]
 
 jmap 得到运行java程序的内存分配的详细情况。例如实例个数，大小
 ```

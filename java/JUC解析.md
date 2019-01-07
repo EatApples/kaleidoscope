@@ -563,3 +563,6 @@ https://www.jianshu.com/p/af9c0f404a93
 
 # 14. Java多线程系列之“JUC集合“详解
 https://blog.csdn.net/ZYC88888/article/details/80018239
+
+# 15. Java并发包中的同步队列SynchronousQueue实现原理
+http://ifeve.com/java-synchronousqueue/
