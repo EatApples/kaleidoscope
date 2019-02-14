@@ -1,5 +1,4 @@
 # Summary
-我，码农，单身狗，计算机研究僧，从入门到放弃践行者，代码使我快乐狂信徒，社会主义接班人！
 * [0 `Introduction`](README.md)
 * [1 `Algorithm`](README.md)
   * [1.1 `CAP`理论](algorithm/CAP.md)
@@ -29,6 +28,7 @@
   * [2.15 Safe Publication and Safe Initialization in Java](java/Safe-Publication-and-Safe-Initialization-in-Java.md)
   * [2.16 `ThreadLocal`解析](java/ThreadLocal解析.md)
   * [2.17 `JUC`解析](java/JUC解析.md)
+  * [2.18 码农翻身整理](java/码农翻身整理.md)
 * [3 `SpringBoot`](README.md)
   * [3.1 `SpringBoot`的`pom.xml`](springboot/SpringBoot-pom-xml.md)
   * [3.2 `SpringBoot`的注解](springboot/SpringBoot注解.md)
@@ -58,6 +58,7 @@
   * [4.5 `RabbitMQConsumer`源码解析](rabbitmq/RabbitMQConsumer源码解析.md)
   * [4.6 `AMQP`协议](rabbitmq/AMQP协议.md)
   * [4.7 消息中间件选型图解](rabbitmq/消息中间件选型图解.md)
+  * [4.8 `RabbitMQ`消息存储](rabbitmq/RabbitMQ消息存储.md)
 * [5 `Shell`](README.md)
   * [5.1 免密登陆](shell/免密登陆.md)
   * [5.2 `iptables`命令](shell/iptables命令.md)
@@ -98,6 +99,7 @@
   * [14.1 线程安全的`SDF`](code/线程安全的SDF.md)
   * [14.2 获取本机`IP`](code/获取本机IP.md)
   * [14.3 网络探测：`ping`与`telnet`](code/网络探测：ping与telnet.md)
+  * [14.4 令牌桶](code/令牌桶.md)
 * [`Other`](README.md)
   * [1 `GitBook`](other/GitBook.md)
   * [2 `MySQL`](other/MySQL.md)

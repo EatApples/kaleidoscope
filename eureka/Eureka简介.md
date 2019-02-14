@@ -10,7 +10,7 @@ Eureka 侧重AP，优先保证活性（好的事情总会发生）；而 Zookeep
 在服务治理框架下，服务间的调用不再通过指定具体的实例地址来实现，而是通过服务名发起请求调用实现。服务调用方通过服务名从服务注册中心的服务清单中获取服务实例的列表清单，通过指定的负载均衡策略取出一个服务实例位置来进行服务调用。
 
 ## 4 Eureka介绍
-Spirng Cloud Eureka使用Netflix Eureka来实现服务注册与发现。它既包含了服务端组件，也包含了客户端组件，并且服务端与客户端均采用java编写，所以Eureka主要适用于通过java实现的分布式系统，或是JVM兼容语言构建的系统。Eureka的服务端提供了较为完善的REST API，所以Eureka也支持将非java语言实现的服务纳入到Eureka服务治理体系中来，只需要其他语言平台自己实现Eureka的客户端程序。目前.Net平台的Steeltoe，Node.js的eureka-js-client等都已经实现了各自平台的Ereka客户端组件。
+Spirng Cloud Eureka使用Netflix Eureka来实现服务注册与发现。它既包含了服务端组件，也包含了客户端组件，并且服务端与客户端均采用java编写，所以Eureka主要适用于通过java实现的分布式系统，或是JVM兼容语言构建的系统。Eureka的服务端提供了较为完善的REST API，所以Eureka也支持将非java语言实现的服务纳入到Eureka服务治理体系中来，只需要其他语言平台自己实现Eureka的客户端程序。目前.Net平台的Steeltoe，Node.js的eureka-js-client等都已经实现了各自平台的Eureka客户端组件。
 
 ### 4-1 Eureka服务端
 Eureka服务端，即服务注册中心。它同其他服务注册中心一样，支持高可用配置。依托于强一致性提供良好的服务实例可用性，可以应对多种不同的故障场景。
@@ -156,5 +156,5 @@ eureka.instance.metadataMap.instanceId=${spring.application.name}:${random.value
 默认情况下，Eureka使用Jersey和XStream配合JSON作为Server与Client之间的通讯协议。也可以选择实现自己的协议来代替。
 
 ### 参考资料
-#### 1. Spring Cloud构建微服务架构（四）分布式配置中心（续）
+#### 1. Spring Cloud Eureka详解
 http://blog.csdn.net/sunhuiliang85/article/details/76222517
