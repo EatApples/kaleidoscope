@@ -129,6 +129,7 @@ eureka-core 模块为 Eureka-Server 的功能实现：
 com.netflix.eureka.resources.ApplicationsResource，处理所有应用的请求操作的 Resource ( Controller )
 
 应用实例注册、下线、过期时，不会很快刷新到 readWriteCacheMap 缓存里。默认配置下，最大延迟在 30 秒。
+
 为什么可以使用缓存？在 CAP 的选择上，Eureka 选择了 AP ，不同于 Zookeeper 选择了 CP 。
 
 ```
@@ -155,15 +156,15 @@ private final CircularQueue<Pair<Long, String>> recentCanceledQueue;
 
 register(注册)、cancel(下线)、renew(更新)、evict(剔除)，这四个方法对应了Eureka Client与Eureka Server的交互行为相对应，是对注册表信息中的服务实例的租约管理方法。
 
-在PeerAwareInstanceRegistryImpl中，对Abstractinstanceregistry中的register()、cancel()、renew()等方法都添加了同步到PeerEurekaNode的操作，使Server集群中的注册表信息保持最终一致性。
+在 PeerAwareInstanceRegistryImpl 中，对 Abstractinstanceregistry 中的register()、cancel()、renew()等方法都添加了同步到 PeerEurekaNode 的操作，使 Server 集群中的注册表信息保持最终一致性。
 
-需要在意的是Eureka Server在接受到对应的同步复制请求后如何修改自身的注册表信息，以及反馈给发起同步复制请求的Eureka Server：
+需要在意的是 Eureka Server 在接收到对应的同步复制请求后如何修改自身的注册表信息，以及反馈给发起同步复制请求的 Eureka Server：
 
 + 问题1：同步注册信息的时候，被同步的一方也同样存在相同服务实例的租约，如果被同步一方的 lastDirtyTimestamp 比较小，那么被同步一方的注册表中关于该服务实例的租约将会被覆，如果被同步的一方的 lastDirtyTimestamp 的比较大，那么租约将不会被覆盖(这部分在 AbstractInstanceRegistry.register())。但是这时发起同步的 Eureka Server 中的租约就是dirty的，该如何处理？
 
-通过续租(心跳)同步，当 Eureka Client 与 Eureka Server 发起 renew() 请求的时候，接受 renew() 将持有最新的 lastDirtyTimestamp，通过同步心跳(续租)的方式，将该服务实例的最新 InstanceInfo 同步覆盖到 peer 节点的注册表中，维持 Server 集群注册表信息的一致性。
+通过续租(心跳)同步，当 Eureka Client 与 Eureka Server 发起 renew() 请求的时候，接收 renew() 将持有最新的 lastDirtyTimestamp，通过同步心跳(续租)的方式，将该服务实例的最新 InstanceInfo 同步覆盖到 peer 节点的注册表中，维持 Server 集群注册表信息的一致性。
 
-所以，我们发现整一个Eureka Server的集群是通过续租(心跳)的操作来维持集群的注册表信息的最终一致性，但是由于网络延迟或者波动原因，无法做到强一致性。
+所以，我们发现整个 Eureka Server 的集群是通过续租(心跳)的操作来维持集群的注册表信息的最终一致性，但是由于网络延迟或者波动原因，无法做到强一致性。
 
 + 问题2：同步续约(心跳)信息的时候，被同步一方的租约不存在或者是 lastDirtyTimestamp 比较小(被同步一方的租约是dirty)，如何处理？
 
@@ -178,24 +179,38 @@ register(注册)、cancel(下线)、renew(更新)、evict(剔除)，这四个方
 eureka-examples 模块，提供 Eureka-Client 使用例子。
 
 ### 问题列表
-#### 1. eureka client 与 eureka server 是如何通信的？
+#### 1. Eureka-Client 与 Eureka Server 是如何通信的？
+Eureka-Client 获取注册信息，分成全量获取和增量获取。
+
 Eureka-Client 启动时，首先执行一次全量获取进行本地缓存注册信息。
 
-Eureka-Client 在初始化过程中，创建获取注册信息线程，固定间隔向 Eureka-Server 发起获取注册信息( fetch )，刷新本地注册信息缓存。
+Eureka-Client 在初始化过程中，创建获取注册信息线程，固定间隔（30秒）向 Eureka-Server 发起增量获取注册信息( fetch )，刷新本地注册信息缓存( 非“正常”情况下会是全量获取，比如增量获取失败，Eureka-Client 重新和 Eureka-Server 全量获取应用集合 )。
 
 Eureka-Client 本地应用实例与 Eureka-Server 的该应用实例状态不同的原因，因为应用实例的覆盖状态。
 
 Eureka-Client 只会向 Eureka-Server 列表中的一个进行通信，除非该服务失效，才会选择下一个。
 
-#### 2. eureka server 之间是如何通信的？
+#### 2. Eureka-Server 之间是如何通信的？
+Eureka-Server 内嵌 Eureka-Client，用于和 Eureka-Server 集群里其他节点通信交互。
 
 Eureka-Server 多节点注册信息， P2P 同步。
 
-一个 Eureka-Server 收到 Eureka-Client 注册请求后(replication=false)，Eureka-Server 会自己模拟 Eureka-Client 发送注册请求(replication=true)到其它的 Eureka-Server。
+一个 Eureka-Server 收到 Eureka-Client 注册（Register，还有 Renew，Cancel）请求后(replication=false)，Eureka-Server 会自己模拟 Eureka-Client 发送注册请求(replication=true，从而避免重复的replicate)到其它的 Eureka-Server。
 
 也就是说，Eureka-Server 之间的信息同步是推模式！
 
-#### 3. eureka server 如何保证高可用？
+通过这种方式，Service Provider 只需要通知到任意一个 Eureka Server 后就能保证状态会在所有的 Eureka Server 中得到更新。
+
+记住：Eureka 通过 Heartbeat 实现 Eureka-Server 集群同步的最终一致性。
+#### 3. Eureka Server 是怎么知道有多少 Peer 的呢？
+
+Eureka Server在启动后会调用 EurekaClientConfig.getEurekaServerServiceUrls 来获取所有的 Peer 节点，并且会定期更新。定期更新频率可以通过 eureka.server.peerEurekaNodesUpdateIntervalMs 配置。
+
+这个方法的默认实现是从配置文件读取，所以如果 Eureka Server 节点相对固定的话，可以通过在配置文件中配置来实现。
+
+如果希望能更灵活的控制 Eureka Server 节点，比如动态扩容/缩容，那么可以 override getEurekaServerServiceUrls 方法，提供自己的实现。
+
+#### 4. eureka server 如何保证高可用？
 只要 eureka server 之间存在一条**互相可达**的链路，则它们之间能互相通信，注册信息达到最终一致性。
 
 意思是只有两两互联，才能保证高可用。

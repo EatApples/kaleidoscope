@@ -540,29 +540,29 @@ https://blog.csdn.net/timheath/article/details/71441008
 #### 6. 一个想休息的线程：JVM到底是怎么处理锁的？怎么不让我阻塞呢？
 [ 码农翻身](https://mp.weixin.qq.com/s?__biz=MzAxOTc0NzExNg==&mid=2665514802&idx=1&sn=b27962488ddd23cda5f67c3f1db12b56&chksm=80d67f71b7a1f6673c4222b128603db7a9b85029f6f5443de2cb1ecba535f3f802df2aedf076&mpshare=1&scene=1&srcid=110830eTDViSgl2X39rj7TFe#rd)
 
-# 7. Java多线程系列目录(共43篇)
+####TODO 7. Java多线程系列目录(共43篇)
 http://www.cnblogs.com/skywang12345/p/java_threads_category.html
 
 #### 8. JUC五种常见同步工具类总结
 https://blog.csdn.net/luoyoub/article/details/80635652
 
-# 9. 锁机制学习笔记
+####TODO 9. 锁机制学习笔记
 https://www.cnblogs.com/cm4j/p/juc_lock.html
 
-# 10. JUC源码分析—AQS
+####TODO 10. JUC源码分析—AQS
 https://yiweifen.com/v-1-259342.html
 
-# 11. Java并发编程：Callable、Future和FutureTask
+####TODO 11. Java并发编程：Callable、Future和FutureTask
 https://www.cnblogs.com/dolphin0520/p/3949310.html
 
-# 12. JUC.Condition学习笔记[附详细源码解析]
+####TODO 12. JUC.Condition学习笔记[附详细源码解析]
 https://www.cnblogs.com/cm4j/p/juc_condition.html
 
-# 13. JUC源码解析：目录（基于JDK 8）
+####TODO 13. JUC源码解析：目录（基于JDK 8）
 https://www.jianshu.com/p/af9c0f404a93
 
-# 14. Java多线程系列之“JUC集合“详解
+####TODO 14. Java多线程系列之“JUC集合“详解
 https://blog.csdn.net/ZYC88888/article/details/80018239
 
-# 15. Java并发包中的同步队列SynchronousQueue实现原理
+####TODO 15. Java并发包中的同步队列SynchronousQueue实现原理
 http://ifeve.com/java-synchronousqueue/
