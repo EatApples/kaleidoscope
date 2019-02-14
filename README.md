@@ -39,7 +39,7 @@
 * [3 `SpringBoot`](README.md)
   * [3.1 `SpringBoot`的`pom.xml`](springboot/SpringBoot-pom-xml.md)
   * [3.2 `SpringBoot`的注解](springboot/SpringBoot注解.md)
-  * [3.3 `Eureka`](springboot/Eureka.md)
+  * [3.3 重新定义`SpringCloud`实战笔记](springboot/重新定义SpringCloud实战.md)
   * [3.4 `LogBack`](springboot/LogBack相关.md)
   * [3.5 `Maven`](springboot/Maven相关.md)
   * [3.6 `OAuth2.0`](springboot/OAuth2.0.md)

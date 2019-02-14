@@ -262,7 +262,7 @@ static {
  private static final jdk.internal.misc.Unsafe U = jdk.internal.misc.Unsafe.getUnsafe();
 ```
 
-##### 3.1.2 如何使用 UNSAFE 类（JDK8之前适用，之后JDK的实现方式变了，能够可用存疑）
+##### 3.1.2 如何使用 UNSAFE 类（JDK8之前适用，之后JDK的实现方式变了，可用性存疑）
 ```java
 // UNSAFE mechanics
 

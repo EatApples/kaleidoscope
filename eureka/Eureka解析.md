@@ -32,6 +32,8 @@ Eureka 是 Netflix 开源的服务注册发现组件，分成 Client 和 Server 
 #### 1. eureka-client 项目：
 
 + com.netflix.appinfo 包：Eureka-Client 的应用配置。此处的应用指的就是上文提到的 Application Provider，Application Consumer
+
+
 ```java
 /**
  * 契约过期时间，单位：秒
@@ -103,9 +105,7 @@ private void initScheduledTasks() {
 ```
 
 + com.netflix.discovery.shared 包：Eureka-Client 和 Eureka-Server 注册发现相关的共享重用的代码。
-```java
 
-```
 
 #### 2. eureka-client-jersey2 项目：
 
@@ -125,6 +125,7 @@ eureka-core 模块为 Eureka-Server 的功能实现：
 + com.netflix.eureka.lease 包：应用注册后的租约管理( 注册 / 取消 / 续期 / 过期 )。
 
 + com.netflix.eureka.resousrces 包：资源，基于 Jersey Server 实现，相当于 Spring MVC 的控制层代码。
+
 ```java
 com.netflix.eureka.resources.ApplicationsResource，处理所有应用的请求操作的 Resource ( Controller )
 
@@ -133,10 +134,12 @@ com.netflix.eureka.resources.ApplicationsResource，处理所有应用的请求�
 为什么可以使用缓存？在 CAP 的选择上，Eureka 选择了 AP ，不同于 Zookeeper 选择了 CP 。
 
 ```
+
 + com.netflix.eureka.transport 包：Eureka-Server 对 Eureka-Server 的 RESTful HTTP 客户端，基于 com.netflix.discovery.shared.transport 封装实现。
 
 #### 4. eureka-server 项目：
 eureka-server 模块，将 eureka-client + eureka-core + eureka-resources 三者打包成 Eureka-Server 的 war 包
+
 ```java
 // CircularQueues here for debugging/statistics purposes only
 /**
@@ -152,6 +155,7 @@ private final CircularQueue<Pair<Long, String>> recentRegisteredQueue;
  */
 private final CircularQueue<Pair<Long, String>> recentCanceledQueue;
 ```
+
 多节点部署的Eureka Server必然涉及到不同节点之间的注册表信息的一致性，在CAP中，Eureka 注重的满足了AP，对C只满足的弱一致性(最终一致性)，牺牲了强一致性保证了高可用性，但是Eureka Sever中依然有方式保证节点之间的注册表的信息的一致性。
 
 register(注册)、cancel(下线)、renew(更新)、evict(剔除)，这四个方法对应了Eureka Client与Eureka Server的交互行为相对应，是对注册表信息中的服务实例的租约管理方法。
