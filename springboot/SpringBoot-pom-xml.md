@@ -17,18 +17,23 @@ Spring Cloud与Spring Boot版本匹配关系
 
 	<!-- 项目名称配置，请自定义修改 -->
 	<groupId>com.creditease</groupId>
-	<artifactId>SpringCloud-demo</artifactId>
+	<artifactId>SpringBootTemplate</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!-- 默认打包为 jar 格式，可以指定为其他格式 ，例如 war -->
 	<packaging>jar</packaging>
 
-	<!-- 基本配置，开始 -->
+	<!-- 基本配置，开始，无需改动 -->
 	<properties>
+		<!-- JDK版本1.8以上，否则可能编译错误 -->
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- 统一使用SpringBoot的1.5.11版本，这是与SpringCloud的D版本兼容的安全的最低版本 -->
 		<spring.boot.version>1.5.11.RELEASE</spring.boot.version>
+		<!-- 统一使用SpringCloud的D版本 -->
 		<spring.cloud.version>Dalston.SR5</spring.cloud.version>
 	</properties>
 
+	<!-- 版本冲突仲裁配置，无需改动 -->
 	<dependencyManagement>
 		<dependencies>
 
@@ -57,31 +62,32 @@ Spring Cloud与Spring Boot版本匹配关系
 
 	<dependencies>
 		<!-- 基本依赖，开始 -->
+		<!-- 启动依赖，无需改动 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-
+		<!-- 容器依赖，默认为 tomcat，基本上都要使用 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<!-- 健康检查依赖，如不需要，可以不加 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-
+		<!-- 注册中心客户端依赖，基本上都要使用 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
-
+		<!-- 配置中心启动依赖，基本上都要使用 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
-
+		<!-- 配置中心客户端依赖，基本上都要使用 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-client</artifactId>
@@ -92,16 +98,15 @@ Spring Cloud与Spring Boot版本匹配关系
 
 	</dependencies>
 
-	<!-- 配合 bootstrap.yml 使用配置中心 -->
+	<!-- 配合 bootstrap.yml 使用配置中心，如不需要，可以不加 -->
 	<profiles>
 		<profile>
 			<!-- 测试环境 -->
 			<id>test</id>
-      <!-- 一些配置属性 -->
 			<properties>
-
+				<!-- 自定义属性 -->
 			</properties>
-      <!-- 默认生效 -->
+			<!-- 指定生效的profile -->
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -110,14 +115,13 @@ Spring Cloud与Spring Boot版本匹配关系
 		<profile>
 			<!-- 生产环境 -->
 			<id>pro</id>
-      <!-- 一些配置属性 -->
 			<properties>
-
+				<!-- 自定义属性 -->
 			</properties>
 		</profile>
 	</profiles>
 
-	<!-- 打包配置 -->
+	<!-- 打包配置，无需改动 -->
 	<build>
 		<resources>
 			<resource>
@@ -142,6 +146,7 @@ Spring Cloud与Spring Boot版本匹配关系
 
 
 </project>
+
 
 ```
 ### 参考资料
