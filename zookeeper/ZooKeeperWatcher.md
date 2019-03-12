@@ -105,8 +105,6 @@ Curator是Netflix公司一个开源的zookeeper客户端，在原生API接口上
 
 #### Curator提供了三种Watcher(Cache)来监听结点的变化：
 
-Curator是Netflix公司一个开源的zookeeper客户端，在原生API接口上进行了包装，解决了很多ZooKeeper客户端非常底层的细节开发。同时内部实现了诸如Session超时重连，Watcher反复注册等功能，实现了Fluent风格的API接口，是使用最广泛的zookeeper客户端之一。
-
 ##### Path Cache
 A Path Cache is used to watch a ZNode. Whenever a child is added, updated or removed, the Path Cache will change its state to contain the current set of children, the children's data and the children's state. Path caches in the Curator Framework are provided by the PathChildrenCache class. Changes to the path are passed to registered PathChildrenCacheListener instances.
 

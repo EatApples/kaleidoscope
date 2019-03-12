@@ -9,9 +9,7 @@
 感觉Linux 的 cron “最二”，没有并行控制：到点就起，无论上一次是否执行完。
 
 ### 1. `quartz` 的 `cron`
-quartz 提供的定时任务
-
-从任务调度的触发时机来分，这里主要是针对作业使用的触发器，主要有以下两种：
+quartz 提供的定时任务，从任务调度的触发时机来分，这里主要是针对作业使用的触发器，主要有以下两种：
 + 每隔指定时间则触发一次，在Quartz中对应的触发器为：org.springframework.scheduling.quartz.SimpleTriggerBean
 
 + 每到指定时间则触发一次，在Quartz中对应的调度器为：org.springframework.scheduling.quartz.CronTriggerBean
@@ -99,7 +97,7 @@ service crond status //系统是否启用了crond服务
 ```
 
 #### 3.2 `crontab`
-crontab 是一个很方便的在 unix/linux 系统上定时(循环)执行某个任务的程序使用 cron服务，用 service crond status 查看 cron 服务状态，如果没有启动则 service crond start 启动它，cron 服务是一个定时执行的服务，可以通过 crontab 命令添加或者编辑需要定时执行的任务：
+crontab 是一个很方便的在 unix/linux 系统上定时(循环)执行某个任务的程序。使用 cron服务，用 service crond status 查看 cron 服务状态，如果没有启动则 service crond start 启动它，cron 服务是一个定时执行的服务，可以通过 crontab 命令添加或者编辑需要定时执行的任务：
 
 ```
 usage:	crontab [-u user] file
