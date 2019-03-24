@@ -72,7 +72,7 @@
   * [5.3 `scp`命令](shell/scp命令.md)
   * [5.4 `shell`特殊变量的含义](shell/shell特殊变量的含义.md)
   * [5.5 `TCP`最大连接数](shell/TCP最大连接数.md)
-  * [5.6 `Linux`命令整理.md](shell/Linux命令整理.md)
+  * [5.6 `Linux`命令整理](shell/Linux命令整理.md)
 * [6 `ZooKeeper`](README.md)
   * [6.1 `ZooKeeper`集群安装](zookeeper/ZooKeeper集群安装.md)
   * [6.2 `ZooKeeper`权限控制](zookeeper/ZooKeeper权限控制.md)
