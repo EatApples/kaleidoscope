@@ -1,3 +1,12 @@
+### 0 前期准备
+下载 RabbitMQ, Erlang
+
+RabbitMQ 版本：
+https://www.rabbitmq.com/releases/rabbitmq-server
+
+Erlang   版本：
+http://www.erlang.org/downloads
+
 ### 1 JDK 环境变量设置
 ```shell
 编辑配置文件：
@@ -56,6 +65,14 @@ export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 9. 建立软连接
 
 # ln -s /app/otp_src_20.0/bin/erl /usr/bin/erl
+```
+
+### Erlang 安装极简版
+```
+（1）安装好 yum 源
+（2）yum list | grep erlang
+（3）yum install erlang的版本
+（4）输入 erl 验证
 ```
 
 ### 3 搭建 RabbitMQ 集群
@@ -206,18 +223,47 @@ rabbitmqctl delete_user username：删除用户
 rabbitmqctl delete_vhost vhostpath：删除虚拟主机
 ```
 
-### 7 镜像模式配置
+### 7 策略设置
+```
+Name:         4_mirror_dlx
+Pattern:      .*
+Apply to:     Exchanges and queues(all)
+Definition:
+              ha-mode:	               exactly
+              ha-params:	             4
+              ha-sync-mode:	          automatic
+              dead-letter-exchange:	  deadExchange
+Priority:     数值越大，优先级越高        
+```
+
+设置死信队列的目的是，当消息过期（expired）或被拒绝（rejected）之后，消息会被路由到死信队列，而不是消失。死信队列中的消息，可以看到消息的来源和“死亡”的理由，通过补偿程序，消息还能被恢复。
 
 ```
-Policy: all-mirrors
-Overview
-Virtual Host    /
-Pattern .*
-Apply to    all
-Definition
-ha-mode:    all
-ha-sync-mode:   automatic
-Priority    0
+（1）设置 Exchange（死信交换机）
+Virtual host:             /
+Name:                     deadExchange
+Type:                     fanout
+Durability:               Durable
+Auto delete:              No
+Internal:                 No
+Alternate exchange:       默认为空就行
+Arguments:                默认为空就行
+（2）设置 Queue（死信队列）
+Virtual host:             /
+Name:                     SKYTRAIN_DEAD_LETTER
+Durability:               Durable
+Node：                    集群中选一台 DISC 型的节点
+Auto delete:              No
+Message TTL:              默认为空就行
+Auto expire:              默认为空就行
+Max length:               默认为空就行
+Dead letter exchange:     默认为空就行
+Dead letter routing key:  默认为空就行
+Arguments:                默认为空就行
+（3）绑定 Exchanges 和 Queue
+From exchange:            deadExchange
+Routing key:              #
+Arguments:                默认为空就行   
 ```
 
 ### 8 只读用户配置
@@ -261,6 +307,12 @@ https://www.rabbitmq.com/clustering.html
 #### Overview
 A RabbitMQ broker is a logical grouping of one or several Erlang nodes, each running the RabbitMQ application and sharing users, virtual hosts, queues, exchanges, bindings, and runtime parameters. Sometimes we refer to the collection of nodes as a cluster.
 
+#### Port Access
+5672, 5671: used by AMQP 0-9-1 and 1.0 clients without and with TLS
+
+15672: HTTP API clients, management UI and rabbitmqadmin (only if the management plugin is enabled)
+
+***5672：客户端连接端口；15672：服务端管理端口***
 #### What is Replicated?
 All data/state required for the operation of a RabbitMQ broker is replicated across all nodes. An exception to this are message queues, which by default reside on one node, though they are visible and reachable from all nodes. To replicate queues across nodes in a cluster, see the documentation on high availability (note that you will need a working cluster first).
 
@@ -294,6 +346,19 @@ Please refer to the Cluster Formation guide for details.
 The composition of a cluster can be altered dynamically. All RabbitMQ brokers start out as running on a single node. These nodes can be joined into clusters, and subsequently turned back into individual brokers again.
 
 ***集群可动态扩展，RabbitMQ节点可自由的加入/离开集群。***
+
+#### Node Names (Identifiers)
+RabbitMQ nodes are identified by node names. A node name consists of two parts, a prefix (usually `rabbit`) and hostname. For example, `rabbit@node1.messaging.svc.local` is a node name with the prefix of `rabbit` and hostname of `node1.messaging.svc.local`.
+
+Node names in a cluster must be unique. If more than one node is running on a given host (this is usually the case in development and QA environments), they must use different prefixes, e.g. `rabbit1@hostname` and `rabbit2@hostname`.
+
+In a cluster, nodes identify and contact each other using node names. This means that the hostname part of every node name must resolve. CLI tools also identify and address nodes using node names.
+
+When a node starts up, it checks whether it has been assigned a node name. This is done via the `RABBITMQ_NODENAME` environment variable. If no value was explicitly configured, the node resolves its hostname and prepends `rabbit` to it to compute its node name.
+
+If a system uses fully qualified domain names (FQDNs) for hostnames, RabbitMQ nodes and CLI tools must be configured to use so called long node names. For server nodes this is done by setting the `RABBITMQ_USE_LONGNAME` environment variable to `true`. For CLI tools, either `RABBITMQ_USE_LONGNAME` must be set or the `--longnames` option must be specified.
+
+***集群中节点的名称需要唯一，一般都叫做 rabbit@hostname，这个名称在集群通信及用户操作中都会用到***
 
 #### Failure Handling
 RabbitMQ brokers tolerate the failure of individual nodes. Nodes can be started and stopped at will, as long as they can contact a cluster member node known at the time of shutdown.
@@ -357,9 +422,126 @@ An incorrectly placed cookie file or cookie value mismatch are most common scena
 ***集群中节点靠 .erlang.cookie 来识别自己人。若是口号不对，就报错给你看。***
 
 #### Starting independent nodes
-见前文
+Clusters are set up by re-configuring existing RabbitMQ nodes into a cluster configuration. Hence the first step is to start RabbitMQ on all nodes in the normal way:
+```
+# on rabbit1
+rabbitmq-server -detached
+# on rabbit2
+rabbitmq-server -detached
+# on rabbit3
+rabbitmq-server -detached
+```
+***通过使用 -detached 参数启动***
+
+This creates three independent RabbitMQ brokers, one on each node, as confirmed by the cluster_status command:
+```
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit3 ...
+# => [{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
+# => ...done.
+```
+***查看集群状态，发现启动了 3 个单节点***
+
+The node name of a RabbitMQ broker started from the rabbitmq-server shell script is rabbit@shorthostname, where the short node name is lower-case (as in rabbit@rabbit1, above). On Windows, if rabbitmq-server.bat batch file is used, the short node name is upper-case (as in rabbit@RABBIT1). When you type node names, case matters, and these strings must match exactly.
+
 #### Creating the cluster
-见前文
+In order to link up our three nodes in a cluster, we tell two of the nodes, say rabbit@rabbit2 and rabbit@rabbit3, to join the cluster of the third, say rabbit@rabbit1. Prior to that both newly joining members must be reset.
+
+We first join rabbit@rabbit2 in a cluster with rabbit@rabbit1. To do that, on rabbit@rabbit2 we stop the RabbitMQ application and join the rabbit@rabbit1 cluster, then restart the RabbitMQ application. Note that a node must be reset before it can join an existing cluster. Resetting the node removes all resources and data that were previously present on that node. This means that a node cannot be made a member of a cluster and keep its existing data at the same time. When that's desired, using the Blue/Green deployment strategy or backup and restore are the available options.
+```
+# on rabbit2
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit2 ...done.
+
+rabbitmqctl reset
+# => Resetting node rabbit@rabbit2 ...
+
+rabbitmqctl join_cluster rabbit@rabbit1
+# => Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
+
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit2 ...done.
+```
+***节点必须 reset 重置之后才能加入集群，重置意味着节点的个人信息全部清除了（洗白之后才能上岸啊）***
+
+***因为集群中的节点不能保留自己的数据，所以最好使用蓝绿部署或备份恢复策略来留存数据***
+
+We can see that the two nodes are joined in a cluster by running the cluster_status command on either of the nodes:
+```
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+# => ...done.
+```
+***发现 rabbit2 已加入 rabbit1，组成集群***
+
+Now we join rabbit@rabbit3 to the same cluster. The steps are identical to the ones above, except this time we'll cluster to rabbit2 to demonstrate that the node chosen to cluster to does not matter - it is enough to provide one online node and the node will be clustered to the cluster that the specified node belongs to
+```
+# on rabbit3
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit3 ...done.
+
+# on rabbit3
+rabbitmqctl reset
+# => Resetting node rabbit@rabbit3 ...
+
+rabbitmqctl join_cluster rabbit@rabbit2
+# => Clustering node rabbit@rabbit3 with rabbit@rabbit2 ...done.
+
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit3 ...done.
+```
+***其他节点加入集群，join_cluster 任意一个集群节点均可***
+
+We can see that the three nodes are joined in a cluster by running the cluster_status command on any of the nodes:
+```
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit3 ...
+# => [{nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+# => ...done.
+```
+By following the above steps we can add new nodes to the cluster at any time, while the cluster is running.
+
+***按照以上步骤，节点可以随意地加入集群（注意到集群一直是运行状态）***
+
 #### Restarting cluster nodes
 Nodes that have been joined to a cluster can be stopped at any time. It is also ok for them to crash. In both cases the rest of the cluster continues operating, and the nodes automatically "catch up" with (sync from) the other cluster nodes when they start up again.
 
@@ -544,6 +726,91 @@ Besides rabbitmqctl forget_cluster_node and the automatic cleanup of unknown nod
 
 ***这里 rabbit@rabbit2 保留了集群的原始信息（因为 rabbit1 和 rabbit3 都 reset 过，重置清空），可以把  rabbit1 和 rabbit3 当做新节点加入 rabbit@rabbit2 集群（如果不行***，**可以改名再战!!!!**）
 
+#### Hostname Changes
+RabbitMQ nodes use hostnames to communicate with each other. Therefore, all node names must be able to resolve names of all cluster peers. This is also true for tools such as rabbitmqctl.
+
+In addition to that, by default RabbitMQ names the database directory using the current hostname of the system. If the hostname changes, a new empty database is created. To avoid data loss it's crucial to set up a fixed and resolvable hostname. Whenever the hostname changes RabbitMQ node must be restarted.
+
+A similar effect can be achieved by using rabbit@localhost as the broker nodename. The impact of this solution is that clustering will not work, because the chosen hostname will not resolve to a routable address from remote hosts. The rabbitmqctl command will similarly fail when invoked from a remote host. A more sophisticated solution that does not suffer from this weakness is to use DNS, e.g. Amazon Route 53 if running on EC2. If you want to use the full hostname for your nodename (RabbitMQ defaults to the short name), and that full hostname is resolveable using DNS, you may want to investigate setting the environment variable RABBITMQ_USE_LONGNAME=true.
+
+***RabbitMQ 使用 hostname 来与集群其他节点通信，一旦节点 hostname 改变，节点需要重启（感觉是集群中的所有节点都需要重启）***
+
+#### Erlang Versions Across the Cluster
+All nodes in a cluster must run the same minor version of Erlang: 19.3.4 and 19.3.6 can be mixed but 19.0.1 and 19.3.6 (or 17.5 and 19.3.6) cannot. Compatibility between individual Erlang/OTP patch versions can vary between releases but that's generally rare.
+
+***注意，必须保证集群中 Erlang 的版本一致！***
+
+#### Connecting to Clusters from Clients
+A client can connect as normal to any node within a cluster. If that node should fail, and the rest of the cluster survives, then the client should notice the closed connection, and should be able to reconnect to some surviving member of the cluster.
+
+Generally, it's not advisable to bake in node hostnames or IP addresses into client applications: this introduces inflexibility and will require client applications to be edited, recompiled and redeployed should the configuration of the cluster change or the number of nodes in the cluster change.
+
+Instead, we recommend a more abstracted approach: this could be a dynamic DNS service which has a very short TTL configuration, or a plain TCP load balancer, or some sort of mobile IP achieved with pacemaker or similar technologies. In general, this aspect of managing the connection to nodes within a cluster is beyond the scope of RabbitMQ itself, and we recommend the use of other technologies designed specifically to solve these problems.
+
+***不建议直接使用IP连接集群，通常采用DNS等第三方方式***
+
+#### Clusters with RAM nodes
+RAM nodes keep their metadata only in memory. As RAM nodes don't have to write to disc as much as disc nodes, they can perform better. However, note that since persistent queue data is always stored on disc, the performance improvements will affect only resource management (e.g. adding/removing queues, exchanges, or vhosts), but not publishing or consuming speed.
+
+RAM nodes are an advanced use case; when setting up your first cluster you should simply not use them. You should have enough disc nodes to handle your redundancy requirements, then if necessary add additional RAM nodes for scale.
+
+A cluster containing only RAM nodes is fragile; if the cluster stops you will not be able to start it again and will lose all data. RabbitMQ will prevent the creation of a RAM-node-only cluster in many situations, but it can't absolutely prevent it.
+
+The examples here show a cluster with one disc and one RAM node for simplicity only; such a cluster is a poor design choice
+
+***总的来说， RAM模式很鸡肋，就把元数据存内存而不是磁盘，并不能提升队列的性能。建议就是最好不要使用！***
+
+#### Creating RAM nodes
+We can declare a node as a RAM node when it first joins the cluster. We do this with rabbitmqctl join_cluster as before, but passing the --ram flag:
+```
+# on rabbit2
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit2 ...done.
+
+rabbitmqctl join_cluster --ram rabbit@rabbit1
+# => Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
+
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit2 ...done.
+```
+RAM nodes are shown as such in the cluster status
+```
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+# => ...done.
+```
+#### Changing node types
+We can change the type of a node from ram to disc and vice versa. Say we wanted to reverse the types of rabbit@rabbit2 and rabbit@rabbit1, turning the former from a ram node into a disc node and the latter from a disc node into a ram node. To do that we can use the change_cluster_node_type command. The node must be stopped first.
+```
+# on rabbit2
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit2 ...done.
+
+rabbitmqctl change_cluster_node_type disc
+# => Turning rabbit@rabbit2 into a disc node ...
+# => ...done.
+# => Starting node rabbit@rabbit2 ...done.
+
+# on rabbit1
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit1 ...done.
+
+rabbitmqctl change_cluster_node_type ram
+# => Turning rabbit@rabbit1 into a ram node ...
+
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit1 ...done.
+```
 ### 扩展阅读
 #### 1. Rabbitmq集群高可用测试
 https://www.cnblogs.com/flat_peach/archive/2013/04/07/3004008.html
