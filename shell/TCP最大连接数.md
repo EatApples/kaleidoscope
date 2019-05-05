@@ -3,7 +3,7 @@
 
 ### 如何标识一个TCP连接
 
-在确定最大连接数之前，先来看看系统如何标识一个tcp连接。系统用一个4四元组来唯一标识一个TCP连接：{local ip, local port,remote ip,remote port}。
+在确定最大连接数之前，先来看看系统如何标识一个tcp连接。系统用一个四元组来唯一标识一个TCP连接：{local ip, local port,remote ip,remote port}。
 
 ### client最大tcp连接数
 
