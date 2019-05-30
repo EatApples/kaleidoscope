@@ -122,3 +122,4 @@
   * [10 `jsch`的使用](other/jsch的使用.md)
   * [11 `ActiveMQ`简介](other/ActiveMQ简介.md)
   * [12 安装`ES-head`](other/安装ES-head.md)
+  * [13 思考的乐趣](other/思考的乐趣.md)
