@@ -175,3 +175,32 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communicatio
 
 2，缩短监控空闲线程的时间
 ```
+
+### 10. SQL 优化
+#### Oracle：
+explain plan for( SQL );
+
+select * from table(dbms_xplan.display);
+
+#### Mysql：
+explain
+
+#### 执行次序
+```
+（8）SELECT （9）DISTINCT <select_list>
+（1）FROM <left_table>
+（3）<join_type> JOIN <right_table>
+（2）ON <join_condition>
+（4）WHERE <where_condition>
+（5）GROUP BY <group_by_list>
+（6）WITH {CUBE|ROLLUP}
+（7）HAVING <having_condition>
+（10）ORDER BY <order_by_list>
+（11）LIMIT <limit_number>
+```
+
++ 嵌套子查询可以优化为连接查询；
+
++ 连接表时，先用where条件对表进行过滤，然后再连接；
+
++ 建立合适的索引，必要时建立联合索引；

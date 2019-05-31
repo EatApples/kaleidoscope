@@ -10,6 +10,8 @@ date +"%Y%m%d%H%M%S"
 ### 2. 设置文本格式
 ```
 set fileformats=unix
+或
+set ff=unix
 ```
 
 ### 3. CURL
