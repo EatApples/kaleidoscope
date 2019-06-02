@@ -183,7 +183,7 @@ register(注册)、cancel(下线)、renew(更新)、evict(剔除)，这四个方
 eureka-examples 模块，提供 Eureka-Client 使用例子。
 
 ### 问题列表
-#### 1. Eureka-Client 与 Eureka Server 是如何通信的？
+#### 1. Eureka Client 与 Eureka Server 是如何通信的？
 Eureka-Client 获取注册信息，分成全量获取和增量获取。
 
 Eureka-Client 启动时，首先执行一次全量获取进行本地缓存注册信息。
@@ -194,7 +194,7 @@ Eureka-Client 本地应用实例与 Eureka-Server 的该应用实例状态不同
 
 Eureka-Client 只会向 Eureka-Server 列表中的一个进行通信，除非该服务失效，才会选择下一个。
 
-#### 2. Eureka-Server 之间是如何通信的？
+#### 2. Eureka Server 之间是如何通信的？
 Eureka-Server 内嵌 Eureka-Client，用于和 Eureka-Server 集群里其他节点通信交互。
 
 Eureka-Server 多节点注册信息， P2P 同步。
@@ -203,7 +203,7 @@ Eureka-Server 多节点注册信息， P2P 同步。
 
 也就是说，Eureka-Server 之间的信息同步是推模式！
 
-通过这种方式，Service Provider 只需要通知到任意一个 Eureka Server 后就能保证状态会在所有的 Eureka Server 中得到更新。
+通过这种方式，Service Provider 只需要通知到任意一个 Eureka Server 后就能保证状态会在所有的 Eureka Server 中得到更新（前提是这些 Eureka Server 之间的最短路径为1，即两两互联）。
 
 记住：Eureka 通过 Heartbeat 实现 Eureka-Server 集群同步的最终一致性。
 #### 3. Eureka Server 是怎么知道有多少 Peer 的呢？
@@ -214,7 +214,7 @@ Eureka Server在启动后会调用 EurekaClientConfig.getEurekaServerServiceUrls
 
 如果希望能更灵活的控制 Eureka Server 节点，比如动态扩容/缩容，那么可以 override getEurekaServerServiceUrls 方法，提供自己的实现。
 
-#### 4. eureka server 如何保证高可用？
+#### 4. Eureka Server 如何保证高可用？
 只要 eureka server 之间存在一条**互相可达**的链路，则它们之间能互相通信，注册信息达到最终一致性。
 
 意思是只有两两互联，才能保证高可用。
@@ -229,6 +229,17 @@ Eureka Server在启动后会调用 EurekaClientConfig.getEurekaServerServiceUrls
 + 如果这4个节点再次传播，则又有4X4=16次通信！当这些信息带有时间戳时，只有时间戳大于本地时才触发更新。
 + 如果可以继续传播，则直到集群中所有信息一致，该传播才会终止。好处就是最终一致，坏处就是带来额外的通信。
 + 如果只传播一次，好处就是只有直接与之关联的节点会更新，通信次数固定，坏处就是其他可达但未直接关联的节点不会更新，集群状态不一致！考虑到 Eureka 保证 AP 而不是 CP，这种方式可以接受。
+
+#### 5. Eureka 中 eureka.client.serviceUrl.defaultZone 的配置答疑
+（1）客户端中配置多个服务器地址，则只使用其中某个地址（最后一个优先？）进行注册与发现操作；除非该地址失效，否则不会使用其他地址；如果所有地址失效，则客户端与服务器失联；
+
+（2）服务端中配置多个服务器地址，每当客户端向其注册，续约，下线操作时，其广播到所配置的其他所有服务器；该广播只会传播一次，意味着收到该广播的其他服务器，不会再次广播；
+
+（3）服务器之间是P2P复制的，除非服务器集群之间两两互联，否则会出现数据不一致的情况；所以Eureka不满足CP，只满足AP；
+
+（4）客户端初始启动时全量，后续定时增量从服务器发现（获取）其他客户端的信息；客户端启动后，通过心跳（续约）主动向服务器同步自己的信息；
+
+（5）由于缓存的存在，不管是客户端还是服务器，注册与发现的服务都不是实时的，存在不一致的情况。
 
 ### 扩展阅读
 #### 1. Eureka 源码解析 —— 应用实例注册发现（六）之全量获取
