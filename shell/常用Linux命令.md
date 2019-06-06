@@ -30,7 +30,7 @@ date -s 01:01:01
 # -i 显示inode信息
 df [选项] [文件]
 df -h
-dh -i
+df -i
 ```
 
 ### du
