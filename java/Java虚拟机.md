@@ -553,6 +553,90 @@ HotSpot 虚拟机运用向量化优化的方式有两种。第一种是使用 Ho
 
 第二种是依赖即时编译器进行自动向量化，在循环展开优化之后将不同迭代的运算合并为向量运算。自动向量化的触发条件较为苛刻，因此也无法覆盖大多数用例。
 
+#### 注解
+注解（annotation）是 Java 5 引入的，用来为类、方法、字段、参数等 Java 结构提供额外信息的机制。
+
+注解相当于给某些代码贴了个标签。我们既可以通过注解处理器在编译时解析这些标签，也可以在运行时通过反射解析这些标签。解析后都会有一系列动作，这些动作就是对标签语义的诠释。
+
+#### 元注解
+作用在注解上的注解。@Target用来限定目标注解所能标注的 Java 结构，@Retention则用来限定当前注解生命周期。注解共有三种不同的生命周期：SOURCE，CLASS或RUNTIME，分别表示注解只出现在源代码中，只出现在源代码和字节码中，以及出现在源代码、字节码和运行过程中。
+
+#### 注解处理器
+注解处理器主要有三个用途。一是定义编译规则，并检查被编译的源文件。二是修改已有源代码。三是生成新的源代码。其中，第二种涉及了 Java 编译器的内部 API，因此并不推荐。第三种较为常见，是 OpenJDK 工具 jcstress，以及 JMH 生成测试代码的方式。
+
+Java 源代码的编译过程可分为三个步骤，分别为解析源文件生成抽象语法树，调用已注册的注解处理器，和生成字节码。如果在第 2 步中，注解处理器生成了新的源代码，那么 Java 编译器将重复第 1、2 步，直至不再生成新的源代码。
+
+所有的注解处理器类都需要实现接口Processor。该接口主要有四个重要方法。其中，init方法用来存放注解处理器的初始化代码。之所以不用构造器，是因为在 Java 编译器中，注解处理器的实例是通过反射 API 生成的。也正是因为使用反射 API，每个注解处理器类都需要定义一个无参数构造器。
+
+在剩下的三个方法中，getSupportedAnnotationTypes方法将返回注解处理器所支持的注解类型，这些注解类型只需用字符串形式表示即可。
+
+getSupportedSourceVersion方法将返回该处理器所支持的 Java 版本，通常，这个版本需要与你的 Java 编译器版本保持一致；而process方法则是最为关键的注解处理方法。
+
+JDK 提供了一个实现Processor接口的抽象类AbstractProcessor。该抽象类实现了init、getSupportedAnnotationTypes和getSupportedSourceVersion方法。
+
+它的子类可以通过@SupportedAnnotationTypes和@SupportedSourceVersion注解来声明所支持的注解类型以及 Java 版本。
+
+Cglib等字节码工具会影响启动性能，峰值性能上没啥区别。
+
+如果对字节码不熟的话，用注解处理器比较容易些。另一方面，字节码处理工具更强大些，能做很多源代码不能做的。
+
+#### JMH
+Java 程序的性能测试存在着许多深坑，有来自 Java 虚拟机的，有来自操作系统的，甚至有来自硬件系统的。如果没有足够的知识，那么性能测试的结果很有可能是有偏差的。
+
+性能基准测试框架 JMH 是 OpenJDK 中的其中一个开源项目。它内置了许多功能，来规避由 Java 虚拟机中的即时编译器或者其他优化对性能测试造成的影响。此外，它还提供了不少策略来降低来自操作系统以及硬件系统的影响。
+
+开发人员仅需将所要测试的业务逻辑通过@Benchmark注解，便可以让 JMH 的注解处理器自动生成真正的性能测试代码，以及相应的性能测试配置文件。
+
++ @Fork允许开发人员指定所要 Fork 出的 Java 虚拟机的数目。
+
++ @BenchmarkMode允许指定性能数据的格式。
+
++ @Warmup和@Measurement允许配置预热迭代或者测试迭代的数目，每个迭代的时间以及每个操作包含多少次对测试方法的调用。
+
++ @State允许配置测试程序的状态。测试前对程序状态的初始化以及测试后对程序状态的恢复或者校验可分别通过@Setup和@TearDown来实现。
+
+JMH：Benchmarking is the (endless) fght against the optimizations
+
++ System: Power management
++ System: OS Schedulers
++ System: Time Sharing
++ VM: Avoiding dead-code elimination
++ VM: Constant folding
++ VM: Loop unrolling
++ VM: Profile feedback
++ VM: Run-to-run variance
++ CPU: Cache capacity
++ CPU: Bulk method transfers
++ CPU: Branch Prediction
+
+#### JNI
+Java 中的 native 方法的链接方式主要有两种。一是按照 JNI 的默认规范命名所要链接的 C 函数，并依赖于 Java 虚拟机自动链接。另一种则是在 C 代码中主动链接。
+
+JNI 提供了一系列 API 来允许 C 代码使用 Java 语言特性。这些 API 不仅使用了特殊的数据结构来表示 Java 类，还拥有特殊的异常处理模式。
+
+Java 虚拟机会将所有 JNI 函数的函数指针聚合到一个名为JNIEnv的数据结构之中。
+
+这是一个线程私有的数据结构。Java 虚拟机会为每个线程创建一个JNIEnv，并规定 C 代码不能将当前线程的JNIEnv共享给其他线程，否则 JNI 函数的正确性将无法保证。
+
+这么设计的原因主要有两个。一是给 JNI 函数提供一个单独命名空间。二是允许 Java 虚拟机通过更改函数指针替换 JNI 函数的具体实现，例如从附带参数类型检测的慢速版本，切换至不做参数类型检测的快速版本。
+
+JNI 中的引用可分为局部引用和全局引用。这两者都可以阻止垃圾回收器回收被引用的 Java 对象。不同的是，局部引用在 native 方法调用返回之后便会失效。传入参数以及大部分 JNI API 函数的返回值都属于局部引用。
+
+进入 C 函数时对引用类型参数的句柄化（句柄指的是内存中 Java 对象的指针的指针），和调整参数位置（C 调用和 Java 调用传参的方式不一样），以及从 C 函数返回时清理线程私有句柄块，共同造就了 JNI 调用的额外性能开销。
+
+#### 监控及诊断工具
+jps将打印所有正在运行的 Java 进程。如果某 Java 进程关闭了默认开启的UsePerfData参数（即使用参数-XX:-UsePerfData），那么jps命令（以及下面介绍的jstat）将无法探知该 Java 进程。
+
+jstat 允许用户查看目标 Java 进程的类加载、即时编译以及垃圾回收相关的信息。它常用于检测垃圾回收问题以及内存泄漏问题。
+
+jmap 命令分析 Java 虚拟机堆中的对象。jmap（以及接下来的jinfo、jstack和jcmd）依赖于 Java 虚拟机的Attach API，因此只能监控本地 Java 进程。一旦开启 Java 虚拟机参数DisableAttachMechanism（即使用参数-XX:+DisableAttachMechanism），基于 Attach API 的命令将无法执行。反过来说，如果你不想被其他进程监控，那么你需要开启该参数。由于jmap将访问堆中的所有对象，为了保证在此过程中不被应用线程干扰，jmap需要借助安全点机制，让所有线程停留在不改变堆中数据的状态。也就是说，由jmap导出的堆快照必定是安全点位置的。
+
+jstack命令可以用来打印目标 Java 进程中各个线程的栈轨迹，以及这些线程所持有的锁。jstack不仅会打印线程的栈轨迹、线程状态（BLOCKED）、持有的锁（locked …）以及正在请求的锁（waiting to lock …），而且还会分析出具体的死锁。
+
+jinfo命令可用来查看目标 Java 进程的参数，如传递给 Java 虚拟机的-X（即输出中的 jvm_args）、-XX参数（即输出中的 VM Flags），以及可在 Java 层面通过System.getProperty获取的-D参数（即输出中的 System Properties）。
+
+jcmd 则是一把瑞士军刀，可以用来实现前面除了jstat之外所有命令的功能。
+
 #### UNSAFE
 ```   java
 // UNSAFE mechanics
