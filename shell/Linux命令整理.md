@@ -144,3 +144,13 @@ do
     esac
 done
 ```
+
+### 9. free -m 内存解析
+```
+total：内存总数
+used：已经使用的内存数
+free：空闲的内存数
+shared：多个进程共享的内存总额，当前已经废弃不用，总是0
+-buffers/cache：(已用)的内存数，即used-buffers-cached
++buffers/cache：(可用)的内存数，即free+buffers+cached
+```

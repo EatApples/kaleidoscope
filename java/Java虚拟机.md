@@ -109,7 +109,7 @@ boolean、byte、char、short 这四种类型，在栈上占用的空间和 int 
 
 
 #### 异常
-在 Java 语言规范中，所有异常都是 Throwable 类或其子类的实例。 Java 的异常非为 Exception 和
+在 Java 语言规范中，所有异常都是 Throwable 类或其子类的实例。 Java 的异常分为 Exception 和
  Error 两种，而 Exception 又分为 RuntimeException 和其他类型。 Error 涵盖不应捕获的异常； Exception 涵盖程序可能需要捕获并处理的异常。 RuntimeException 与 Error 属于 Java 里的非检查异常，其他异常则属于检查异常。
 
 #### 异常表

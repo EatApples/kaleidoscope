@@ -14,3 +14,16 @@
 
 ### Zuul 工作原理
 核心逻辑是 Filter 责任链，能够在进行 HTTP 请求或者响应的时候执行相关操作。
+
+### 配置中心的样式
++ searchPaths: foo,bar*
+
+在此示例中，服务器搜索顶级和“foo”子目录以及名称以“bar”开头的任何子目录中的配置文件
+
++ searchPaths: '{application}'
+
+在资源库中搜索与目录（以及顶级）相同名称的文件
+
++ searchPaths: cloud-config-repo/**
+
+也就是说，searchPaths = 顶级目录+配置的目录（当然可以配置多级子目录）
