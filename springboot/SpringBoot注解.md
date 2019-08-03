@@ -176,6 +176,42 @@ The @Bean methods in a Spring component are processed differently than their cou
 @BeanParam 允许注入参数到一个 bean
 @Context 一般可以用于获得一个Java类型关联请求或响应的上下文
 ```
+
+### 16. 基类上 @RequestMapping 注解的继承关系
+以下答案都是不暴露。
+
+（0）类上没有 @Controller，方法上有 @RequestMapping，是否暴露服务？
+
+（1）抽象类上有  @Controller，方法上有 @RequestMapping，是否暴露服务？抽象方法上有 @RequestMapping，是否暴露服务？
+
+（2）抽象类上有  @Controller，抽象方法上有 @RequestMapping，继承类实现抽象方法，是否暴露服务？
+
+（3）抽象类上有  @Controller，方法上有 @RequestMapping，继承类重写方法，是否暴露服务？
+
+（4）类上有 @Controller，方法上有 @RequestMapping，继承类重写方法（继承类没有@Controller，继承类方法上没有 @RequestMapping），是否暴露服务？
+基类暴露服务。继承类不暴露服务。
+
+总结：
+（1）注解暴露服务，与基类继承是两个维度；
+
+（2）服务暴露需要 @Controller + @RequestMapping，缺一不可；
+
+（3）继承类 @Controller +基类 @RequestMapping 可行，反之，不行；
+
+（4）基类上的 @RequestMapping 可以传递给继承类，而 @Controller 不行
+
+（5）@Controller 相当于 @RequestMapping的入口，@RequestMapping的生效次序为自下而上一直到基类
+
+### 17. 方法注解 @Cacheable 在类中引用不生效
+
+而类间引用生效（貌似其他类似注解也是如此）
+
+org.springframework.cache.annotation.Cacheable;
+
+内部调用导致代理失效，从而引起缓存失效；
+
+应在方法上添加说明：此方法存在缓存，不应该使用类内部进行调用，如果不需要缓存可以使用内部调用逻辑；
+
 ### 参考资料
 #### 1. @Bean在@Configuration和在@Component中的区别
 https://blog.csdn.net/ttjxtjx/article/details/49866011

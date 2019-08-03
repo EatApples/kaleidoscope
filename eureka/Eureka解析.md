@@ -241,6 +241,15 @@ Eureka Server在启动后会调用 EurekaClientConfig.getEurekaServerServiceUrls
 
 （5）由于缓存的存在，不管是客户端还是服务器，注册与发现的服务都不是实时的，存在不一致的情况。
 
+#### 6. Eureka 中 UP/DOWN/OUT_OF_SERVICE 的转化逻辑
+
++ UP：  应用正常且提供服务
++ DOWN：应用异常，一段时间后，服务器会清理
++ OUT_OF_SERVICE：应用正常，但不提供服务
++ ？ -> DOWN ，状态一直为 DOWN
++ ？ -> DELETE ，只要应用正常，还会复活，重新注册再续约，状态为 UP
++ ？ -> OUT_OF_SERVICE ，状态一直为 OUT_OF_SERVICE
+
 ### 扩展阅读
 #### 1. Eureka 源码解析 —— 应用实例注册发现（六）之全量获取
 http://www.iocoder.cn/Eureka/instance-registry-fetch-all/
