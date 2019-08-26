@@ -609,8 +609,6 @@ protected void configureChannelManager(ChannelManager channelManager) {
  ↓1 类 NioLoopContext 的 initStateIfNecessary 函数
  ↓1               ↓2
  ↓1 类 SocketChannelFrameHandlerFactory 的 create 函数
- ↓1               ↓2
- ↓1 类 SocketChannelFrameHandlerFactory 的 create 函数
  +----------------+
                   ↓
 类 ConnectionFactory 的 newConnection 函数//合而为一                            
@@ -769,8 +767,6 @@ channel.basicConsume(queueName, autoAck, consumer)//Consumer 与 Channel 关联
  ↓1 类 NioLoopContext 的 startIoLoops 函数
  ↓1               ↓2
  ↓1 类 NioLoopContext 的 initStateIfNecessary 函数
- ↓1               ↓2
- ↓1 类 SocketChannelFrameHandlerFactory 的 create 函数
  ↓1               ↓2
  ↓1 类 SocketChannelFrameHandlerFactory 的 create 函数
  +----------------+

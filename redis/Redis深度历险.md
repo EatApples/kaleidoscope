@@ -279,6 +279,35 @@ volatile-xxx 策略只会针对带过期时间的 key 进行淘汰，allkeys-xxx
 
 Redis 使用的是一种近似 LRU 算法，它跟 LRU 算法还不太一样。之所以不使用 LRU 算法，是因为需要消耗大量的额外的内存，需要对现有的数据结构进行较大的改造。近似 LRU 算法则很简单，在现有数据结构的基础上使用随机采样法来淘汰元素，能达到和 LRU 算法非常近似的效果。就是随机采样出 5(可以配置) 个 key，然后淘汰掉最旧的 key，如果淘汰后内存还是超出 maxmemory，那就继续随机采样淘汰，直到内存低于 maxmemory 为止。
 
+### Redis 中的数据结构与对象
+六种基础数据结构：
+| 数据结构   | 简称       |
+| ---------- | ---------- |
+| 动态字符串 | SDS        |
+| 链表       | linkedlist |
+| 字典       | dict       |
+| 跳跃表     | skiplist   |
+| 整数集合   | intset     |
+| 压缩列表   | ziplist    |
+
+五种对象：
+| 对象         | 简称   |
+| ------------ | ------ |
+| 字符串对象   | String |
+| 列表对象     | List   |
+| 哈希对象     | Hash   |
+| 集合对象     | Set    |
+| 有序集合对象 | ZSet   |
+
+对象与数据结构的映射：
+| 对象   | 数据结构                 |
+| ------ | ------------------------ |
+| String | SDS                      |
+| List   | ziplist 或 linkedlist    |
+| Hash   | ziplist 或 dict          |
+| Set    | intset 或 dict           |
+| ZSet   | ziplist 或 dict+skiplist |
+
 ### 扩展阅读
 #### 1. 天下无难试之 Redis 面试题刁难大全
 https://mp.weixin.qq.com/s/-y1zvqWEJ3Tt4h39Z0WBJg
@@ -297,3 +326,6 @@ http://tinylab.org/memory-allocation-mystery-%C2%B7-jemalloc-a/
 
 #### 6. 分布式系统的“流言蜚语”
 https://mp.weixin.qq.com/s/ZbwEiBJZ0XusB5NSJDbLHw
+
+#### 7. Redis 数据结构和对象系统，记住这 12 张图就够啦！
+https://mp.weixin.qq.com/s/fO0yoHGqtFH5lpu6688h2w
