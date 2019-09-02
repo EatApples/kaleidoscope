@@ -99,7 +99,17 @@ Write performance actually decreases as you add ZK servers, while read performan
 
 See this page for a survey Patrick Hunt (http://twitter.com/phunt) did looking at operational latency with both standalone server and an ensemble of size 3. You'll notice that a single core machine running a standalone ZK ensemble (1 server) is still able to process 15k requests per second. This is orders of magnitude greater than what most applications require (if they are using ZooKeeper correctly - ie as a coordination service, and not as a replacement for a database, filestore, cache, etc...)
 
+### 附加：日志清理
+发现ZK集群的日志占用大量磁盘
 
+查看当前目录下的磁盘使用情况（可重复使用，定位大文件）
+```
+du -ah ./ --max-depth=1
+```
+最后，发现是 version-2 目录下有大量日志，清理如下（删除10天之前的所有文件）
+```
+find ./version-2/ -mtime +10 -name "*.*" -exec rm {} \;
+```
 
 ### 扩展阅读
 #### 1. ZOOKEEPER FAQ
