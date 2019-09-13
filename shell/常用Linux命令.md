@@ -68,6 +68,8 @@ find 对应目录 -mtime +天数 -type d -name "目录名"
 ```sh
 #grep全称是Global Regular Expression Print，表示全局正则表达式版本，它的使用权限是所有用户
 ps -ef | grep java
+#查看具体cpu
+ps -mp PID -o THREAD,tid,time
 ```
 
 ### gzip
