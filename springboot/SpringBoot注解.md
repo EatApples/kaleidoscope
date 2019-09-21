@@ -134,7 +134,12 @@ As a result, it's not a bug. it's a limitation of Feign at this moment as I thin
 默认值设置：
 
 @Value("${PROPERTY:DEFAULT_VALUE}")
-　
+
+@Value("#{}")与@Value("${}")的区别
+
++ @Value("#{}")：获取bean的属性，或者调用bean的某个方法，当然还有可以表示常量
++ @Value("${}")：从配置文件读取值
+
 ### 13. @Configuration 和 @Component
 首先看一下Spring官方文档是怎么说的：
 ```
