@@ -10,6 +10,8 @@ date +"%Y%m%d%H%M%S"
 ### 2. 设置文本格式
 ```
 set fileformats=unix
+或
+set ff=unix
 ```
 
 ### 3. CURL
@@ -95,4 +97,60 @@ cat /etc/issue | grep Linux
 
 # 查看操作系统位数
 getconf LONG_BIT
+```
+
+### 7. 处理命令行参数的一个样例
+```
+while [ "$1" != "" ]; do
+    case $1 in
+        -s  )   shift  
+        SERVER=$1 ;;  
+        -d  )   shift
+        DATE=$1 ;;
+    --paramter|p ) shift
+        PARAMETER=$1;;
+        -h|help  )   usage # function call
+                exit ;;
+        * )     usage # All other parameters
+                exit 1
+    esac
+    shift
+done
+```
+
+### 8. 命令行菜单的一个样例
+```sh
+#!/bin/bash
+# Bash Menu Script Example
+
+PS3='Please enter your choice: '
+options=("Option 1" "Option 2" "Option 3" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Option 1")
+            echo "you chose choice 1"
+            ;;
+        "Option 2")
+            echo "you chose choice 2"
+            ;;
+        "Option 3")
+            echo "you chose choice $REPLY which is $opt"
+            ;;
+        "Quit")
+            break
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
+```
+
+### 9. free -m 内存解析
+```
+total：内存总数
+used：已经使用的内存数
+free：空闲的内存数
+shared：多个进程共享的内存总额，当前已经废弃不用，总是0
+-buffers/cache：(已用)的内存数，即used-buffers-cached
++buffers/cache：(可用)的内存数，即free+buffers+cached
 ```

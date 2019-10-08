@@ -24,6 +24,32 @@
 	</resource>
 </resources>
 
+<!-- 打包配置 -->
+<build>
+	<resources>
+		<resource>
+			<directory>src/main/resources</directory>
+			<filtering>true</filtering>
+		</resource>
+	</resources>
+	<plugins>
+		<plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<configuration>
+				<includeSystemScope>true</includeSystemScope>
+			</configuration>
+			<executions>
+				<execution>
+					<goals>
+						<goal>repackage</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+	</plugins>
+</build>
+
 ```
 
 ### 2. Maven 命令
@@ -85,3 +111,26 @@ provided 意味着打包的时候可以不用包进去，别的设施（Web Cont
 #### system
 从参与度来说，也 provided 相同。
 不过被依赖项不会从 maven 仓库抓，而是从本地文件系统拿，一定需要配合 systemPath 属性使用。
+
+### 4. maven install 时跳过 test
+命令方式
+```
+mvn install -Dmaven.test.skip = true
+```
+
+配置文件方式
+
+在maven构建包依赖配置文件pom.xml的project元素中添加jar包maven-surefire-plugin，并配置。
+```xml
+<build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+```
