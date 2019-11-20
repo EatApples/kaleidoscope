@@ -256,7 +256,7 @@ class Peterson implements Lock {
     flag[i] = true;
     victim  = i;
     //之前的为门廊区
-    while (flag[j] && victim == i) {}; 
+    while (flag[j] && victim == i) {};
     // 等待区
   }
   public void unlock() {
@@ -397,7 +397,7 @@ public void unlock( ){
 
 所有线程获得的标识符只有STOP,DOWN,RIGHT三种，而得到STOP的线程最多只有一个，指定得到STOP的线程的id为0，得到RIGHT和DOWN的线程都会前进一步，故没有任何两个线程的id相同。
 
-Bouncer对象个数（N）*（N+1）/2
+Bouncer对象个数 N(N+1)/2
 
 #### 习题18：串行时间戳的3线程反例
 证明：初始时，A12->B10->C21,AB同时更新，则C21->(A22,B22)，此时，C更新，变成C20。
