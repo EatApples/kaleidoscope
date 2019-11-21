@@ -60,3 +60,6 @@
 链接：https://www.jianshu.com/p/ef418ccf2f7d
 来源：简书
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+#### 3. 从实践角度重新理解BIO和NIO
+http://blog.objectspace.cn/2019/10/22/从实践角度重新理解BIO和NIO/
