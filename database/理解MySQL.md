@@ -234,3 +234,5 @@ ALTER TABLE 表名 ROW_FORMAT=行格式名称
 use 库名
 show table status like '表名';
 ```
+
+#### 12. 

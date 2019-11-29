@@ -120,6 +120,7 @@
   * [15.6 理解MySQL](database/理解MySQL.md)
   * [15.7 密码加盐](database/密码加盐.md)
   * [15.8 对NOT NULL的理解](database/对NOT NULL的理解.md)
+  * [15.9 为什么DB连接管理一般不采用IO多路复用](database/为什么DB连接管理一般不采用IO多路复用.md)
 * [16 OS](README.md)
   * [16.1 windows相关](OS/windows相关.md)
   * [16.2 Monitor](OS/Monitor.md)
