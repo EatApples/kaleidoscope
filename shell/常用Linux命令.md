@@ -62,6 +62,8 @@ du -h  --max-depth=1
 #找到N天前的文件
 find 对应目录 -mtime +天数 -type f -name "文件名"
 find 对应目录 -mtime +天数 -type d -name "目录名"
+#找到对应目录下的大文件
+find 对应目录 -type f -size +800M
 ```
 
 ### grep
