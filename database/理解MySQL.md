@@ -61,6 +61,17 @@ ALTER TABLE 表名 ENGINE = 存储引擎名称;
 | **Transactions**                      | no     | no      | yes    | no      | yes   |
 | Update statistics for data dictionary | yes    | yes     | yes    | yes     | yes   |
 
+MyISAM（主要的非事务处理存储引擎）：支持全文索引；支持GEO；表锁；
+
+Memory（置于内存的表）：支持哈希索引；分片受限；表锁；
+
+INNODB（具备外键支持功能的事务存储引擎）：唯一支持聚簇索引；支持数据缓存；支持外键；支持全文索引；支持GEO；行锁；唯一支持MVCC；支持事务；
+
+Archive（用于数据存档（行被插入后不能再修改））：行锁；
+
+NDB（MySQL集群专用存储引擎）：唯一支持集群数据库；支持数据缓存；支持外键；支持哈希索引；唯一支持T-树索引；支持事务；
+
+MyISAM，Memory，INNODB的相同点：都有B-树索引；都有恢复点；都有数据加密；都支持查询缓存；
 
 ### 4. 配置文件的优先级
 MySQL将按照给定的顺序依次读取各个配置文件，如果该文件不存在则忽略。
@@ -99,7 +110,7 @@ SET [@@(GLOBAL|SESSION).]var_name = XXX;
 ```
 SHOW VARIABLES [LIKE 匹配的模式];
 ```
-由于系统变量实在太多了，如果我们直接使用SHOW VARIABLES查看的话就直接刷屏了，所以通常都会带一个LIKE过滤条件来查看我们需要的系统变量的值。
+由于系统变量实在太多了，如果我们直接使用SHOW  BLES查看的话就直接刷屏了，所以通常都会带一个LIKE过滤条件来查看我们需要的系统变量的值。
 
 既然系统变量有作用范围之分，那我们的SHOW VARIABLES语句查看的是什么作用范围的系统变量呢？
 

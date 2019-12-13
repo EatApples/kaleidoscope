@@ -33,6 +33,7 @@
   * [2.19 序列化与JSON](java/序列化与JSON.md)
   * [2.20 Java中的位运算](java/Java中的位运算.md)
   * [2.21 Java的assert关键字](java/Java的assert关键字.md)
+  * [2.22 Object的方法](java/Object的方法.md)
 * [3 `SpringBoot`](README.md)
   * [3.1 `SpringBoot`的`pom.xml`](springboot/SpringBoot-pom-xml.md)
   * [3.2 `SpringBoot`的注解](springboot/SpringBoot注解.md)
