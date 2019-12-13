@@ -149,3 +149,4 @@
   * [14 资源汇总](other/资源汇总.md)
   * [15 git常用操作](other/git常用操作.md)
   * [16 关键对话](other/关键对话.md)
+  * [17 VSCode](other/VSCode.md)
