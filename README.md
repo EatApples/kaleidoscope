@@ -66,6 +66,7 @@
   * [3.20 `Hystrix+Turbine`](springboot/Hystrix+Turbine.md)  
   * [3.21 过滤器与拦截器](springboot/过滤器与拦截器.md)
   * [3.22 Spring的循环依赖及其解决](springboot/Spring的循环依赖及其解决.md)
+  * [3.23 SpringSession原理](springboot/SpringSession原理.md)
 * [4 `RabbitMQ`](README.md)
   * [4.1 `RabbitMQ`相关](rabbitmq/RabbitMQ相关.md)
   * [4.2 `RabbitMQ`四种发送方式区别](rabbitmq/RabbitMQ四种发送方式区别.md)
