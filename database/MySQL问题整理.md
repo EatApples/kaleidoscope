@@ -204,3 +204,6 @@ explain
 + 连接表时，先用where条件对表进行过滤，然后再连接；
 
 + 建立合适的索引，必要时建立联合索引；
+
+### 11. 清理DB
+select CONCAT('truncate TABLE ',table_schema,'.',TABLE_NAME, ';') from INFORMATION_SCHEMA.TABLES where  table_schema in ('sia_ams_dev');
