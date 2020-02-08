@@ -21,7 +21,7 @@ https://www.cnblogs.com/lxyit/p/9672097.html
 
 traditional-session 的局限性在于：单机 session。spring-session 的核心思想：将 session 从 web 容器中剥离，存储在独立的存储服务器中。
 
-spring-session 目前支持多种形式的 session 存储器：Redis、Database、MongoDB 等。session 的管理责任委托给 spring-session 承担。当 request 进入 web 容器，根据 request 获取 session 时，由 spring-session 负责存存储器中获取 session，如果存在则返回，如果不存在则创建并持久化至存储器中。
+spring-session 目前支持多种形式的 session 存储器：Redis、Database、MongoDB 等。session 的管理责任委托给 spring-session 承担。当 request 进入 web 容器，根据 request 获取 session 时，由 spring-session 负责从存储器中获取 session，如果存在则返回，如果不存在则创建并持久化至存储器中。
 
 ### 3. spring-session 的实现
 
