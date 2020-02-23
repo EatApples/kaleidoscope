@@ -20,6 +20,8 @@
   * [1.8 `FisherYates`洗牌算法](algorithm/FisherYates洗牌算法.md)
   * [1.9 `Dapper`笔记](algorithm/Dapper笔记.md)
   * [1.10 算法概论](algorithm/算法概论.md)
+  * [1.11 蓄水池抽样](algorithm/蓄水池抽样.md)
+  * [1.12 哲学家就餐](algorithm/哲学家就餐.md)
 * [2 Java](README.md)
   * [2.1 `JavaGC`优化](java/从实际案例聊聊Java应用的GC优化.md)
   * [2.2 设计模式](java/设计模式23.md)
