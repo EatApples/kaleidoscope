@@ -19,7 +19,7 @@ void philosopher(int i) /*i：哲学家编号，从0 到4*/
   }
 }
 
-void get_forks(int i)
+void take_fork(int i)
 {
   P(mutex);
   Fork_available_state[i] = false;

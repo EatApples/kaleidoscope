@@ -77,6 +77,7 @@
   * [5.6 `Linux`命令整理](shell/Linux命令整理.md)
   * [5.7  常用Linux命令](shell/常用Linux命令.md)
   * [5.8  SpringBoot启动脚本](shell/启动脚本.md)
+  * [5.9  Linux性能优化](shell/Linux性能优化.md)
 * [6 `ZooKeeper`](README.md)
   * [6.1 `ZooKeeper`集群安装](zookeeper/ZooKeeper集群安装.md)
   * [6.2 `ZooKeeper`权限控制](zookeeper/ZooKeeper权限控制.md)

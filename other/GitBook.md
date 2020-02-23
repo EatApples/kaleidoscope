@@ -1,5 +1,37 @@
 ## GitBook 相关
-### 1. GitBook 常用的命令
+
+### npm 安装 less 报错 rollbackFailedOptional: verb npm-session
+
+（1）更改 npm 源
+
+解决方法：更换成淘宝的源
+
+> npm config set registry https://registry.npm.taobao.org
+
+配置后可通过下面方式来验证是否成功
+
+> npm config get registry
+
+或
+
+> info express
+
+（2）使用 cnpm
+
+先删除原有的所有代理
+
+> npm config rm proxy
+
+> npm config rm https-proxy
+
+然后使用
+
+> npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+安装淘宝的 cnpm，就可以使用淘宝的 cnpm 了
+
+### GitBook 常用的命令
+
 ```
 gitbook init //初始化目录文件
 gitbook help //列出gitbook所有的命令
@@ -17,5 +49,7 @@ gitbook builid --debug //输出错误信息
 ```
 
 ### 扩展阅读
-#### 1. GitBook简明教程
+
+#### 1. GitBook 简明教程
+
 http://www.chengweiyang.cn/gitbook/index.html
