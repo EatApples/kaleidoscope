@@ -7,7 +7,7 @@ NoSuchMethodError
 （1）使用-XX:+TraceClassPaths或者在服务器上执行jinfo时，都能得到classpath包含的jar包
 （2）这些jar的顺序不同的机器总是不一样的，如果有多个同名的类只会加载其中第一个
 （3）问题就是jar的加载顺序问题，而这个顺序实际上是由文件系统决定的，linux内部是用inode来指示文件的
-（4）一般情况下，修改了文件名，再改回来，或者从新上传一个，这个编号依然还是这个，需要改名改变文件次序
+（4）一般情况下，修改了文件名，再改回来，或者重新上传一个，这个编号依然还是这个，需要改名改变文件次序
 ```
 
 ### 2. Bug：StampedLock的中断问题导致CPU爆满
@@ -139,7 +139,7 @@ Java 命令行提供了如何扩展 bootstrap 级别 class 的简单方法：
 
 #### 5.3 常用内存参数配置
 ```
--Xms256m -Xmx256m -Xmn64m -Xss256k -XX:PermSize=128m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError
+-Xms256m -Xmx256m -Xmn64m -Xss256k -XX:PermSize=64m -XX:MaxPermSize=128m -XX:+HeapDumpOnOutOfMemoryError
 ```
 
 ### 6. 常用参数使用
