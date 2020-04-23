@@ -56,7 +56,7 @@ du -h  --max-depth=1
 # {}是占位符，用来替换前一个命令的输出
 前一个命令 -exec 后一个命令 {} \;
 # 删除当前目录下30天前的文件
-find ./ -mtime +30 -type f  -exec rm {} \;
+find $(pwd) -mtime +30 -type f  -exec rm {} \;
 ```
 
 ### find
