@@ -164,3 +164,7 @@ Spring-Session 事件流程：
 ### 8. 总结
 
 spring-session 提供集群环境下 HttpSession 的透明集成。spring-session 的优势在于开箱即用，具有较强的设计模式。且支持多种持久化方式，其中 RedisSession 较为成熟，与 spring-data-redis 整合，可谓威力无穷。
+
+### 扩展阅读
+从Spring Session源码看Session机制的实现细节
+https://cloud.tencent.com/developer/article/1110590

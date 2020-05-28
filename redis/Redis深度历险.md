@@ -5,7 +5,7 @@
 ### 5种基础数据结构
 string（字符串）：内部实现类似 Java 的 ArrayList，是动态字符串，最大长度 512M。当字符串长度小于 1M 时，扩容都是加倍现有的空间，如果超过 1M，扩容时一次只会多扩 1M 的空间。
 
-list（列表）：Redis 的列表将链表和 ziplist（一块连续的内存存储，也即是压缩列表） 结合起来组成了 quicklist，也就是将多个 ziplist 使用双向指针串起来使用，相当于 Java 语言里面的 LinkedList，。Redis 的列表结构常用来做异步队列使用。
+list（列表）：Redis 的列表将链表和 ziplist（一块连续的内存存储，也即是压缩列表） 结合起来组成了 quicklist，也就是将多个 ziplist 使用双向指针串起来使用，相当于 Java 语言里面的 LinkedList，Redis 的列表结构常用来做异步队列使用。
 
 set（集合）：Redis 的集合相当于 Java 语言里面的 HashSet，它内部的键值对是无序的唯一的。它的内部实现相当于一个特殊的字典，字典中所有的 value 都是一个值NULL。
 
