@@ -165,6 +165,8 @@ lsof -c mysql
 lsof 文件名
 # 列出谁在使用某个端口
 lsof -i tcp:3306
+# 查看进程使用的FD：
+lsof -n |awk '{print $2}' |sort|uniq -c |sort -nr | more
 ```
 
 ### netstat
