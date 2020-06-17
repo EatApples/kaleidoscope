@@ -168,3 +168,14 @@ https://segmentfault.com/a/1190000007688656
 | Ctrl + ↑ / ↓                                      | 向上/向下滚动 Scroll up/down              |
 | Shift + PgUp / PgDown                             | 向上/向下滚动页面 Scroll page up/down     |
 | Ctrl + Home / End                                 | 滚动到顶部/底部 Scroll to top/bottom      |
+
+### vscode中选中多行多光标进行操作及一些常用的命令(快捷键)
+
+（1）行末：选中一段文字，按shift+alt+i，在每行末尾都会出现光标
+（2）按shift+alt，再使用鼠标拖动，也可以出现竖直的列光标，同时可以选中多列
+（3）alt+鼠标左键，选中多行同时编辑
+（4）ctrl+shift+L，选中编辑代码中相同的内容
+（5）选中多行，按tab键可统一向右移动
+（6）选中文本后，Ctrl  +  [  和  Ctrl  +  ] 可实现文本的向左移动 和 向右移动
+（7）按住Ctrl + Alt，再按键盘上的上或下键，可以使一列上出现多个光标
+
