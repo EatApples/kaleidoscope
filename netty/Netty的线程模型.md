@@ -30,7 +30,7 @@ Reactor 模式是基于事件驱动开发的，核心组成部分包括 Reactor 
 
 虽然 bossGroup 也能指定多个 NioEventLoop（一个 NioEventLoop 对应一个线程），但是默认情况下只会有一个线程，因为一般情况下应用程序只会使用一个对外监听端口
 
-现代 linux 中，多个 socker 同时监听同一个端口也是可行的，nginx 1.9.1 也支持这一行为。linux 3.9 以上内核支持 SO_REUSEPORT 选项，允许多个 socker bind/listen 在同一端口上。这样，多个进程可以各自申请 socker 监听同一端口，当连接事件来临时，内核做负载均衡，唤醒监听的其中一个进程来处理，reuseport 机制有效的解决了 epoll 惊群问题
+现代 linux 中，多个 socket 同时监听同一个端口也是可行的，nginx 1.9.1 也支持这一行为。linux 3.9 以上内核支持 SO_REUSEPORT 选项，允许多个 socket bind/listen 在同一端口上。这样，多个进程可以各自申请 socket 监听同一端口，当连接事件来临时，内核做负载均衡，唤醒监听的其中一个进程来处理，reuseport 机制有效的解决了 epoll 惊群问题
 
 再回到刚才提出的问题，java 中多线程来监听同一个对外端口，epoll 方法是线程安全的，这样就可以使用使用多线程监听 epoll_wait 了么？
 
