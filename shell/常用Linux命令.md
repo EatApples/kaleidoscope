@@ -55,6 +55,8 @@ du -h  --max-depth=1
 # -exec 必须由一个 ; 结束，而因为通常 shell 都会对 ; 进行处理，所以用 \; 防止这种情况
 # {}是占位符，用来替换前一个命令的输出
 前一个命令 -exec 后一个命令 {} \;
+# 删除当前目录下30天前的文件
+find $(pwd) -mtime +30 -type f  -exec rm {} \;
 ```
 
 ### find
@@ -163,6 +165,8 @@ lsof -c mysql
 lsof 文件名
 # 列出谁在使用某个端口
 lsof -i tcp:3306
+# 查看进程使用的FD：
+lsof -n |awk '{print $2}' |sort|uniq -c |sort -nr | more
 ```
 
 ### netstat

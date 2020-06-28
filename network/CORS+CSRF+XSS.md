@@ -37,7 +37,7 @@ CSRF是一种挟制用户在当前已登录的Web应用程序上执行非本意�
 
 （2）浏览器Cookie策略
 
-Cookie分为两种，Session Cookie（在浏览器关闭后，就会失效，保存到内存里），Third-party Cookie（即只有到了Exprie时间后才会失效的Cookie，这种Cookie会保存到本地）。
+Cookie分为两种，Session Cookie（在浏览器关闭后，就会失效，保存到内存里），Third-party Cookie（即只有到了Expire时间后才会失效的Cookie，这种Cookie会保存到本地）。
 
 另外如果网站返回HTTP头包含P3P Header，那么将允许浏览器发送第三方Cookie。
 
@@ -45,11 +45,11 @@ Cookie分为两种，Session Cookie（在浏览器关闭后，就会失效，保
 
 验证码，强制用户必须与应用进行交互，才能完成最终请求。在通常情况下，验证码能很好遏制CSRF攻击。但是出于用户体验考虑，网站不能给所有的操作都加上验证码。因此验证码只能作为一种辅助手段，不能作为主要解决方案。
 
-（4）Referer Check
+（4）referrer Check
 
-Referer Check 在Web最常见的应用就是“防止图片盗链”。同理，Referer Check也可以被用于检查请求是否来自合法的“源”（Referer值是否是指定页面，或者网站的域），如果都不是，那么就极可能是CSRF攻击。
+referrer  Check 在Web最常见的应用就是“防止图片盗链”。同理，Referrer Check也可以被用于检查请求是否来自合法的“源”（referrer 值是否是指定页面，或者网站的域），如果都不是，那么就极可能是CSRF攻击。
 
-但是因为服务器并不是什么时候都能取到Referer，所以也无法作为CSRF防御的主要手段。但是用Referer Check来监控CSRF攻击的发生，倒是一种可行的方法。
+但是因为服务器并不是什么时候都能取到referrer ，所以也无法作为CSRF防御的主要手段。但是用referrer  Check来监控CSRF攻击的发生，倒是一种可行的方法。
 
 （5）Anti CSRF Token
 
@@ -70,7 +70,7 @@ Referer Check 在Web最常见的应用就是“防止图片盗链”。同理，
 注意：CSRF的Token仅仅用于对抗CSRF攻击。当网站同时存在XSS漏洞时候，那这个方案也是空谈。所以XSS带来的问题，应该使用XSS的防御方案予以解决。
 
 ### CSRF漏洞检测
-检测CSRF漏洞是一项比较繁琐的工作，最简单的方法就是抓取一个正常请求的数据包，去掉Referer字段后再重新提交，如果该提交还有效，那么基本上可以确定存在CSRF漏洞。
+检测CSRF漏洞是一项比较繁琐的工作，最简单的方法就是抓取一个正常请求的数据包，去掉referrer 字段后再重新提交，如果该提交还有效，那么基本上可以确定存在CSRF漏洞。
 
 ### CSRF总结
 CSRF攻击是攻击者利用用户的身份操作用户帐户的一种攻击方式，通常使用Anti CSRF Token来防御CSRF攻击，同时要注意Token的保密性和随机性。

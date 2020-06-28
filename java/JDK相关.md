@@ -7,9 +7,33 @@ NoSuchMethodError
 （1）使用-XX:+TraceClassPaths或者在服务器上执行jinfo时，都能得到classpath包含的jar包
 （2）这些jar的顺序不同的机器总是不一样的，如果有多个同名的类只会加载其中第一个
 （3）问题就是jar的加载顺序问题，而这个顺序实际上是由文件系统决定的，linux内部是用inode来指示文件的
-（4）一般情况下，修改了文件名，再改回来，或者从新上传一个，这个编号依然还是这个，需要改名改变文件次序
+（4）一般情况下，修改了文件名，再改回来，或者重新上传一个，这个编号依然还是这个，需要改名改变文件次序
 ```
 
+#### 1.3 maven依赖原则导致？
+
+PS：maven只是依赖管理工具，类加载最终还是JVM说了算！
+
+```
+一、maven依赖原则
+
+（1）依赖路径最短优先原则
+一个项目Demo依赖了两个jar包，其中A-B-C-X(1.0)，A-D-X(2.0)。由于X(2.0)路径最短，所以项目使用的是X(2.0)。
+
+（2）pom文件中申明顺序优先
+如果A-B-X(1.0) ，A-C-X(2.0) 这样的路径长度一样怎么办呢？这样的情况下，maven会根据pom文件声明的顺序加载，如果先声明了B，后声明了C，那就最后的依赖就会是X(1.0)。
+
+（3）覆写优先
+子pom内声明的优先于父pom中的依赖。
+
+二、如何解决jar冲突
+遇到冲突的时候第一步要找到maven加载的到时是什么版本的jar包，通过们mvn dependency:tree查看依赖树，通过maven的依赖原则来调整坐标在pom文件的申明顺序是最好的办法。
+
+作者：志哥
+链接：https://www.jianshu.com/p/a26c1d8c4d1b
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
 ### 2. Bug：StampedLock的中断问题导致CPU爆满
 
 个人感觉NotReally
@@ -139,7 +163,7 @@ Java 命令行提供了如何扩展 bootstrap 级别 class 的简单方法：
 
 #### 5.3 常用内存参数配置
 ```
--Xms256m -Xmx256m -Xmn64m -Xss256k -XX:PermSize=128m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError
+-Xms256m -Xmx256m -Xmn64m -Xss256k -XX:PermSize=64m -XX:MaxPermSize=128m -XX:+HeapDumpOnOutOfMemoryError
 ```
 
 ### 6. 常用参数使用
