@@ -456,3 +456,12 @@ JVM 的多线程是通过线程轮流切换并分配处理器执行时间的方�
 - 非阻塞同步（例如：CAS 等原子指令，需要硬件支持，可认为是乐观同步）
 - 可重入代码（例如：幂等函数，相同的输入不管执行几次，都是相同的输出）
 - 线程本地存储（例如：ThreadLocal，都是线程内的私有数据，当然没有同步问题）
+
+### 18. 垃圾收集器的组合
+
+（1）UseSerialGC is "Serial" + "Serial Old"
+（2）UseParNewGC is "ParNew" + "Serial Old"
+（3）UseConcMarkSweepGC is "ParNew" + "CMS" + "Serial Old". "CMS" is used most of the time to collect the tenured generation. "Serial Old" is used when a concurrent mode failure occurs.
+（4）UseParallelGC is "Parallel Scavenge" + "Serial Old"
+（5）UseParallelOldGC is "Parallel Scavenge" + "Parallel Old"
+（6）-XX:+UseG1GC

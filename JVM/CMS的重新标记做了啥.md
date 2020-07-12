@@ -22,6 +22,10 @@ enqueue(new_ref);
 
 这样的 write barrier 属于 Increment Update 的方式，简称 INC，表示它会增量同步堆内的对象图。但是 INC barrier 存有一项缺陷：无法发现 Concurrent Mark 期间堆外根集（寄存器、栈）的引用变化。为此在 concurrent mark 之后，需要一个 remark 阶段再 STW 扫一遍根集，这是 CMS GC 的特点，有时 remark 阶段时间并不短。
 
+（1）并发标记阶段会漏掉一下老年代的存活对象，这是因为在并发的过程中，用户应用线程可能会对老年代的对象产生引用上的改变。某一些被改变的标记可能会被遗漏。
+（2）并发预清理(Concurrent Preclean)主要目的是减少重标记（Remark）步骤 Stop-the-World 的时间。这一步同样也是并发的，不会停止用户应用线程。在前面的并发标记中，一些引用被改变了。当某一块块（Card）中的对象引用发生改变时，JVM 会标记这个空间为“脏块”（Dirty Card）。在预清理阶段，JVM 根据之前记录的这些“脏对象”重新标记了他们新的可达对象。这一步结束后空间重新进入 clean 状态。另外，一些必要的最终重标记之前的准备步骤也会在这一步做好。
+（3）重标记(Remark)这是 CMS 算法中第二个会触发 Stop-the-World 事件的步骤，由于前一步是一个并发的步骤，预清理的速度可能会赶不上用户应用对对象改变的速度，所以需要一个 Stop-the-World 的暂停来完整的标记所有对象结束整个标记阶段。通常 CMS 会在年轻代为空时来运行重标记阶段，以此避免一个接一个的 Stop-the-World 阶段。
+
 G1GC 用的 Snapshot-At-The-Beginning 的 Write Barrier 是另一条思路，并不持续跟踪对象图的变化，而是打下 concurrent mark 那一刻的快照，而将之后所有新分配的对象统统视为活跃不管，做到：
 
 - Anything live at Initial Marking is considered live.

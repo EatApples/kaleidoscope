@@ -35,17 +35,17 @@ https://mp.weixin.qq.com/s/Pzd0OoxbW1tg59pZObu0pg
 
 ZGC 依然没有做到整个 GC 过程完全并发执行，依然有 3 个 STW 阶段，其他 3 个阶段都是并发执行阶段：
 
-（1）Pause Mark Start
+（1）Pause Mark Start（STW）
 
 这一步就是初始化标记，和 CMS 以及 G1 一样，主要做 Root 集合扫描，「GC Root 是一组必须活跃的引用，而不是对象」。
 
 例如：活跃的栈帧里指向 GC 堆中的对象引用、Bootstrap/System 类加载器加载的类、JNI Handles、引用类型的静态变量、String 常量池里面的引用、线程栈/本地(native)栈里面的对象指针等，但不包括 GC 堆里的对象指针。所以这一步骤的 STW 时间非常短暂，并且和堆大小没有任何关系。不过会根据线程的多少、线程栈的大小之类的而变化。
 
-（2）Concurrent Mark/Remap
+（2）Concurrent Mark/Remap（STW）
 
-第二步就是并发标记阶段，这个阶段在第一步的基础上，继续往下标记存活的对象。并发标记后，还会有一个短暂的暂停（Pause Mark End），确保所有对象都被标记。
+第二步就是并发标记阶段，这个阶段在第一步的基础上，继续往下标记存活的对象。并发标记后，还会有一个短暂的暂停（Pause Mark End），确保所有对象都被标记（因为并发时，这是一个追赶游戏）。
 
-（3）Concurrent Prepare for Relocate
+（3）Concurrent Prepare for Relocate（STW）
 
 即为 Relocation 阶段做准备，选取接下来需要标记整理的 Region 集合，这个阶段也是并发执行的。接下来又会有一个 Pause Relocate Start 步骤，它的作用是只移动 Root 集合对象引用，所以这个 STW 阶段也不会停顿太长时间。
 
