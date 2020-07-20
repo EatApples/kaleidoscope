@@ -459,9 +459,9 @@ JVM 的多线程是通过线程轮流切换并分配处理器执行时间的方�
 
 ### 18. 垃圾收集器的组合
 
-（1）UseSerialGC is "Serial" + "Serial Old"
-（2）UseParNewGC is "ParNew" + "Serial Old"
-（3）UseConcMarkSweepGC is "ParNew" + "CMS" + "Serial Old". "CMS" is used most of the time to collect the tenured generation. "Serial Old" is used when a concurrent mode failure occurs.
-（4）UseParallelGC is "Parallel Scavenge" + "Serial Old"
-（5）UseParallelOldGC is "Parallel Scavenge" + "Parallel Old"
+（1）-XX:+UseSerialGC is "Serial" + "Serial Old"
+（2）-XX:+UseParNewGC is "ParNew" + "Serial Old"
+（3）-XX:+UseConcMarkSweepGC is "ParNew" + "CMS" + "Serial Old". "CMS" is used most of the time to collect the tenured generation. "Serial Old" is used when a concurrent mode failure occurs.
+（4）-XX:+UseParallelGC is "Parallel Scavenge" + "Serial Old"
+（5）-XX:+UseParallelOldGC is "Parallel Scavenge" + "Parallel Old"
 （6）-XX:+UseG1GC

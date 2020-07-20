@@ -36,7 +36,7 @@ net.ipv4.tcp_fin_timeout 修改系默认的 TIMEOUT 时间
 如果以上配置调优后性能还不理想，可继续修改一下配置：
 
 vi /etc/sysctl.conf
-net.ipv4.tcp_keepalive_time = 1200 #表示当 keepalive 起用的时候，TCP 发送 keepalive 消息的频度。缺省是 2 小时，改为 20 分钟。
+net.ipv4.tcp_keepalive_time = 1200 #表示当 keepalive 启用的时候，TCP 发送 keepalive 消息的频度。缺省是 2 小时，改为 20 分钟。
 net.ipv4.ip_local_port_range = 1024 65000 #表示用于向外连接的端口范围。缺省情况下很小：32768 到 61000，改为 1024 到 65000。
 net.ipv4.tcp_max_syn_backlog = 8192 #表示 SYN 队列的长度，默认为 1024，加大队列长度为 8192，可以容纳更多等待连接的网络连接数。
 net.ipv4.tcp_max_tw_buckets = 5000 #表示系统同时保持 TIME_WAIT 套接字的最大数量，如果超过这个数字，TIME_WAIT 套接字将立刻被清除并打印警告信息。
