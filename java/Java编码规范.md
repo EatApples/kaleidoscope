@@ -857,3 +857,354 @@ Java servlet 提供了一个 HttpSession 用于存储特定于会话的数据的
 ## 第三部分-建议
 
 https://wiki.sei.cmu.edu/confluence/display/java/3+Recommendations
+
+### 建议 00.输入验证和数据清理（IDS）
+
+**IDS50-J。** 使用保守的文件命名约定
+
+在打开文件时，还应当对文件名做确认。
+
+**IDS51-J。** 正确编码或转义输出
+
+**IDS52-J。** 防止代码注入
+
+**IDS53-J。** 防止 XPath 注入
+
+**IDS54-J。** 防止 LDAP 注入
+
+对入参做检查。
+
+**IDS55-J。** 了解加载字符串时转义字符的语义
+
+**IDS56-J。** 防止任意文件上传
+
+对上传文件的格式，应该做有效性检查。
+
+比如虽然名叫 XXX.txt，但其实是个可执行文件。
+
+### 建议 01.声明和初始化（DCL）
+
+**DCL50-J。** 使用视觉上不同的标识符
+
+标识符应该具有区分度。
+
+比如数字 1 和小写字母 l 就很难区分，不要这样做。
+
+**DCL51-J。** 不要在子范围内隐藏或覆盖标识符
+
+意思是局部变量不要取和全部变量一样的名字，以免搞混。
+
+**DCL52-J。** 声明时，不要一次声明多个变量
+
+一次声明多个变量可能会引起变量类型及其初始值的混淆。特别是，请勿在单个声明中声明以下任何内容：
+不同类型的变量；
+初始化变量和未初始化变量的混合；
+
+**DCL53-J。** 最小化变量范围
+
+范围最小化可帮助开发人员避免常见的编程错误，通过连接变量的声明和实际使用来提高代码的可读性，并由于可更容易地检测和删除未使用的变量而提高了可维护性。
+
+**DCL54-J。** 使用有意义的符号常量表示程序逻辑中的字面值
+
+不要使用魔法值，而是使用有意义的符号常量代替。
+
+**DCL55-J。** 在常量定义中正确处理关联关系
+
+当常量表达式所表示的值也相关时，它们的定义也应相关。
+
+比如定义 1 角=1 分 X10；则 1 元=1 角 X10；
+
+**DCL56-J。** 不要涉及与枚举相关的序数
+
+Java 语言枚举类型具有一种 ordinal()方法，该方法返回每个枚举常量在其类声明中的数字位置。
+
+根据 Java API，类 Enum <E 扩展了 Enum <E >> [ API 2011 ]， public final int ordinal()
+
+返回枚举常量的序数（其在枚举声明中的位置，其中初始常量的序数为零）。大多数程序员都不会使用这种方法。它设计用于复杂的基于枚举的数据结构，例如 EnumSet 和 EnumMap。
+
+在 Java 语言规范中，没有对 ordinal()的使用做约束。但是，将外部意义附加到常量的 ordinal()值，enum 容易出错，因此对于防御性编程应避免使用。
+
+**DCL57-J。** 避免可变参数方法的歧义重载
+
+为了避免重载可变参数方法，请使用不同的方法名称以确保调用了预期的方法。
+
+**DCL58-J。** 启用可变参数类型的编译时类型检查
+
+可变参数（型如 X...） 是 java 的语法糖，使用时，最好不要引起歧义。
+
+**DCL59-J。** 不要使用 public final 修饰在以后的版本中可能会更改的常量上
+
+**DCL60-J。** 避免软件包之间的循环依赖
+
+依赖于接口，而不是具体实现。
+
+**DCL61-J。** 不要使用泛型对象的原始类型
+
+不要使用 List，而应该制定泛型类型 List<String>，这样在编译时会做检查，免得在运行时出错。
+
+### 建议 02.表达式（EXP）
+
+**EXP50-J。** 不要将对象相等与引用相等混淆
+
+注意 'equals'与'=='的区别。
+
+**EXP51-J。** 不要在条件表达式中执行赋值
+
+这种错，在 java 中就能检查出来。主要是 C 系列的语言 `if(a=b){}` 也能正常编译。
+
+**EXP52-J。** 在 if，for 或 while 语句的主体中使用花括号
+
+语义清晰，避免歧义。
+
+**EXP53-J。** 使用括号优先操作
+
+当你不确定运算符的优先级时，使用小括号来指定优先级时总是不会错的。
+
+**EXP54-J。** 了解按位运算符和逻辑运算符之间的区别
+
+**EXP55-J。** 对条件表达式中的第二个和第三个操作数使用相同的类型
+
+(boolean 表达式)?(true 时的赋值):(false 时的赋值)
+
+### 建议 03.数值类型和运算（NUM）
+
+**NUM50-J。** 将整数转换为浮点以进行浮点运算
+
+**NUM51-J。** 不要假设余数运算符对于整数操作数总是返回非负结果
+
+java 中整数相除，商总是向 0 取整。
+
+java 中以下等式总是成立：商 x 被除数+余数=除数。
+
+即使 -14/3=-4 与 14/-3 = -4 一样，但是：
+
+-14 % 3 = -2 而 14 % -3 = 2
+
+**NUM52-J。** 注意基本类型提升行为
+
+**NUM53-J。** 使用 strictfp 修饰符可实现跨平台的浮点计算一致性
+
+**NUM54-J。** 不要使用非正规数
+
+使用非规范化的数字会严重影响浮点计算的精度。所以，不得使用非规范化的数字。
+
+### 建议 04.字符和字符串（STR）
+
+**STR50-J。** 使用适当的方法对字符串中的字符进行计数
+
+使用 int ch = string.codePointAt(i); 与 int num=Character.charCount(ch));
+
+**STR51-J。** 当需要对编码过程进行更多控制时，请使用字符集编码器和解码器类
+
+### 建议 05.面向对象（OBJ）
+
+**OBJ50-J。** 切勿将引用的不变性与引用对象的不变性相混淆
+
+**OBJ51-J。** 最小化类及其成员的可访问性
+
+**OBJ52-J。** 编写垃圾收集友好的代码
+
+**OBJ53-J。** 不要对短暂的，不经常使用的对象使用直接缓冲区
+
+```java
+ByteBuffer rarelyUsedBuffer = ByteBuffer.allocate(8192);
+// Use rarelyUsedBuffer once
+
+ByteBuffer heavilyUsedBuffer = ByteBuffer.allocateDirect(8192);
+// Use heavilyUsedBuffer many times
+```
+
+**OBJ54-J。** 不要尝试通过将本地引用变量设置为 null 来帮助垃圾收集器
+
+**OBJ55-J。** 从长期容器对象中删除短期对象
+
+**OBJ56-J。** 对于敏感可变类提供带不可修改的包装方法
+
+深度拷贝后，再返回，以免被修改原数据。
+
+**OBJ57-J。** 不要依赖可被不受信任的代码覆盖的方法
+
+**OBJ58-J。** 用 final 限制类和方法的可扩展性
+
+### 建议 06.方法（MET）
+
+**MET50-J。** 避免模棱两可或令人困惑的重载用法
+
+**MET51-J。** 不要使用重载方法来区分运行时类型
+
+**MET52-J。** 不要使用 clone()方法复制不受信任的方法参数
+
+**MET53-J。** 确保 clone()方法调用 super.clone()
+
+**MET54-J。** 始终提供有关方法结果值的反馈
+
+带返回值的方法，好过 void
+
+**MET55-J。** 对于返回数组或集合的方法，返回空数组或集合，而不是 null 值
+
+**MET56-J。** 不要使用 Object.equals()比较加密密钥
+
+java.lang.Object.equals()默认情况下，该方法无法比较组合对象，例如加密密钥。
+
+大多数 Key 类无法提供 equals()重写的实现 Object.equals()。在这种情况下，必须单独比较复合对象的组件以确保正确性。
+
+### 建议 07.异常行为（ERR）
+
+**ERR50-J。** 仅在特殊情况下使用异常
+
+异常仅应用于表示特殊情况；它们不应用于普通控制流目的。
+
+**ERR51-J。** 首选用户定义的异常，而不是更常规的异常类型
+
+**ERR52-J。** 避免环类错误指示
+
+环内错误指示符是由方法返回的值，该方法指示合法的返回值或指示错误的非法值。
+
+环内错误指示器需要检查错误，但是，这种检查经常被忽略。
+
+在 Java 中，指示异常情况的最佳方法是抛出异常，而不是返回错误代码。异常在范围内传播，并且不能像错误代码那样容易地被忽略。
+
+当使用异常时，错误检测和错误处理代码与控制的主要流程保持分开。
+
+例如：
+
+```java
+int read = buffer.read(cbuf, off, len);
+if (read == -1) {
+    throw new EOFException();
+} else {
+  return read;
+}
+```
+
+**ERR53-J。** 尝试从系统错误中正常恢复
+
+**ERR54-J。** 使用 try-with-resources 语句安全地处理可关闭的资源
+
+### 建议 13.输入输出（FIO）
+
+**FIO50-J。** 不要对文件创建做任何假设
+
+**FIO51-J。** 使用多个文件属性识别文件
+
+**FIO52-J。** 不要在客户端存储未加密的敏感信息
+
+**FIO53-J。** 小心使用序列化方法 writeUnshared()和 readUnshared()
+
+### 建议 15.平台安全（SEC）
+
+**SEC50-J。** 避免授予过多特权
+
+**SEC51-J。** 最小化特权代码
+
+**SEC52-J。** 不要将使用降低安全性检查的方法暴露给不受信任的代码
+
+**SEC53-J。** 定义自定义安全权限以实现细粒度的安全性
+
+**SEC54-J。** 使用安全管理器创建安全沙箱
+
+**SEC55-J。** 确保使用经过验证的参数调用对安全敏感的方法
+
+**SEC56-J。** 不要序列化系统资源的直接句柄
+
+**SEC57-J。** 不要让不受信任的代码滥用回调方法的特权
+
+**SEC58-J。** 反序列化方法不应执行潜在的危险操作
+
+### 建议 18.并发性（CON）
+
+**CON50-J。** 不要以为声明 volatile 可以确保安全发布引用对象的成员
+
+**CON51-J。** 不要假设 sleep()，yield()或 getState()方法提供同步语义
+
+**CON52-J。** 记录线程安全性并在适用时使用注释
+
+### 建议 49.其他（MSC）
+
+**MSC50-J。** 最小化 @SuppressWarnings 批注的范围
+
+**MSC51-J。** 不要在 if，for 或 while 条件之后立即放置分号
+
+隐蔽的错误
+
+```java
+
+if (a == b); {
+  /* ... */
+}
+```
+
+**MSC52-J。** switch 的每个 case 都用 break 标注
+
+**MSC53-J。** 在接口对外提供之前，请仔细设计接口
+
+**MSC54-J。** 避免无意中包装循环计数器
+
+计数器终止时，仔细考虑终止条件，以免计数器越界而造成死循环。
+
+**MSC55-J。** 一致且易读地使用注释
+
+**MSC56-J。** 检测并删除多余的代码和值
+
+**MSC57-J。** 力求逻辑完整性
+
+```java
+switch(x) {
+  case 0: foo(); break;
+  case 1: bar(); break;
+  default: /* Handle error */ break;
+}
+```
+
+**MSC58-J。** 优先使用迭代器而不是枚举
+
+**MSC59-J。** 限制敏感数据的生命周期
+
+```java
+class Password {
+  public static void main (String args[]) throws IOException {
+    Console c = System.console();
+
+    if (c == null) {
+      System.err.println("No console.");
+      System.exit(1);
+    }
+
+    String username = c.readLine("Enter your user name: ");
+    char[] password = c.readPassword("Enter your password: ");
+    boolean isValidUser = verify(username, password);
+
+    // Clear the password
+    Arrays.fill(password,' ');
+
+    if (!isValidUser) {
+      throw new SecurityException("Invalid Credentials");
+    }
+
+    // User is authorized, continue...
+  }
+
+  // Dummy verify method, always returns true
+  private static final boolean verify(String username, char[] password) {
+    return true;
+  }
+}
+```
+
+**MSC60-J。** 不要使用断言来验证是否存在运行时错误
+
+**MSC61-J。** 不要使用不安全或弱密码算法
+
+**MSC62-J。** 使用哈希函数存储密码
+
+必要时加盐。
+
+**MSC63-J。** 确保 SecureRandom 的随机数种子被正确设置
+
+使用系统默认的就行。
+
+```java
+byte[] randomBytes = new byte[128];
+SecureRandom random = new SecureRandom();
+random.nextBytes(randomBytes);
+```
