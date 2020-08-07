@@ -595,7 +595,7 @@ Java 程序的性能测试存在着许多深坑，有来自 Java 虚拟机的，
 
 + @State允许配置测试程序的状态。测试前对程序状态的初始化以及测试后对程序状态的恢复或者校验可分别通过@Setup和@TearDown来实现。
 
-JMH：Benchmarking is the (endless) fght against the optimizations
+JMH：Benchmarking is the (endless) fight against the optimizations
 
 + System: Power management
 + System: OS Schedulers
