@@ -4,6 +4,8 @@ https://blog.csdn.net/hchaoh/article/details/103907256
 
 Java nio 空轮询 bug 也就是 Java nio 在 Linux 系统下的 epoll 空轮询问题
 
+This is an issue with poll (and epoll) on Linux. If a file descriptor for a connected socket is polled with a request event mask of 0, and if the connection is abruptly terminated (RST) then the poll wakes up with the POLLHUP (and maybe POLLERR) bit set in the returned event set. The implication of this behaviour is that Selector will wakeup and as the interest set for the SocketChannel is 0 it means there aren't any selected events and the select method returns 0.
+
 部分 Linux 内核中，在 poll 或 epoll 一个已连接的 socket，且请求事件掩码为 0 的情况下，如果连接被突然中断（连接出现了 RST），那么 poll/epoll 会被唤醒，相应事件标识为 POLLHUP（或 POLLERR）。继而 Selector 被唤醒，且 interest set 为 0，没有相应的 Channel，select() 返回值也是 0。进而导致 CPU 100%问题。
 
 可能因为此问题的根源在于底层 Linux 内核行为的不一致，所以 Java 官方一开始将其抛给了操作系统实现方，导致该 bug 存在了很久。

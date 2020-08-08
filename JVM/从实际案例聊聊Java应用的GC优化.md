@@ -98,7 +98,7 @@ Hotspot VM将堆划分为不同的物理区，就是“分代”思想的体现�
 JVM引入动态年龄计算，主要基于如下两点考虑：
 如果固定按照MaxTenuringThreshold设定的阈值作为晋升条件：
 
-a）MaxTenuringThreshold设置的过大，原本应该晋升的对象一直停留在Survivor区，直到Survivor区溢出，一旦溢出发生，Eden+Svuvivor中对象将不再依据年龄全部提升到老年代，这样对象老化的机制就失效了。
+a）MaxTenuringThreshold设置的过大，原本应该晋升的对象一直停留在Survivor区，直到Survivor区溢出，一旦溢出发生，Eden+Survivor中对象将不再依据年龄全部提升到老年代，这样对象老化的机制就失效了。
 
 b）MaxTenuringThreshold设置的过小，“过早晋升”即对象不能在新生代充分被回收，大量短期对象被晋升到老年代，老年代空间迅速增长，引起频繁的Major GC。分代回收失去了意义，严重影响GC性能。
 
