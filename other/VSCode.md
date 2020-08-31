@@ -179,3 +179,15 @@ https://segmentfault.com/a/1190000007688656
 （6）选中文本后，Ctrl  +  [  和  Ctrl  +  ] 可实现文本的向左移动 和 向右移动
 （7）按住Ctrl + Alt，再按键盘上的上或下键，可以使一列上出现多个光标
 
+### 不错的插件
+（1）Chinese (Simplified) Language Pack for Visual Studio Code
+（2）hexdump for VSCode
+（3）Markdown All in One
+（4）Markdown Table Formatter
+（5）Prettier - Code formatter
+（6）TODO Highlight
+（7）Todo Tree
+（8）Visual Studio IntelliCode
+（9）vscode-icons
+（10）Code Spell Checker
+（11）Code Runner
