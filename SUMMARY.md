@@ -40,6 +40,7 @@
   - [2.20 Java 中的位运算](java/Java中的位运算.md)
   - [2.21 Java 的 assert 关键字](java/Java的assert关键字.md)
   - [2.22 Object 的方法](java/Object的方法.md)
+  - [2.23 位操作的魔法](java/位操作的魔法.md)
 - [3 `SpringBoot`](README.md)
   - [3.1 `SpringBoot`的`pom.xml`](springboot/SpringBoot-pom-xml.md)
   - [3.2 `SpringBoot`的注解](springboot/SpringBoot注解.md)
