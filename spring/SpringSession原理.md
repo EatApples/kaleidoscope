@@ -74,7 +74,7 @@ loadSession 中，将 Redis 中存储的 Session 信息转换为 MapSession 对�
 ### 5. RedisSession 的存储
 
 当创建一个 RedisSession，然后存储在 Redis 中时，RedisSession 的存储细节如下：
-
+（这是三个Key)
 ```
 spring:session:sessions:33fdd1b6-b496-4b33-9f7d-df96679d32fe
 spring:session:sessions:expires:33fdd1b6-b496-4b33-9f7d-df96679d32fe
