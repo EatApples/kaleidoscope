@@ -273,4 +273,4 @@ with
 
 SELECT CONCAT('TRUNCATE TABLE ',table_schema,'.',TABLE_NAME, ';')
 FROM INFORMATION_SCHEMA.TABLES 
-WHERE table_schema in ('DB-NAME');DB-NAME
+WHERE table_schema in ('DB-NAME');
