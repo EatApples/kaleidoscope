@@ -195,6 +195,7 @@
   - [21.4 Spring 的循环依赖及其解决](Spring/Spring的循环依赖及其解决.md)
   - [21.5 UndeclaredThrowableException](Spring/UndeclaredThrowableException.md)
   - [21.6 过滤器与拦截器](Spring/过滤器与拦截器.md)
+  - [21.7 EL表达式](Spring/EL表达式.md)
 - [22 Netty](README.md)
   - [22.1 Netty 的线程模型](Spring/Netty的线程模型.md)
   - [22.2 Netty 解决 epoll 空转问题](Spring/Netty解决epoll空转问题.md)

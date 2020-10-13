@@ -134,3 +134,27 @@ mvn install -Dmaven.test.skip = true
     </plugins>
   </build>
 ```
+
+### 5. Maven 中配置文件的替换原理
+
+Maven 使用多环境配置
+https://www.jianshu.com/p/9d5c332e5134
+maven 属性文件中使用 '@'
+https://blog.csdn.net/taozhen1987/article/details/80288337
+
+（1）需要什么插件？
+maven-resource-plugin
+
+（2）需要 .yml 和 .properties 文件？
+只需指定源文件和被替换的资源文件即可
+
+（3）被替换的格式是型如【'@okcoin.hotdog.common.slsMonitorRegion@'】这种？
+这是默认的标识符
+https://maven.apache.org/plugins/maven-resources-plugin/resources-mojo.html#delimiters
+
+```xml
+<delimiters>
+  <delimiter>${*}</delimiter>
+  <delimiter>@</delimiter>
+</delimiters>
+```
