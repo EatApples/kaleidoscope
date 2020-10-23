@@ -274,3 +274,12 @@ with
 SELECT CONCAT('TRUNCATE TABLE ',table_schema,'.',TABLE_NAME, ';')
 FROM INFORMATION_SCHEMA.TABLES 
 WHERE table_schema in ('DB-NAME');
+
+### 12. 查询语句报 group by 相关语法错误
+
+```
+which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+```
+
+mysql5.7 报错 this is incompatible with sql_mode=only_full_group_by
+http://www.jfinal.com/share/1451

@@ -148,10 +148,13 @@ maven-resource-plugin
 （2）需要 .yml 和 .properties 文件？
 只需指定源文件和被替换的资源文件即可
 
-（3）被替换的格式是型如【'@okcoin.hotdog.common.slsMonitorRegion@'】这种？
-这是默认的标识符
+（3）被替换的格式是型如【'@XXX.YYY.ZZZ@'】这种？
+这是默认占位符中的一种。
+
+具体见：
 https://maven.apache.org/plugins/maven-resources-plugin/resources-mojo.html#delimiters
 
+默认占位符有2种：
 ```xml
 <delimiters>
   <delimiter>${*}</delimiter>
