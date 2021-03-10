@@ -283,3 +283,37 @@ which is not functionally dependent on columns in GROUP BY clause; this is incom
 
 mysql5.7 报错 this is incompatible with sql_mode=only_full_group_by
 http://www.jfinal.com/share/1451
+
+### 13. 更新语句如何操作？
+
+update set from 语句用法
+
+```sql
+UPDATE TABLE A
+SET A.XX = B.xx
+WHERE A.YY = B.yy
+;
+```
+
+子查询方式：
+
+```sql
+UPDATE TABLE A
+SET A.XX =
+(
+  SELECT B.XX
+  FROM TABLE B
+  WHERE A.id = B.id
+)
+;
+```
+
+联合查询方式：
+
+```sql
+UPDATE TABLE A
+INNER JOIN TABLE B
+ON A.id = B.id
+SET A.XX = B.XX
+;
+```
