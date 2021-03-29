@@ -201,6 +201,7 @@
   - [19.5 为什么这么设计整理](architecture/为什么这么设计整理.md)
   - [19.6 云原生](architecture/云原生.md)
   - [19.7 如何秒杀](architecture/如何秒杀.md)
+  - [19.8 内存和缓存一致性基础](architecture/内存和缓存一致性基础.md)
 - [20 HTTP](README.md)
   - [20.1 cookie+session](HTTP/cookie+session.md)
   - [20.2 NginxApache 和 Tomcat](HTTP/NginxApache和Tomcat.md)
