@@ -249,6 +249,7 @@
 - [24 go](README.md)
   - [24.1 Aeron](go/Aeron.md)
   - [24.2 THE WAY TO GO](go/THE_WAY_TO_GO.md)
+  - [24.3 K8S](go/K8S.md)
 - [`Other`](README.md)
   - [1 `ActiveMQ`简介](other/ActiveMQ简介.md)
   - [2 `Atom`安装](other/Atom安装.md)
