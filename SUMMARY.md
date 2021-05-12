@@ -264,3 +264,4 @@
   - [19 LogBack 相关](other/LogBack相关.md)
   - [20 OAuth2.0](other/OAuth2.0.md)
   - [21 packaging 为 pom 标签的用法](other/packaging为pom标签的用法.md)
+  - [22 资源待读](other/ToRead.md)
