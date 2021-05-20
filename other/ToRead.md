@@ -13,6 +13,9 @@ https://my.oschina.net/thinwonton/blog/1622905
 关于 etcd 的一些谣言
 https://ms2008.github.io/2019/12/04/etcd-rumor/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
 
+如何解决分布式系统中的“幽灵复现”？
+https://mp.weixin.qq.com/s/0D2vwh5jW29ZH0Fio-eqqg
+
 ### 操作系统
 
 聊聊 Linux IO
@@ -67,6 +70,15 @@ https://www.infoq.cn/article/RKZMdz4HOtqGUCuWmTUZ
 十个有用的软件开发原则
 https://mp.weixin.qq.com/s/WAa4ezth4CGwyjJD7FcP6w
 
+高可用的本质
+https://mp.weixin.qq.com/s/CkFHTuxqoj1WJ7d0HUEbAg
+
+99% 的人都能看懂的「补偿」以及最佳实践
+https://www.infoq.cn/article/0lMOVdP-kqWvbAa5QiEo
+
+[译] 重试、超时和退避
+https://nettee.github.io/posts/2019/Retries-Timeouts-and-Backoff/
+
 ### GO
 
 编码哲学：清晰胜过聪明
@@ -119,5 +131,15 @@ https://xie.infoq.cn/article/cef6d2931a54f85142d863db7
 Redis 速度快的原因：几点图解总结
 https://mp.weixin.qq.com/s/FtfAqXXDef6-bhuGyPDK7w
 
-Redis 6.0 多线程IO处理过程详解
+Redis 6.0 多线程 IO 处理过程详解
 https://zhuanlan.zhihu.com/p/144805500
+
+### 工具
+
+如何提高代码质量，推荐 7 个顶级静态代码分析工具
+https://mp.weixin.qq.com/s/j6K431WaZVAbT_wxdW_w6g
+
+### MYSQL
+
+MySQL 事务的实现原理
+https://mp.weixin.qq.com/s/79HhQsZRzzuskP5p5LNONA
