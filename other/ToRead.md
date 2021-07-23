@@ -16,6 +16,15 @@ https://ms2008.github.io/2019/12/04/etcd-rumor/?hmsr=toutiao.io&utm_medium=touti
 如何解决分布式系统中的“幽灵复现”？
 https://mp.weixin.qq.com/s/0D2vwh5jW29ZH0Fio-eqqg
 
+微服务的灾难
+https://xie.infoq.cn/article/6419a90e640d6342c89538381
+
+布式系统领域经典论文翻译集
+https://zhuanlan.zhihu.com/p/91434149
+
+银河里的星星
+http://duanple.com/?page_id=2
+
 ### 操作系统
 
 聊聊 Linux IO
