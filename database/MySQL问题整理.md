@@ -316,4 +316,5 @@ INNER JOIN TABLE B
 ON A.id = B.id
 SET A.XX = B.XX
 ;
+
 ```

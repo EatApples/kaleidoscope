@@ -42,3 +42,7 @@ enqueue(old_ref);
 }
 
 但是 G1GC 为什么仍有最终标记阶段？G1GC 中 Write Barrier 产生的标记并不是实时更新的，而会记录在本线程的 update buffer 中（它扮演的角色有点类似 golang 里的 chan？），当写满一个 buffer 后，再把整个 buffer 加入到全局的 update buffer 队列中，供 Refinement Thread 消费来真正地做 Mark。到最终标记阶段，需要做的事情就是把这些 buffer 都给 flush 出来，完成所有标记，这点与 CMS 的 Remark 有很大不同
+
+#### 1. 内存管理设计精要
+
+https://draveness.me/system-design-memory-management/
