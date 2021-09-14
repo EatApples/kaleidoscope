@@ -125,6 +125,8 @@
   - [12.1 `Nacos`简介](nacos/Nacos简介.md)
   - [12.2 Nacos升级至2.0.2踩坑全记录](nacos/Nacos升级至2.0.2踩坑全记录.md)
   - [12.3 Nacos原理](nacos/Nacos原理.md)
+  - [12.4 Prometheus](nacos/Prometheus.md)
+  - [12.5 skywalking](nacos/skywalking.md)
 - [13 `Eureka`](README.md)
   - [13.1 `Eureka`简介](eureka/Eureka简介.md)
   - [13.2 `Eureka`解析](eureka/Eureka解析.md)
