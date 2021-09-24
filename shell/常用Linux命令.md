@@ -1,4 +1,5 @@
 ### crontab
+
 ```sh
 # -u user：用来设定某个用户的crontab服务，例如，“-u ixdba”表示设定ixdba用户的crontab服务，此参数一般有root用户来运行
 # file：file是命令文件的名字,表示将file做为crontab的任务列表文件并载入crontab。如果在命令行中没有指定这个文件，crontab命令将接受标准输入（键盘）上键入的命令，并将它们载入crontab
@@ -10,6 +11,7 @@ crontab [-u user] [ -e | -l | -r ]
 ```
 
 ### date
+
 ```sh
 # %H 小时(以00-23来表示)。
 # %M 分钟(以00-59来表示)。
@@ -23,6 +25,7 @@ date -s 01:01:01
 ```
 
 ### df
+
 ```sh
 # linux中df命令的功能是用来检查linux服务器的文件系统的磁盘空间占用情况。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。
 # -a 全部文件系统列表
@@ -34,8 +37,9 @@ df -i
 ```
 
 ### du
+
 ```sh
-# -a或-all  显示目录中个别文件的大小。   
+# -a或-all  显示目录中个别文件的大小。
 # -s或--summarize  仅显示总计，只列出最后加总的值。
 # -h或--human-readable  以K，M，G为单位，提高信息的可读性。
 # 显示每个文件和目录的磁盘使用空间
@@ -51,6 +55,7 @@ du -h  --max-depth=1
 ```
 
 ### exec
+
 ```sh
 # -exec 必须由一个 ; 结束，而因为通常 shell 都会对 ; 进行处理，所以用 \; 防止这种情况
 # {}是占位符，用来替换前一个命令的输出
@@ -60,6 +65,7 @@ find $(pwd) -mtime +30 -type f  -exec rm {} \;
 ```
 
 ### find
+
 ```sh
 #找到N天前的文件
 find 对应目录 -mtime +天数 -type f -name "文件名"
@@ -69,6 +75,7 @@ find 对应目录 -type f -size +800M
 ```
 
 ### grep
+
 ```sh
 #grep全称是Global Regular Expression Print，表示全局正则表达式版本，它的使用权限是所有用户
 ps -ef | grep java
@@ -77,6 +84,7 @@ ps -mp PID -o THREAD,tid,time
 ```
 
 ### gzip
+
 ```sh
 # gzip不仅可以用来压缩大的、较少使用的文件以节省磁盘空间，还可以和tar命令一起构成Linux操作系统中比较流行的压缩文件格式。据统计，gzip命令对文本文件有60%～70%的压缩率。
 # -d或--decompress或----uncompress 　解开压缩文件
@@ -90,6 +98,7 @@ gzip -dv *
 ```
 
 ### ifconfig
+
 ```sh
 # 第一行：连接类型：Ethernet（以太网）HWaddr（硬件mac地址）
 # 第二行：网卡的IP地址、子网、掩码
@@ -100,6 +109,7 @@ ifconfig
 ```
 
 ### less
+
 ```sh
 # less 与 more 类似，但使用 less 可以随意浏览文件，而 more 仅能向前移动，却不能向后移动，而且 less 在查看之前不会加载整个文件。
 # -i  忽略搜索时的大小写
@@ -119,6 +129,7 @@ less -mN 文件名
 ```
 
 ### ln
+
 ```sh
 # Linux文件系统中，有所谓的链接(link)，我们可以将其视为档案的别名，而链接又可分为两种 : 硬链接(hard link)与软链接(symbolic link)，硬链接的意思是一个档案可以有多个名称，而软链接的方式则是产生一个特殊的档案，该档案的内容是指向另一个档案的位置。硬链接是存在同一个文件系统中，而软链接却可以跨越不同的文件系统。
 # 软链接：（引用的引用，间接引用）
@@ -137,6 +148,7 @@ ln [参数][源文件或目录][目标文件或目录]
 ```
 
 ### lsof
+
 ```sh
 # lsof（list open files）是一个列出当前系统打开文件的工具
 # 用于查看你进程开打的文件，打开文件的进程，进程打开的端口(TCP、UDP)。找回/恢复删除的文件。是十分方便的系统监视工具，因为 lsof 需要访问核心内存和各种文件，所以需要root用户执行。
@@ -170,6 +182,7 @@ lsof -n |awk '{print $2}' |sort|uniq -c |sort -nr | more
 ```
 
 ### netstat
+
 ```sh
 # 显示网卡列表
 netstat -i
@@ -184,6 +197,7 @@ nestat -tunlp | grep XX
 ```
 
 ### ping
+
 ```sh
 # -i 秒数：设定间隔几秒送一个网络封包给一台机器，预设值是一秒送一次
 # -c 数目：在发送指定数目的包后停止
@@ -191,6 +205,7 @@ ping -c 10 127.0.0.1
 ```
 
 ### rmdir
+
 ```sh
 # 该命令从一个目录中删除一个或多个子目录项，删除某目录时也必须具有对父目录的写权限
 rmdir 目录名
@@ -199,6 +214,7 @@ rmdir -p 目录名
 ```
 
 ### route
+
 ```sh
 # Flags标志说明：
 # U Up表示此路由当前为启动状态
@@ -208,16 +224,18 @@ route -n
 ```
 
 ### scp
+
 ```sh
 # scp [参数] [原路径] [目标路径]
-# 复制文件  
-scp local_file remote_username@remote_ip:remote_folder  
+# 复制文件
+scp local_file remote_username@remote_ip:remote_folder
 
 # 复制目录
-scp -r local_folder remote_username@remote_ip:remote_folder  
+scp -r local_folder remote_username@remote_ip:remote_folder
 ```
 
 ### sh
+
 ```sh
 #启用 Shell 脚本调试模式的方法
 # -v （verbose 的简称） - 告诉 Shell 读取脚本时显示所有行，激活详细模式。
@@ -228,6 +246,7 @@ sh -n XX.sh
 ```
 
 ### ss
+
 ```sh
 # 显示和netstat类似的内容。但ss的优势在于它能够显示更多更详细的有关TCP和连接状态的信息，而且比netstat更快速更高效
 # -n, --numeric	不解析服务名称
@@ -261,7 +280,29 @@ ss dst ADDRESS_PATTERN
 ss src ADDRESS_PATTERN
 ```
 
+### strace
+
+```sh
+# strace可以跟踪到一个进程产生的系统调用，包括参数，返回值，执行消耗的时间
+# -c 统计每一系统调用的所执行的时间，次数和出错的次数等
+# -r 查看执行时间顺序与间隔时间
+# -tt 在输出中的每一行前加上时间信息，微秒级
+# -T 显示每一调用所耗的时间
+# -e trace=set 只跟踪指定的系统调用。例如:-e trace=open,close,rean,write 表示只跟踪这四个系统调用。默认的为set=all
+# -o filename 将strace的输出写入文件filename
+# -p pid 跟踪指定的进程pid
+# -s strsize 指定输出的字符串的最大长度。默认为32，文件名一直全部输出
+# -u username 以username 的UID和GID执行被跟踪的命令
+
+# 跟踪28979进程的所有系统调用（-e trace=all），并统计系统调用的花费时间，以及开始时间（并以可视化的时分秒格式显示），最后将记录结果存在output.txt文件里面
+strace -o output.txt -T -tt -e trace=all -p 28979
+
+# 跟踪指令
+strace -o strace.top.log -T -tt -e trace=all top -bn 1
+```
+
 ### tar
+
 ```sh
 # 用来压缩和解压文件。tar本身不具有压缩功能，调用压缩功能实现的
 # -A 新增压缩文件到已存在的压缩
@@ -281,12 +322,14 @@ tar -cvf FileName.tar DirName
 ```
 
 ### traceroute
+
 ```sh
 # 我们可以知道信息从你的计算机到互联网另一端的主机是走的什么路径
 traceroute -n HOSTNAME
 ```
 
 ### watch
+
 ```sh
 # watch可以帮你监测一个命令的运行结果，省得你一遍遍的手动运行
 # 可以将命令的输出结果输出到标准输出设备，多用于周期性执行命令/定时执行命令
@@ -299,6 +342,7 @@ watch -n 1 -d 'free -m'
 ```
 
 ### wc
+
 ```sh
 #统计指定文件中的字节数、字数、行数，并将统计结果显示输出。
 # -c 统计字节数。
@@ -310,6 +354,7 @@ ls -al | wc -l
 ```
 
 ### which
+
 ```sh
 # 我们经常在linux要查找某个文件，但不知道放在哪里了，可以使用下面的一些命令来搜索：
 # which 指令会在PATH变量指定的路径中，搜索某个系统命令的位置，并且返回第一个搜索结果
@@ -320,11 +365,18 @@ which 可执行文件名称
 ```
 
 ### xsrgs
+
 ```sh
 # xargs命令每次只获取一部分文件而不是全部
 前一个命令 | xargs 后一个命令
 ```
 
 ### 资料来源
-#### 1. 每日一linux命令
+
+#### 1. 每日一 linux 命令
+
 https://www.cnblogs.com/peida/tag/%E6%AF%8F%E6%97%A5%E4%B8%80linux%E5%91%BD%E4%BB%A4/
+
+#### 2. Linux strace 命令
+
+https://www.cnblogs.com/ggjucheng/archive/2012/01/08/2316692.html
