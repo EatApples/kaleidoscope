@@ -267,6 +267,8 @@
   - [25.1 Async-profile](tools/Async-profiler.md)
   - [25.2 Prometheus](tools/Prometheus.md)
   - [25.3 skywalking](tools/skywalking.md)
+  - [25.4 Conprof](tools/Conprof.md)
+  - [25.5 Exemplars](tools/Exemplars.md)
 - [`Other`](README.md)
   - [1 `ActiveMQ`简介](other/ActiveMQ简介.md)
   - [2 `Atom`安装](other/Atom安装.md)
