@@ -31,7 +31,7 @@ CPU 密集型进程，两者一致。IO 密集型进程，平均负载高，CPU 
 
 每个 CPU 的使用情况通过 cpu_usage_stat 结构来记录，我们来看看其定义：
 
-```c
+```cpp
 struct cpu_usage_stat {
     cputime64_t user;
     cputime64_t nice;
@@ -189,7 +189,7 @@ Amount of time that this process has been scheduled in kernel mode, measured in 
 
 top 源码示例：
 
-```c
+```cpp
 static void frame_make (void) {
     ...
    // whoa either first time or thread/task mode change, (re)prime the pump...
@@ -234,6 +234,10 @@ strace -o strace.top.log -T -tt -e trace=all top -bn 1
 与进程类似，通过读取 /proc/{pid}/task/{tid}/stat 获取线程 CPU 使用时间，进而算出 CPU 使用率。
 
 ```s
+/proc/self
+When a process accesses this magic symbolic link, it
+resolves to the process's own /proc/[pid] directory.
+
 /proc/[pid]/task (since Linux 2.6.0-test6)
 This is a directory that contains one subdirectory for each thread in the process. The name of each subdirectory is the numerical thread ID ([tid]) of the thread (see gettid(2)). Within each of these subdirectories, there is a set of files with the same names and contents as under the /proc/[pid] directories. For attributes that are shared by all threads, the contents for each of the files under the task/[tid] subdirectories will be the same as in the corresponding file in the parent /proc/[pid] directory (e.g., in a multithreaded process, all of the task/[tid]/cwd files will have the same value as the /proc/[pid]/cwd file in the parent directory, since all of the threads in a process share a working directory). For attributes that are distinct for each thread, the corresponding files under task/[tid] may have different values (e.g., various fields in each of the task/[tid]/status files may be different for each thread).
 ```
@@ -248,24 +252,24 @@ This is a directory that contains one subdirectory for each thread in the proces
 （1）CPUSamplerSupport#doRefreshImpl(threadCPUTimer, threadCPUView);
 
 ```java
-        if (threadsCPU != null) {
-            threadCPUTimer = new javax.swing.Timer(refreshRate, new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    threadCPURefresher.refresh();
-                }
-            });
-            threadCPURefresher.setRefreshRate(refreshRate);
+if (threadsCPU != null) {
+    threadCPUTimer = new javax.swing.Timer(refreshRate, new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            threadCPURefresher.refresh();
         }
+    });
+    threadCPURefresher.setRefreshRate(refreshRate);
+}
 
-        public synchronized final void refresh() {
-            if (checkRefresh()) {
-                long currentTime = System.currentTimeMillis();
-                if (currentTime - lastRefresh >= REFRESH_THRESHOLD) {
-                    lastRefresh = currentTime;
-                    doRefresh();
-                }
-            }
+public synchronized final void refresh() {
+    if (checkRefresh()) {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastRefresh >= REFRESH_THRESHOLD) {
+            lastRefresh = currentTime;
+            doRefresh();
         }
+    }
+}
 ```
 
 CPU 采样时，会定时调用 doRefresh 函数
@@ -284,33 +288,33 @@ currentThreadsInfo = info;
 （3）ThreadsCPU#getThreadsCPUInfo
 
 ```java
-    public ThreadsCPUInfo getThreadsCPUInfo() throws MBeanException, ReflectionException, IOException, InstanceNotFoundException {
-        long[] ids = threadBean.getAllThreadIds();
-        ThreadInfo[] tids = threadBean.getThreadInfo(ids);
-        long[] tinfo;
+public ThreadsCPUInfo getThreadsCPUInfo() throws MBeanException, ReflectionException, IOException, InstanceNotFoundException {
+    long[] ids = threadBean.getAllThreadIds();
+    ThreadInfo[] tids = threadBean.getThreadInfo(ids);
+    long[] tinfo;
 
-        if (useBulkOperation) {
-            Object[] args = new Object[] {ids};
-            String[] sigs = new String[] {"[J"};  // NOI18N
+    if (useBulkOperation) {
+        Object[] args = new Object[] {ids};
+        String[] sigs = new String[] {"[J"};  // NOI18N
 
-            try {
-                tinfo = (long[])connection.invoke(THREAD_NAME, "getThreadCpuTime", args, sigs);  // NOI18N
-            } catch (javax.management.ReflectionException ex) {
-                LOGGER.log(Level.INFO, "getThreadCpuTime failed", ex);
-                useBulkOperation = false;
-                return getThreadsCPUInfo();
-            }
-        } else {
-            tinfo = new long[ids.length];
-
-            for (int i = 0; i < ids.length; i++) {
-                tinfo[i] = threadBean.getThreadCpuTime(ids[i]);
-            }
+        try {
+            tinfo = (long[])connection.invoke(THREAD_NAME, "getThreadCpuTime", args, sigs);  // NOI18N
+        } catch (javax.management.ReflectionException ex) {
+            LOGGER.log(Level.INFO, "getThreadCpuTime failed", ex);
+            useBulkOperation = false;
+            return getThreadsCPUInfo();
         }
-        long time = System.currentTimeMillis();
+    } else {
+        tinfo = new long[ids.length];
 
-        return new ThreadsCPUInfo(time,tids,tinfo);
+        for (int i = 0; i < ids.length; i++) {
+            tinfo[i] = threadBean.getThreadCpuTime(ids[i]);
+        }
     }
+    long time = System.currentTimeMillis();
+
+    return new ThreadsCPUInfo(time,tids,tinfo);
+}
 ```
 
 ThreadsCPUInfo 中的当前时间，也是调用 System.currentTimeMillis 获得的。
@@ -337,26 +341,26 @@ List<Long> getCPUTimePerSecond(ThreadsCPUInfo newInfo) {
 （5）ThreadsCPUInfo#getThreadCPUTimeDiff
 
 ```java
-    List<Long> getThreadCPUTimeDiff(ThreadsCPUInfo info) {
-        List<Long> cpuTimeDiff = new ArrayList(threads.size());
-        List<ThreadInfo> newThreads = info.getThreads();
-        List<Long> newCPUTime = info.getThreadCPUTime();
+List<Long> getThreadCPUTimeDiff(ThreadsCPUInfo info) {
+    List<Long> cpuTimeDiff = new ArrayList(threads.size());
+    List<ThreadInfo> newThreads = info.getThreads();
+    List<Long> newCPUTime = info.getThreadCPUTime();
 
-        totalDiffCPUTime = 0;
-        for (int i=0; i<newThreads.size(); i++) {
-            ThreadInfo ti = newThreads.get(i);
-            Long oldAlloc = cputimeMap.get(ti.getThreadId());
-            long diff;
+    totalDiffCPUTime = 0;
+    for (int i=0; i<newThreads.size(); i++) {
+        ThreadInfo ti = newThreads.get(i);
+        Long oldAlloc = cputimeMap.get(ti.getThreadId());
+        long diff;
 
-            if (oldAlloc == null) {
-                oldAlloc = Long.valueOf(0);
-            }
-            diff = newCPUTime.get(i)-oldAlloc;
-            cpuTimeDiff.add(diff);
-            totalDiffCPUTime += diff;
+        if (oldAlloc == null) {
+            oldAlloc = Long.valueOf(0);
         }
-        return cpuTimeDiff;
+        diff = newCPUTime.get(i)-oldAlloc;
+        cpuTimeDiff.add(diff);
+        totalDiffCPUTime += diff;
     }
+    return cpuTimeDiff;
+}
 ```
 
 线程 CPU 时间其实也是求差。
@@ -364,27 +368,27 @@ List<Long> getCPUTimePerSecond(ThreadsCPUInfo newInfo) {
 （6）ThreadsCPUInfo 对象中的线程的 CPU 时间是如何获得的（getThreadCPUTime）？
 
 ```java
-    ThreadsCPUInfo(long time, ThreadInfo[] tinfo, long[] cpuinfo) {
-        cputimeMap = new HashMap(threads.size()*4/3);
-        totalCPUTime = 0;
-        for (int i = 0; i <tinfo.length; i++) {
-            ThreadInfo ti = tinfo[i];
-            if (ti != null) {
-                threads.add(ti);
-                cputime.add(cpuinfo[i]);
-                cputimeMap.put(ti.getThreadId(),cpuinfo[i]);
-                totalCPUTime+=cpuinfo[i];
-            }
+ThreadsCPUInfo(long time, ThreadInfo[] tinfo, long[] cpuinfo) {
+    cputimeMap = new HashMap(threads.size()*4/3);
+    totalCPUTime = 0;
+    for (int i = 0; i <tinfo.length; i++) {
+        ThreadInfo ti = tinfo[i];
+        if (ti != null) {
+            threads.add(ti);
+            cputime.add(cpuinfo[i]);
+            cputimeMap.put(ti.getThreadId(),cpuinfo[i]);
+            totalCPUTime+=cpuinfo[i];
         }
-        timestamp = time;
     }
+    timestamp = time;
+}
 ```
 
 原来是通过 cputimeMap 缓存的线程线程的 CPU 时间。
 
 #### 4.2 OperatingSystemMXBean 如何获取系统与进程 CPU 使用率
 
-这里下载了 OPENJDK 的源码，地址为：http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/
+这里下载了 OPENJDK 的源码，地址为：https://github.com/openjdk/jdk/tree/jdk8-b120
 
 （1）OperatingSystemMXBean
 OperatingSystemMXBean.getSystemCpuLoad
@@ -395,16 +399,8 @@ OperatingSystemMXBean.getProcessCpuTime
 （2）sun.management.OperatingSystemImpl
 
 ```java
-public double getSystemCpuLoad() {
-if (containerMetrics != null) {
-return systemLoadTicks.getContainerCpuLoad();
-}
-return getSystemCpuLoad0();
-}
-
-public long getProcessCpuTime() {
-return getProcessCpuTime0();
-}
+public native long getProcessCpuTime();
+public native double getSystemCpuLoad();
 
 ```
 
@@ -412,46 +408,203 @@ return getProcessCpuTime0();
 
 （3）OperatingSystemImpl.c
 
-Java_sun_management_OperatingSystemImpl_getProcessCpuTime0
-
-```c
-times(time);
-ns_per_clock_tick = (jlong) 1000 * 1000 * 1000 / (jlong) clk_tck;
-cpu_time_ns = ((jlong)time.tms_utime + (jlong) time.tms_stime) *
-ns_per_clock_tick;
-return cpu_time_ns;
-```
-
 这里的实现是：src/solaris/native/sun/management/OperatingSystemImpl.c
+
+```cpp
+JNIEXPORT jlong JNICALL
+Java_sun_management_OperatingSystemImpl_getProcessCpuTime
+  (JNIEnv *env, jobject mbean)
+{
+#ifdef __APPLE__
+    struct rusage usage;
+    if (getrusage(RUSAGE_SELF, &usage) != 0) {
+        throw_internal_error(env, "getrusage failed");
+        return -1;
+    }
+    jlong microsecs =
+        usage.ru_utime.tv_sec * 1000 * 1000 + usage.ru_utime.tv_usec +
+        usage.ru_stime.tv_sec * 1000 * 1000 + usage.ru_stime.tv_usec;
+    return microsecs * 1000;
+#else
+    jlong clk_tck, ns_per_clock_tick;
+    jlong cpu_time_ns;
+    struct tms time;
+
+    /*
+     * BSDNOTE: FreeBSD implements _SC_CLK_TCK since FreeBSD 5, so
+     *          add a magic to handle it
+     */
+#if defined(__solaris__) || defined(_SC_CLK_TCK)
+    clk_tck = (jlong) sysconf(_SC_CLK_TCK);
+#elif defined(__linux__) || defined(_ALLBSD_SOURCE)
+    clk_tck = 100;
+#endif
+    if (clk_tck == -1) {
+        throw_internal_error(env,
+                             "sysconf failed - not able to get clock tick");
+        return -1;
+    }
+
+    times(&time);
+    ns_per_clock_tick = (jlong) 1000 * 1000 * 1000 / (jlong) clk_tck;
+    cpu_time_ns = ((jlong)time.tms_utime + (jlong) time.tms_stime) *
+                      ns_per_clock_tick;
+    return cpu_time_ns;
+#endif
+}
+```
 
 直接调用系统函数 times 获得进程的 CPU 使用时间（单位：clk_tck），最后的实际时间还需要转换为 ns
 
 （4）LinuxOperatingSystem.c
-Java_sun_management_OperatingSystemImpl_getSystemCpuLoad0
+这里的实现是：/src/solaris/native/sun/management/LinuxOperatingSystem.c
 
-```c
-if (perfInit() == 0) {
-return get_cpu_load(-1);
+```cpp
+JNIEXPORT jdouble JNICALL
+Java_sun_management_OperatingSystemImpl_getSystemCpuLoad
+(JNIEnv *env, jobject dummy)
+{
+    if(perfInit() == 0) {
+        return get_cpu_load(-1);
+    } else {
+        return -1.0;
+    }
 }
 
-get_jvmticks
-if (read_ticks("/proc/self/stat", userTicks, systemTicks) < 0) {
-return -1;
+double get_cpu_load(int which) {
+    double u, s;
+    u = get_cpuload_internal(which, &s, CPU_LOAD_GLOBAL);
+    if (u < 0) {
+        return -1.0;
+    }
+    // Cap total systemload to 1.0
+    return MIN((u + s), 1.0);
 }
 
-get_totalticks
-if((fh = fopen("/proc/stat", "r")) == NULL) {
-return -1;
+static double get_cpuload_internal(int which, double *pkernelLoad, CpuLoadTarget target) {
+    uint64_t udiff, kdiff, tdiff;
+    ticks *pticks, tmp;
+    double user_load = -1.0;
+    int failed = 0;
+
+    *pkernelLoad = 0.0;
+
+    pthread_mutex_lock(&lock);
+
+    if(perfInit() == 0) {
+
+        if (target == CPU_LOAD_VM_ONLY) {
+            pticks = &counters.jvmTicks;
+        } else if (which == -1) {
+            pticks = &counters.cpuTicks;
+        } else {
+            pticks = &counters.cpus[which];
+        }
+
+        tmp = *pticks;
+
+        if (target == CPU_LOAD_VM_ONLY) {
+            if (get_jvmticks(pticks) != 0) {
+                failed = 1;
+            }
+        } else if (get_totalticks(which, pticks) < 0) {
+            failed = 1;
+        }
+
+        if(!failed) {
+            // seems like we sometimes end up with less kernel ticks when
+            // reading /proc/self/stat a second time, timing issue between cpus?
+            if (pticks->usedKernel < tmp.usedKernel) {
+                kdiff = 0;
+            } else {
+                kdiff = pticks->usedKernel - tmp.usedKernel;
+            }
+            tdiff = pticks->total - tmp.total;
+            udiff = pticks->used - tmp.used;
+
+            if (tdiff == 0) {
+                user_load = 0;
+            } else {
+                if (tdiff < (udiff + kdiff)) {
+                    tdiff = udiff + kdiff;
+                }
+                *pkernelLoad = (kdiff / (double)tdiff);
+                // BUG9044876, normalize return values to sane values
+                *pkernelLoad = MAX(*pkernelLoad, 0.0);
+                *pkernelLoad = MIN(*pkernelLoad, 1.0);
+
+                user_load = (udiff / (double)tdiff);
+                user_load = MAX(user_load, 0.0);
+                user_load = MIN(user_load, 1.0);
+            }
+        }
+    }
+    pthread_mutex_unlock(&lock);
+    return user_load;
 }
-pticks->used       = userTicks + niceTicks;
-pticks->usedKernel = systemTicks + irqTicks + sirqTicks;
-pticks->total      = userTicks + niceTicks + systemTicks + idleTicks +
-iowTicks + irqTicks + sirqTicks;
+
+static int get_jvmticks(ticks *pticks) {
+    uint64_t userTicks;
+    uint64_t systemTicks;
+
+    if (read_ticks("/proc/self/stat", &userTicks, &systemTicks) < 0) {
+        return -1;
+    }
+
+    // get the total
+    if (get_totalticks(-1, pticks) < 0) {
+        return -1;
+    }
+
+    pticks->used       = userTicks;
+    pticks->usedKernel = systemTicks;
+
+    return 0;
+}
+
+static int get_totalticks(int which, ticks *pticks) {
+    FILE         *fh;
+    uint64_t        userTicks, niceTicks, systemTicks, idleTicks;
+    int             n;
+
+    if((fh = fopen("/proc/stat", "r")) == NULL) {
+        return -1;
+    }
+
+    n = fscanf(fh, "cpu " DEC_64 " " DEC_64 " " DEC_64 " " DEC_64,
+           &userTicks, &niceTicks, &systemTicks, &idleTicks);
+
+    // Move to next line
+    next_line(fh);
+
+    //find the line for requested cpu faster to just iterate linefeeds?
+    if (which != -1) {
+        int i;
+        for (i = 0; i < which; i++) {
+            if (fscanf(fh, "cpu%*d " DEC_64 " " DEC_64 " " DEC_64 " " DEC_64, &userTicks, &niceTicks, &systemTicks, &idleTicks) != 4) {
+                fclose(fh);
+                return -2;
+            }
+            next_line(fh);
+        }
+        n = fscanf(fh, "cpu%*d " DEC_64 " " DEC_64 " " DEC_64 " " DEC_64 "\n",
+           &userTicks, &niceTicks, &systemTicks, &idleTicks);
+    }
+
+    fclose(fh);
+    if (n != 4) {
+        return -2;
+    }
+
+    pticks->used       = userTicks + niceTicks;
+    pticks->usedKernel = systemTicks;
+    pticks->total      = userTicks + niceTicks + systemTicks + idleTicks;
+
+    return 0;
+}
 ```
 
-这里的实现是：src/solaris/native/sun/management/LinuxOperatingSystem.c
-
-可知系统的 CPU 使用率，与之前的分析一致。
+发现最终系统的 CPU 时间来自 /proc/stat，进程的 CPU 时间来自 /proc/self/stat，可知系统的 CPU 使用率，与之前的分析一致。
 
 #### 4.3 ThreadMXBean 如何获得线程 CPU
 
@@ -461,34 +614,238 @@ ThreadMXBean.getThreadCpuTime
 我们只关注线程的 CPU 使用时间，之后通过公式再计算使用率。
 
 （2）sun.management.ThreadImpl
-getThreadTotalCpuTime0
-getThreadTotalCpuTime1
+
+```java
+public long getThreadCpuTime(long id) {
+    long[] ids = new long[1];
+    ids[0] = id;
+    final long[] times = getThreadCpuTime(ids);
+    return times[0];
+}
+
+public long[] getThreadCpuTime(long[] ids) {
+    boolean verified = verifyThreadCpuTime(ids);
+
+    int length = ids.length;
+    long[] times = new long[length];
+    java.util.Arrays.fill(times, -1);
+
+    if (verified) {
+        if (length == 1) {
+            long id = ids[0];
+            if (id == Thread.currentThread().getId()) {
+                id = 0;
+            }
+            times[0] = getThreadTotalCpuTime0(id);
+        } else {
+            getThreadTotalCpuTime1(ids, times);
+        }
+    }
+    return times;
+}
+
+private static native long getThreadTotalCpuTime0(long id);
+private static native void getThreadTotalCpuTime1(long[] ids, long[] result);
+```
 
 与具体的实现有关
 
 （3）ThreadImpl.c
+这里的实现是：src/share/native/sun/management/ThreadImpl.c
 
-```c
+```cpp
 JNIEXPORT jlong JNICALL
 Java_sun_management_ThreadImpl_getThreadTotalCpuTime0
-(JNIEnv *env, jclass cls, jlong tid)
+  (JNIEnv *env, jclass cls, jlong tid)
 {
-return jmm_interface->GetThreadCpuTimeWithKind(env, tid, JNI_TRUE /* user+sys */);
+    return jmm_interface->GetThreadCpuTimeWithKind(env, tid, JNI_TRUE /* user+sys */);
 }
 
 JNIEXPORT void JNICALL
 Java_sun_management_ThreadImpl_getThreadTotalCpuTime1
-(JNIEnv *env, jclass cls, jlongArray ids, jlongArray timeArray)
+  (JNIEnv *env, jclass cls, jlongArray ids, jlongArray timeArray)
 {
-jmm_interface->GetThreadCpuTimesWithKind(env, ids, timeArray,
-JNI_TRUE /* user+sys *
+    jmm_interface->GetThreadCpuTimesWithKind(env, ids, timeArray,
+                                             JNI_TRUE /* user+sys */);
+}
 
 ```
 
-来自：src/share/native/sun/management/ThreadImpl.c
+（4）management.cpp
 
-待续：Java_sun_management_ThreadImpl_getThreadTotalCpuTime0
-Java_sun_management_ThreadImpl_getThreadTotalCpuTime1
+来自：jdk-jdk8-b120/hotspot/src/share/vm/services/management.cpp
+
+JVM 以 management 动态链接库的形式，向 JDK 提供一套监控和管理虚拟机的 jmm 接口。
+
+```cpp
+// Returns the CPU time consumed by a given thread (in nanoseconds).
+// If thread_id == 0, CPU time for the current thread is returned.
+// If user_sys_cpu_time = true, user level and system CPU time of
+// a given thread is returned; otherwise, only user level CPU time
+// is returned.
+JVM_ENTRY(jlong, jmm_GetThreadCpuTimeWithKind(JNIEnv *env, jlong thread_id, jboolean user_sys_cpu_time))
+  if (!os::is_thread_cpu_time_supported()) {
+    return -1;
+  }
+
+  if (thread_id < 0) {
+    THROW_MSG_(vmSymbols::java_lang_IllegalArgumentException(),
+               "Invalid thread ID", -1);
+  }
+
+  JavaThread* java_thread = NULL;
+  if (thread_id == 0) {
+    // current thread
+    return os::current_thread_cpu_time(user_sys_cpu_time != 0);
+  } else {
+    MutexLockerEx ml(Threads_lock);
+    java_thread = find_java_thread_from_id(thread_id);
+    if (java_thread != NULL) {
+      return os::thread_cpu_time((Thread*) java_thread, user_sys_cpu_time != 0);
+    }
+  }
+  return -1;
+JVM_END
+
+// Gets an array containing the CPU times consumed by a set of threads
+// (in nanoseconds).  Each element of the array is the CPU time for the
+// thread ID specified in the corresponding entry in the given array
+// of thread IDs; or -1 if the thread does not exist or has terminated.
+// If user_sys_cpu_time = true, the sum of user level and system CPU time
+// for the given thread is returned; otherwise, only user level CPU time
+// is returned.
+JVM_ENTRY(void, jmm_GetThreadCpuTimesWithKind(JNIEnv *env, jlongArray ids,
+                                              jlongArray timeArray,
+                                              jboolean user_sys_cpu_time))
+  // Check if threads is null
+  if (ids == NULL || timeArray == NULL) {
+    THROW(vmSymbols::java_lang_NullPointerException());
+  }
+
+  ResourceMark rm(THREAD);
+  typeArrayOop ta = typeArrayOop(JNIHandles::resolve_non_null(ids));
+  typeArrayHandle ids_ah(THREAD, ta);
+
+  typeArrayOop tia = typeArrayOop(JNIHandles::resolve_non_null(timeArray));
+  typeArrayHandle timeArray_h(THREAD, tia);
+
+  // validate the thread id array
+  validate_thread_id_array(ids_ah, CHECK);
+
+  // timeArray must be of the same length as the given array of thread IDs
+  int num_threads = ids_ah->length();
+  if (num_threads != timeArray_h->length()) {
+    THROW_MSG(vmSymbols::java_lang_IllegalArgumentException(),
+              "The length of the given long array does not match the length of "
+              "the given array of thread IDs");
+  }
+
+  MutexLockerEx ml(Threads_lock);
+  for (int i = 0; i < num_threads; i++) {
+    JavaThread* java_thread = find_java_thread_from_id(ids_ah->long_at(i));
+    if (java_thread != NULL) {
+      timeArray_h->long_at_put(i, os::thread_cpu_time((Thread*)java_thread,
+                                                      user_sys_cpu_time != 0));
+    }
+  }
+JVM_END
+```
+
+线程的 CPU 时间依赖于具体操作系统的实现。
+
+（5）os_linux.cpp
+
+来自：jdk-jdk8-b120/hotspot/src/os/linux/vm/os_linux.cpp
+
+```cpp
+jlong os::thread_cpu_time(Thread *thread, bool user_sys_cpu_time) {
+  if (user_sys_cpu_time && os::Linux::supports_fast_thread_cpu_time()) {
+    return os::Linux::fast_thread_cpu_time(thread_cpu_clockid(thread));
+  } else {
+    return slow_thread_cpu_time(thread, user_sys_cpu_time);
+  }
+}
+// This is the fastest way to get thread cpu time on Linux.
+// Returns cpu time (user+sys) for any thread, not only for current.
+// POSIX compliant clocks are implemented in the kernels 2.6.16+.
+// It might work on 2.6.10+ with a special kernel/glibc patch.
+// For reference, please, see IEEE Std 1003.1-2004:
+//   http://www.unix.org/single_unix_specification
+
+jlong os::Linux::fast_thread_cpu_time(clockid_t clockid) {
+  struct timespec tp;
+  int rc = os::Linux::clock_gettime(clockid, &tp);
+  assert(rc == 0, "clock_gettime is expected to return 0 code");
+
+  return (tp.tv_sec * NANOSECS_PER_SEC) + tp.tv_nsec;
+}
+
+
+static jlong slow_thread_cpu_time(Thread *thread, bool user_sys_cpu_time) {
+  static bool proc_task_unchecked = true;
+  static const char *proc_stat_path = "/proc/%d/stat";
+  pid_t  tid = thread->osthread()->thread_id();
+  char *s;
+  char stat[2048];
+  int statlen;
+  char proc_name[64];
+  int count;
+  long sys_time, user_time;
+  char cdummy;
+  int idummy;
+  long ldummy;
+  FILE *fp;
+
+  // The /proc/<tid>/stat aggregates per-process usage on
+  // new Linux kernels 2.6+ where NPTL is supported.
+  // The /proc/self/task/<tid>/stat still has the per-thread usage.
+  // See bug 6328462.
+  // There possibly can be cases where there is no directory
+  // /proc/self/task, so we check its availability.
+  if (proc_task_unchecked && os::Linux::is_NPTL()) {
+    // This is executed only once
+    proc_task_unchecked = false;
+    fp = fopen("/proc/self/task", "r");
+    if (fp != NULL) {
+      proc_stat_path = "/proc/self/task/%d/stat";
+      fclose(fp);
+    }
+  }
+
+  sprintf(proc_name, proc_stat_path, tid);
+  fp = fopen(proc_name, "r");
+  if ( fp == NULL ) return -1;
+  statlen = fread(stat, 1, 2047, fp);
+  stat[statlen] = '\0';
+  fclose(fp);
+
+  // Skip pid and the command string. Note that we could be dealing with
+  // weird command names, e.g. user could decide to rename java launcher
+  // to "java 1.4.2 :)", then the stat file would look like
+  //                1234 (java 1.4.2 :)) R ... ...
+  // We don't really need to know the command string, just find the last
+  // occurrence of ")" and then start parsing from there. See bug 4726580.
+  s = strrchr(stat, ')');
+  if (s == NULL ) return -1;
+
+  // Skip blank chars
+  do s++; while (isspace(*s));
+
+  count = sscanf(s,"%c %d %d %d %d %d %lu %lu %lu %lu %lu %lu %lu",
+                 &cdummy, &idummy, &idummy, &idummy, &idummy, &idummy,
+                 &ldummy, &ldummy, &ldummy, &ldummy, &ldummy,
+                 &user_time, &sys_time);
+  if ( count != 13 ) return -1;
+  if (user_sys_cpu_time) {
+    return ((jlong)sys_time + (jlong)user_time) * (1000000000 / clock_tics_per_sec);
+  } else {
+    return (jlong)user_time * (1000000000 / clock_tics_per_sec);
+  }
+}
+
+```
+
+发现线程的 CPU 时间，最终还是读取 /proc/self/task/%d/stat 的数据，和预期的一致！
 
 ### 5. 资料来源
 

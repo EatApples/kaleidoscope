@@ -36,7 +36,29 @@ Store 就是一个 gRPC API 封装起来的 TSDB。Conprof 的 TSDB 是一个 fo
 （3）API
 最后是 API 也就是 Query 组件。它对外暴露了类似于 Prometheus 的 API，包括 query, label_names, label_values, series 等等。
 
-### 3. Conprof
+### 3. Conprof 能做什么
+
+Conprof 的工作方式是从 HTTP 端点收集 pprof 格式的配置文件。因此，所有应用程序所要做的就是使用 pprof 的客户端库之一并公开为其提供服务的 HTTP 端点。存在各种语言的 Pprof 客户端库：
+
+| Language/runtime | CPU | Heap | Allocations | Blocking | Mutex Contention | Extra             |
+| ---------------- | --- | ---- | ----------- | -------- | ---------------- | ----------------- |
+| Go               | Yes | Yes  | Yes         | Yes      | Yes              | Goroutine, fgprof |
+| Rust             | Yes | No   | No          | No       | No               |                   |
+| Python           | Yes | Yes  | No          | No       | No               |                   |
+| NodeJS           | Yes | Yes  | No          | No       | No               |                   |
+| JVM              | Yes | No   | No          | No       | No               |                   |
+
+此外，任何 [`perf`](https://perf.wiki.kernel.org/index.php/Main_Page) 格式的文件都可以使用 [`perf_data_converter`](https://github.com/google/perf_data_converter) 将其转换成[pprof](https://github.com/google/pprof)。因此，没有对 pprof 原生支持的程序也可以使用 Conprof。
+
+一旦存在以 pprof 格式提供采集文件的 HTTP 端点，所有需要做的就是配置 Conprof 以定期收集采集文件。
+
+### 4. 个人对 Conprof 的理解
+
+一个平台化的工具，集成采集-收集与展示。高仿 Prometheus。
+
+重要的是采集端。如果使用 Conprof 能收集，那么 Prometheus 也能。
+
+在 JVM 的采集中，官方给的[示例](https://github.com/papertrail/profiler)是通过 ThreadMXBean 获取的 StackTraceElement，是同步的，可能遇到安全点偏向问题。
 
 #### 1. 玩玩 PolarSignals
 

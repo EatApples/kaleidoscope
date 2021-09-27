@@ -264,6 +264,20 @@ async-profiler 提供开箱即用的 Flame 图形支持，指定参数 -o svg �
 | -f FILENAME | 要将配置文件信息转储到的文件名         | ./profiler.sh -d 30 -f /tmp/flamegraph.svg PID |
 | -i N        | 设置分析间隔(以纳秒或者毫秒等作为单位) | 默认分析间隔为 10ms                            |
 
+## 四，名词解释
+
+### 1. perf_events
+
+### 2. BPF
+
+### 3. ePBF
+
+### 4. kprobes
+
+### 5. uprobes
+
+### 6. PMU
+
 ### 资料来源
 
 #### 1. Async-profiler 介绍
@@ -282,3 +296,7 @@ https://mp.weixin.qq.com/s/RKqmy8dw7B7WtQc6Xy2CLA
 
 https://github.com/brendangregg/FlameGraph
 https://www.brendangregg.com/flamegraphs.html
+
+#### 5. 使用 JVMTI/JVMPI、SIGPROF 和 AsyncGetCallTrace 进行分析
+
+http://jeremymanson.blogspot.com/2007/05/profiling-with-jvmtijvmpi-sigprof-and.html
