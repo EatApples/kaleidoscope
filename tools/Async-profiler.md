@@ -170,7 +170,9 @@ jvmtiError GetStackTrace(jvmtiEnv *env,
 
 OracleJDK/OpenJDK 内部提供了这么一个函数——AsyncGetCallTrace，它的原型如下：
 
-```c
+文件为：/hotspot/src/share/vm/prims/forte.cpp
+
+```cpp
 // 栈帧
 typedef struct {
  jint lineno;
@@ -234,6 +236,30 @@ async-profiler 通过 profiler.sh 脚本进行启动，并向需要分析的应�
 （3）运行性能场景
 （4）停止分析
 
+```s
+# 输出为类似传统jprofiler，jmc格式的树状结构的html
+./profiler.sh -d 60 -f /tmp/flamegraph.html 13625
+# 火焰图倒置，如果要看哪个最终方法占用的CPU最多，聚合它被其他各个方法调用的总和
+./profiler.sh --reverse -d 60 -f /tmp/flamegraph-reverse.svg 13625
+# 每条线程一幅火焰图，如果只关心某些特定线程里的消耗
+./profiler.sh -t -d 60 -f /tmp/flamegraph-reverse.svg 13625
+# 耗时跟踪。默认按CPU消耗分析，如果方法在等待远程调用，数据库返回的阶段，不会统计在内。而耗时跟踪会更适合于找慢调用的情况。
+# 官方文档推荐分开每条线程统计，而且将采样间隔从默认10ms降到5ms
+./profiler.sh -e wall -t -i 5ms -d 60 -f /tmp/flamegraph-reverse.svg 13625
+# 纯java方法的cpu消耗跟踪。如果内核参数不符合又无法改变，那cpu模式可以降级为itimer模式，不读取perf_event，仅采集java方法，不采集内核调用
+./profiler.sh -e itimer -d 60 -f /tmp/flamegraph-reverse.svg 13625
+# 内存分配跟踪
+./profiler.sh -e alloc -d 60 -f /tmp/flamegraph-reverse.svg 13625
+# 锁跟踪
+# 最新版的master snapshot版支持JDK7/8（目前生产版本） ， 旧版crash in JDK7 !!!!
+./profiler.sh -e lock -d 60 -f /tmp/flamegraph-reverse.svg 13625
+# ContextSwitch 及更多跟踪
+./profiler.sh -e context-switches -d 60 -f /tmp/flamegraph-reverse.svg 13625
+# 其他可选监控，执行
+./profiler.sh list 13625
+
+```
+
 ### 3. Async-profiler 和 火焰图分析
 
 Async-profiler 可以观测运行程序，每一段代码所占用的 cpu 的时间和比例，从而可以分析并找到项目中占用 cpu 时间最长的代码片段，优化热点代码，达到优化内存的效果。
@@ -254,17 +280,113 @@ async-profiler 提供开箱即用的 Flame 图形支持，指定参数 -o svg �
 ./profiler.sh -d 30 -f /tmp/flamegraph.svg PID
 ```
 
+纵向从下至上，代表方法间的调用关系，横条的宽度代表所占 CPU 时间的多少，绿色代表 java 方法，浅绿色代表被内联的 java 方法，黄色代表 jvm 的 c++方法，红色代表 jvm 其他 native 方法，褐色代表 Linux 内核调用。
+
 #### 3.3 分析选项参数
+
+```s
+Usage: ./profiler.sh [action] [options] <pid>
+Actions:
+  start             start profiling and return immediately
+  resume            resume profiling without resetting collected data
+  stop              stop profiling
+  check             check if the specified profiling event is available
+  status            print profiling status
+  list              list profiling events supported by the target JVM
+  collect           collect profile for the specified period of time
+                    and then stop (default action)
+Options:
+  -e event          profiling event: cpu|alloc|lock|cache-misses etc.
+  -d duration       run profiling for <duration> seconds
+  -f filename       dump output to <filename>
+  -i interval       sampling interval in nanoseconds
+  -j jstackdepth    maximum Java stack depth
+  -b bufsize        frame buffer size
+  -t                profile different threads separately
+  -s                simple class names instead of FQN
+  -g                print method signatures
+  -a                annotate Java method names
+  -o fmt            output format: summary|traces|flat|collapsed|svg|tree|jfr
+  -I include        output only stack traces containing the specified pattern
+  -X exclude        exclude stack traces with the specified pattern
+  -v, --version     display version string
+
+  --title string    SVG title
+  --width px        SVG width
+  --height px       SVG frame height
+  --minwidth px     skip frames smaller than px
+  --reverse         generate stack-reversed FlameGraph / Call tree
+
+  --all-kernel      only include kernel-mode events
+  --all-user        only include user-mode events
+  --cstack mode     how to traverse C stack: fp|lbr|no
+
+<pid> is a numeric process ID of the target JVM
+      or 'jps' keyword to find running JVM automatically
+      or the application's name as it would appear in the jps tool
+
+Example: ./profiler.sh -d 30 -f profile.svg 3456
+         ./profiler.sh start -i 999000 jps
+         ./profiler.sh stop -o summary,flat jps
+         ./profiler.sh -d 5 -e alloc MyAppName
+```
 
 下面是 profiler.sh 脚本接受的命令行选项的完整列表：
 
-| 参数        | 解释                                   | 示例                                           |
-| ----------- | -------------------------------------- | ---------------------------------------------- |
-| -d N        | 分析持续时间，以秒为单位               | ./profiler.sh -d 30 PID                        |
-| -f FILENAME | 要将配置文件信息转储到的文件名         | ./profiler.sh -d 30 -f /tmp/flamegraph.svg PID |
-| -i N        | 设置分析间隔(以纳秒或者毫秒等作为单位) | 默认分析间隔为 10ms                            |
+| 参数        | 解释                                | 示例                                           |
+| ----------- | ----------------------------------- | ---------------------------------------------- |
+| -e event    | 采集的事件                          | cpu/alloc/lock/cache-misses                    |
+| -d N        | 分析持续时间，以秒为单位            | ./profiler.sh -d 30 PID                        |
+| -f FILENAME | 要将配置文件信息转储到的文件名      | ./profiler.sh -d 30 -f /tmp/flamegraph.svg PID |
+| -i N        | 设置分析间隔(ms，us，s)             | 默认分析间隔为 10ms，最小单位为 1us            |
+| -j N        | 最大 java 栈深度                    | 最大 2048                                      |
+| -b N        | 帧缓冲大小                          | 若不足，需要增加                               |
+| -t          | 间隔采集线程                        | 输出线程的 tid                                 |
+| -s          | 使用简单的类名                      | 默认包含包名                                   |
+| -g          | 打印方法签名                        | 默认不输出方法参数                             |
+| -a          | 通过添加\_[j]后缀来注释 Java 方法名 | 默认不区分                                     |
+| -o fmt      | 输出格式                            | summary/traces/flat/collapsed/svg/tree/jfr     |
+| -I pattern  | 只输出匹配的栈帧                    | -                                              |
+| -X pattern  | 剔除匹配的栈帧                      | -                                              |
 
-## 四，名词解释
+#### 3.4 Async-profiler 问题的回答
+
+（0）输出的格式之间的关系
+
+| 格式          | 说明                                                             |
+| ------------- | ---------------------------------------------------------------- |
+| summary       | 转储基本配置统计信息，无意义                                     |
+| traces[=N]    | 线程调用栈，按栈帧区分（最多 N 个样本）；                        |
+| flat[=N]      | 统计信息，按方法统计数排序（调用最多的前面 N 个方法）            |
+| collapsed[=C] | 火焰图原始数据，其中每一行是一个分号分隔的帧列表，后跟一个计数器 |
+| svg[=C]       | 生成 svg 格式的火焰图，浏览器打开                                |
+| tree[=C]      | 调用栈按线程聚合，以 HTML 格式生成调用树，浏览器打开             |
+| jfr           | 二进制                                                           |
+
+C 是计数器类型：
+（1）samples - 计数器是给定跟踪的若干样本（默认）；
+（2）total - 计数器是收集的度量的总值，例如总分配大小。
+
+（1）默认值是啥？
+
+不启用 -t -s
+默认 -e cpu
+默认 -i 10ms
+默认 -o summary,traces=200,flat=200
+
+（2） -t 选项是否必要
+是的，需要输出线程 tid！
+
+（3）能否统计方法的调用时间
+不能。
+
+（4）展示的结果是否按时间排序
+不是。
+
+（5）采样统计的是时间还是次数
+次数。时间=采样间隔 X 采样次数。
+
+## 四，名词解释（待补充）
 
 ### 1. perf_events
 
@@ -300,3 +422,7 @@ https://www.brendangregg.com/flamegraphs.html
 #### 5. 使用 JVMTI/JVMPI、SIGPROF 和 AsyncGetCallTrace 进行分析
 
 http://jeremymanson.blogspot.com/2007/05/profiling-with-jvmtijvmpi-sigprof-and.html
+
+#### 6. async-profiler
+
+http://www.brewin073.top/index/module/blog/article/detail/125
