@@ -386,19 +386,51 @@ C 是计数器类型：
 （5）采样统计的是时间还是次数
 次数。时间=采样间隔 X 采样次数。
 
-## 四，名词解释（待补充）
+## 四，名词解释
 
 ### 1. perf_events
 
+perf_events 是一个面向事件的可观察性工具，可以帮助您解决高级性能和故障排除功能。
+
+perf_event 提供两种类型的 trace 数据：count 和 sample。count 只是记录了 event 的发生次数，sample 记录了大量信息(比如：IP、ADDR、TID、TIME、CPU、BT)。
+
 ### 2. BPF
+
+BPF 的字面上意思 Berkeley Packet Filter 意味着它是从包过滤而来。本质上它是一种内核代码注入的技术。
+
+BPF 的好处在哪里？ 是因为它提供了一种在不修改内核代码的情况下，可以灵活修改内核处理策略的方法。
+
+这在包过滤和系统 tracing 这种需要频繁修改规则的场合非常有用。因为如果只在用户态修改策略的话那么所有数据需要复制一份给用户态开销较大；如果在内核态修改策略的话需要修改内核代码重新编译内核，而且容易引人安全问题。BPF 这种内核代码注入技术的生存空间就是它可以在这两者间取得一个平衡。
 
 ### 3. ePBF
 
+eBPF(extended Berkeley Packet Filter) 是一种可以在 Linux 内核中运行用户编写的程序，而不需要修改内核代码或加载内核模块的技术。
+
+简单说，eBPF 让 Linux 内核变得可编程化了。
+
+eBPF 程序是一个事件驱动模型。Linux 内核提供了各种 hook point，比如 system calls, function entry/exit, kernel tracepoints, network events 等。
+
+eBPF 程序通过实现想要关注的 hook point 的 callback，并把这些 callback 注册到相应的 hook point 来完成“内核编程”。
+
 ### 4. kprobes
+
+Linux kprobes 调试技术是内核开发者们专门为了便于跟踪内核函数执行状态所设计的一种轻量级内核调试技术。
+
+利用 kprobes 技术，内核开发人员可以在内核的绝大多数指定函数中动态的插入探测点来收集所需的调试状态信息而基本不影响内核原有的执行流程。
+
+kprobes 技术目前提供了 3 种探测手段：kprobe、jprobe 和 kretprobe，其中 jprobe 和 kretprobe 是基于 kprobe 实现的，他们分别应用于不同的探测场景中。
 
 ### 5. uprobes
 
+uprobes   是 Linux 提供用户态的动态探针，合并于 2012 年 7 月发布的 Linux 3.5 内核中。
+
+uprobes 和 kprobes 十分相似，只不过用在用户态而已。uprobes 可以检测到用户态函数入口和出口的位置。
+
+uprobes 工作原理和 kprobes 差不多，它会在目标位置插入一个断点，这样当程序执行流执行到这个地方会去执行我们设置的 uprobe handle。当我们不再不需探测和收集信息时候，可以移除断点恢复原状。
+
 ### 6. PMU
+
+PMU(Performance Monitoring Unit) 是一种非常重要的数据采集方法，因为它大部分是硬件的，所以可以做到一些软件做不到的事情，获取到一些底层硬件的信息。
 
 ### 资料来源
 
