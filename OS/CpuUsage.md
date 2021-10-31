@@ -877,10 +877,6 @@ https://mp.weixin.qq.com/s/qkjGYoheHvs-lX9avrYg_g
 
 https://linux.die.net/man/5/proc
 
-#### Linux 下 CPU 的利用率
-
-https://mp.weixin.qq.com/s/M4B_LhpmWJ4j8i9ApoWfPA
-
 #### 8. top.c
 
 https://gitlab.com/procps-ng/procps/-/blob/newlib/top/top.c
@@ -888,3 +884,7 @@ https://gitlab.com/procps-ng/procps/-/blob/newlib/top/top.c
 #### 9. openJDK
 
 http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/
+
+#### 10. Linux 下 CPU 的利用率
+
+https://mp.weixin.qq.com/s/M4B_LhpmWJ4j8i9ApoWfPA
