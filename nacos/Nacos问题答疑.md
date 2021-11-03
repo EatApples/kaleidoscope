@@ -6,7 +6,7 @@
 
 ### 2. 服务端之间如何感知彼此
 
-重点来了，每个 nacos 服务器数是怎么保证 healthyList（server 列表）是一样的呢？
+重点来了，每个 nacos 服务器是怎么保证 healthyList（server 列表）是一样的呢？
 
 解决的办法仍然是心跳。
 
@@ -78,6 +78,16 @@ HttpClient 异步去获取这些内容，异步回来可能是不同的线程，
 
 ### 8. 服务端如何检查持久节点的可用性？
 
+服务端访问客户端的注册 IP 与 PORT。
+
+### 9. 关于集群元数据的疑问
+
+（1）raftPort 为 7848 在文档中并没有给出
+（2）元数据中有 4 个 Raft 相关服务，分别有啥作用
+naming_instance_metadata
+naming_service_metadata
+naming_persistent_service
+naming_persistent_service_v2
 
 # 二，客户端
 

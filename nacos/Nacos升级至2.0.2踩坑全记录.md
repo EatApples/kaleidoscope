@@ -343,7 +343,9 @@ curl -X PUT 'localhost:8848/nacos/v1/ns/operator/switches?entry=doubleWriteEnabl
 （1）对于每一个节点，查看服务列表
 
 ```s
-curl -X GET 'localhost:8848/nacos/v1/ns/catalog/services?hasIpCount=true&pageNo=1&pageSize=1'
+curl -X GET 'localhost:8848/nacos/v1/ns/catalog/services?hasIpCount=true&pageNo=1&pageSize=1&namespaceId=public'
+
+# 如果有多个 namespace，则需要加上 &namespaceId=命名空间的 ID，默认 namespaceId=public
 ```
 
 （2）如果有不一致的节点，则进行重启
@@ -380,7 +382,9 @@ curl -X PUT 'localhost:8848/nacos/v1/ns/operator/switches?entry=doubleWriteEnabl
 （5）对于每一个节点，查看服务列表
 
 ```s
-curl -X GET 'localhost:8848/nacos/v1/ns/catalog/services?hasIpCount=true&pageNo=1&pageSize=1'
+curl -X GET 'localhost:8848/nacos/v1/ns/catalog/services?hasIpCount=true&pageNo=1&pageSize=1&namespaceId=public'
+
+# 如果有多个 namespace，则需要加上 &namespaceId=命名空间的 ID，默认 namespaceId=public
 ```
 
 （6）如果有不一致的节点，则进行重启
