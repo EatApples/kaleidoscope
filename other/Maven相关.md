@@ -113,10 +113,15 @@ provided 意味着打包的时候可以不用包进去，别的设施（Web Cont
 不过被依赖项不会从 maven 仓库抓，而是从本地文件系统拿，一定需要配合 systemPath 属性使用。
 
 ### 4. maven install 时跳过 test
-命令方式
-```
-mvn install -Dmaven.test.skip = true
-```
+https://blog.csdn.net/Qiwan2/article/details/90643298
+
+<!-- 不执行单元测试，也不编译测试类 -->
+
+mvn install -Dmaven.test.skip=true
+
+<!-- 不执行单元测试，但会编译测试类，并在target/test-classes目录下生成相应的class -->
+
+mvn install -DskipTests=true
 
 配置文件方式
 

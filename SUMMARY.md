@@ -261,6 +261,8 @@
   - [25.4 Conprof](tools/Conprof.md)
   - [25.5 Exemplars](tools/Exemplars.md)
   - [25.6 AsyncGetCallTrace](tools/AsyncGetCallTrace.md)
+  - [25.7 反应式编程](tools/反应式编程.md)
+  - [25.8 sdkman](tools/sdkman.md)
 - [`Other`](README.md)
   - [1 `ActiveMQ`简介](other/ActiveMQ简介.md)
   - [2 `Atom`安装](other/Atom安装.md)
