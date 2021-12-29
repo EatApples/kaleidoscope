@@ -108,6 +108,17 @@ gzip -dv *
 ifconfig
 ```
 
+### jar
+
+```sh
+# 压缩包：
+jar cvf filename.jar a.class b.class: 压缩指定文件；
+jar cvf weibosdkcore.jar *: 全部压缩；
+
+# 解压包：
+jar xvf test.jar
+```
+
 ### less
 
 ```sh
@@ -380,3 +391,7 @@ https://www.cnblogs.com/peida/tag/%E6%AF%8F%E6%97%A5%E4%B8%80linux%E5%91%BD%E4%B
 #### 2. Linux strace 命令
 
 https://www.cnblogs.com/ggjucheng/archive/2012/01/08/2316692.html
+
+#### 3. tar、jar、war 包打包解压
+
+https://blog.csdn.net/a1010256340/article/details/75106732
