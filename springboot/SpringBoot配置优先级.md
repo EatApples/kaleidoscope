@@ -165,6 +165,71 @@ Apollo 的配置的优先级比命令行参数（commandLineArgs） 低，但比
 
 回答：spring-cloud-context
 
+### 7. bootstrap.yml 不生效问题解决方案
+
+2020 版本以后，添加 spring-cloud-context 是没有用的，因为官方重构了 bootstrap 引导配置的加载方式
+
+见[官方描述](https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#config-data-import)
+
+```s
+Spring Boot 2.4 introduced a new way to import configuration data via the spring.config.import property. This is now the default way to bind to Config Server.
+```
+
+[官方解决方案](https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#config-first-bootstrap)
+
+```s
+To use the legacy bootstrap way of connecting to Config Server, bootstrap must be enabled via a property or the spring-cloud-starter-bootstrap starter. The property is spring.cloud.bootstrap.enabled=true. It must be set as a System Property or environment variable.
+```
+
+即：
+
+（1）引入 spring-cloud-starter-bootstrap
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-bootstrap</artifactId>
+</dependency>
+```
+
+（2）设置 JVM 参数（系统配置或环境变量）
+
+```java
+-Dspring.cloud.bootstrap.enabled=true
+```
+
+### 8. SpringBoot 加载多个配置文件
+
+（1）spring.config.import
+
+application.yml 中使用 spring.config.import，有 2 个效果：
+
+一是配置按次序加载；
+
+二是同名配置可被覆盖；
+
+可配置多个（按次序，可被覆盖）：
+
+```yml
+spring.config.import: application-nacos.yaml,application-apollo.yaml
+```
+
+（2）spring.profiles.include
+
+可配置多个（以第一个为准）：
+
+```yml
+spring.profiles.include: apollo,nacos
+```
+
+（3）spring.profiles.active
+
+可配置多个（以第一个为准）：
+
+```yml
+spring.profiles.active: apollo,nacos
+```
+
 ### 参考资料
 
 #### 1. 【SpringBoot】SpringCloud Config Server 实践
@@ -182,3 +247,15 @@ https://cloud.spring.io/spring-cloud-static/spring-cloud.html#_the_bootstrap_app
 #### 4. SpringCloud 入门之常用的配置文件 application.yml 和 bootstrap.yml 区别
 
 https://www.cnblogs.com/BlogNetSpace/p/8469033.html
+
+#### 5. SpringCloud 2020.x.x 工程 bootstrap 引导配置不生效的解决方案
+
+https://blog.csdn.net/kenkao/article/details/114987863
+
+#### 6. SpringBoot 加载多个配置文件
+
+https://blog.csdn.net/qq_27870421/article/details/104961270
+
+#### 7. spring boot 加载多个配置文件，yml 或 properties 类型
+
+https://www.pianshen.com/article/5238309385/
