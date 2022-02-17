@@ -280,6 +280,7 @@
   - [25.7 反应式编程](tools/反应式编程.md)
   - [25.8 sdkman](tools/sdkman.md)
   - [25.9 evosuite](tools/evosuite.md)
+  - [25.10 Mockito](tools/Mockito.md)
 - [`Other`](README.md)
   - [1 `ActiveMQ`简介](other/ActiveMQ简介.md)
   - [2 `Atom`安装](other/Atom安装.md)
