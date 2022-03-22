@@ -165,6 +165,56 @@ Apollo 的配置的优先级比命令行参数（commandLineArgs） 低，但比
 
 回答：spring-cloud-context
 
+Spring Cloud 容器是靠 Bootstrap Context 引导上下文来启动的，对应的类是 BootstrapApplicationListener。
+
+这在 2020.0 版本发生了改变，新版本的 Spring Cloud 不再依赖于此上下文而启动。因此默认情况下，将不再启动 Bootstrap 上下文。代码层面的改变发生在这里：
+
+```java
+//之前
+BootstrapApplicationListener：
+
+@Override
+public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+  ConfigurableEnvironment environment = event.getEnvironment();
+  if (!environment.getProperty("spring.cloud.bootstrap.enabled", Boolean.class,
+      true)) {
+    return;
+  }
+
+
+//之后
+BootstrapApplicationListener：
+
+ @Override
+ public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+  ConfigurableEnvironment environment = event.getEnvironment();
+  // 在方法开头加了这麽个判断
+  if (!bootstrapEnabled(environment) && !useLegacyProcessing(environment)) {
+   return;
+  }
+  ...
+ }
+
+PropertyUtils：
+
+ // BOOTSTRAP_ENABLED_PROPERTY = spring.cloud.bootstrap.enabled
+ public static boolean bootstrapEnabled(Environment environment) {
+  return environment.getProperty(BOOTSTRAP_ENABLED_PROPERTY, Boolean.class, false) || MARKER_CLASS_EXISTS;
+ }
+ // USE_LEGACY_PROCESSING_PROPERTY = spring.config.use-legacy-processing
+ public static boolean useLegacyProcessing(Environment environment) {
+  return environment.getProperty(USE_LEGACY_PROCESSING_PROPERTY, Boolean.class, false);
+ }
+```
+
+若你需要开启 Bootstrap 上下文，有两种办法可以实现：
+
+设置值 spring.cloud.bootstrap.enabled=true 或者 spring.config.use-legacy-processing=true 即可。注意：这些个属性值必须确保其能放进环境里才能生效。比如靠谱的方式是：系统属性、环境变量、命令行等
+
+引入一个 Jar：org.springframework.cloud:spring-cloud-starter-bootstrap，然后什么都不用做了
+
+说明：这个 jar 里面有且仅有一个 Marker 类，作用你懂的，此处不做过多解释
+
 ### 7. bootstrap.yml 不生效问题解决方案
 
 2020 版本以后，添加 spring-cloud-context 是没有用的，因为官方重构了 bootstrap 引导配置的加载方式
