@@ -48,3 +48,61 @@ public class Whitebox {
 ### 3. Mockito 3.6.0 中文文档
 
 https://changingfond.github.io/mockito-zh-doc.html
+
+### 4. MockHttpServletRequest+MockHttpServletResponse+MockFilterChain
+
+引入
+
+```xml
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-test</artifactId>
+    <scope>test</scope>
+</dependency>
+```
+
+```java
+MockHttpServletRequest servletRequest = new MockHttpServletRequest();
+ServletResponse servletResponse = new MockHttpServletResponse();
+FilterChain filterChain = new MockFilterChain();
+```
+
+### 5. Mockito 示例
+
+```java
+// mock 属性
+Whitebox.setInternalState(XXX, "YYY", ZZZ);
+// mock 对象
+HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+// 描述行为
+Mockito.when(request.getParameter(ArgumentMatchers.anyString())).thenReturn("test");
+// 注入
+Injector.inject(被注入实例, (Class<?>) 被注入实例.class, "属性", (Object) 注入对象);
+// HandlerMethod
+HandlerMethod handler = Mockito.mock(HandlerMethod.class);
+Mockito.when(handler.getMethod()).thenReturn(NoLoginExample.class.getDeclaredMethod("some_method", null));
+Mockito.when(handler.getMethod()).thenReturn(MethodExample.class.getDeclaredMethod("some_method", null));
+
+// StringRedisTemplate
+StringRedisTemplate redisTemplate = Mockito.mock(StringRedisTemplate.class, Mockito.RETURNS_DEEP_STUBS);
+```
+
+使用注解的类：
+
+```java
+public class MethodExample {
+    @Login
+    public void some_method() {
+
+    }
+}
+
+public class NoLoginExample {
+
+    public void some_method() {
+
+    }
+
+}
+```
