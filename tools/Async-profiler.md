@@ -432,7 +432,7 @@ uprobes 工作原理和 kprobes 差不多，它会在目标位置插入一个断
 
 PMU(Performance Monitoring Unit) 是一种非常重要的数据采集方法，因为它大部分是硬件的，所以可以做到一些软件做不到的事情，获取到一些底层硬件的信息。
 
-### 资料来源
+## 资料来源
 
 #### 1. Async-profiler 介绍
 

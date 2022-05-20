@@ -203,3 +203,64 @@ mvn dependency:tree -Dverbose -Dincludes=com.alibaba:fastjson > a.txt
 
 mvn dependency:tree -Dverbose -Dincludes=org.apache.logging.log4j > a.txt
 ```
+
+### 7. maven 依赖 jar 包时版本冲突的解决： mvn dependency:tree -Dverbose
+
+四种解决方式：
+
+（1）第一声明优先原则：
+
+在 pom.xml 配置文件中，如果有两个名称相同版本不同的依赖声明，那么先写的会生效。
+
+所以，先声明自己要用的版本的 jar 包即可。
+
+（2）路径近者优先：
+
+直接依赖优先于传递依赖，如果传递依赖的 jar 包版本冲突了，那么可以自己声明一个指定版本的依赖 jar，即可解决冲突。
+
+（3）排除原则：
+
+传递依赖冲突时，可以在不需要的 jar 的传递依赖中声明排除，从而解决冲突。
+
+例子：
+
+```xml
+<!-- 接入 nacos 配置 -->
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+    <exclusions>
+        <!-- 这里去除原生的 nacos 客户端 -->
+        <exclusion>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+        </exclusion>
+        <!-- 这里去除 spring-cloud-starter-netflix-ribbon -->
+        <exclusion>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+
+（4）版本锁定原则（最常使用）
+
+在配置文件 pom.xml 中先声明要使用哪个版本的相应 jar 包，声明后其他版本的 jar 包一律不依赖。解决了依赖冲突。
+
+例子：
+
+```xml
+<dependencyManagement>
+	<dependencies>
+		<!-- alibaba dependencies -->
+		<dependency>
+		<groupId>com.alibaba.cloud</groupId>
+		<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+		<version>${spring-cloud-alibaba.version}</version>
+		<type>pom</type>
+		<scope>import</scope>
+		</dependency>
+	</dependencies>
+</dependencyManagement>
+```
