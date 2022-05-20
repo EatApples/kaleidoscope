@@ -64,3 +64,28 @@ second
 @Bean：实例化一个 bean
 @ConditionalOnMissingBean：与 @Bean 配合使用，只有在当前上下文中不存在某个 bean 的情况下才会执行所注解的代码块
 @ConditionalOnProperty：当应用配置文件中有相关的配置才会执行其所注解的代码块
+
+# spring 的 starter 中为啥没有 pom.xml
+
+SpringBoot 核心原理---自动配置 之创建自己的 starter pom maven 依赖包
+https://blog.csdn.net/Axela30W/article/details/80809311
+
+SpringBoot 自动配置：@SpringBootApplication --> @EnableAutoConfiguration --> @Import({AutoConfigurationImportSelector.class}) -->AutoConfigurationImportSelector 的 selectImports()-getCandidateConfigurations() --> 调用 SpringFactoriesLoader.loadFactoryNames()方法 --> 最后调用的 loadSpringFactories()方法加载的“META-INF/spring.factories”文件
+
+个人理解：
+
+（1）type 是文件后缀，不指定，默认是 jar
+
+（2）引入依赖时不加 type 类型，引入的是当前的 jar 及其依赖的 jar
+
+（3）指定 type 类型为 pom 时，不会引入当前 jar，但会引入其依赖的 jar
+
+见：如何理解 maven 依赖配置 ＜ dependency ＞ 中的 ＜ type ＞ pom ＜/type ＞？
+https://blog.csdn.net/piaoranyuji/article/details/115127489
+
+（4）猜测坐标 （groupId，artifactId，version）三元组已经定位 Maven 库中位置，肯定会找到 pom 文件，并引入其中依赖
+
+（5）猜测 META-INF 下 maven 文件存在与否不影响依赖的引入，maven 文件相当于解释说明作用（自带 pom.xml）
+
+Maven 项目如何将自定义文件添加到 META-INF 目录下
+https://blog.csdn.net/long_long3/article/details/79716468
