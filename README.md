@@ -316,3 +316,4 @@
   - [21 packaging 为 pom 标签的用法](other/packaging为pom标签的用法.md)
   - [22 资源待读](other/ToRead.md)
   - [23 日常疑问&回答](other/日常疑问&回答.md)
+  - [24 R语言入门](other/R语言入门.md)
