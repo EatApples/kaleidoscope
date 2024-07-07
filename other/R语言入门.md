@@ -414,7 +414,7 @@ order()
 ### 21. 数据集合并
 
 ```r
-# inner hoin
+# inner join
 total <- merge(dataframeA, dataframeB, by="ID")
 # 横向合并
 total <- cbind(A, B)
