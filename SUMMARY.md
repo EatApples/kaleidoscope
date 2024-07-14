@@ -284,6 +284,8 @@
   - [27.1 Apollo版本特性](Apollo/Apollo版本特性.md)
   - [27.2 Apollo的问题答疑](Apollo/Apollo的问题答疑.md)
   - [27.3 配置与配置中心](Apollo/配置与配置中心.md)
+- [28 books](README.md)
+  - [28.1 传奇程序员练级攻略](books/传奇程序员练级攻略.md)
 - [`Other`](README.md)
   - [1 `ActiveMQ`简介](other/ActiveMQ简介.md)
   - [2 `Atom`安装](other/Atom安装.md)
